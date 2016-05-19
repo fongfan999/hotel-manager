@@ -1,5 +1,7 @@
+<%= title(@room.name, "Rooms") %>
+
 <header>
-	<h1>Room: <%= @room.name %></h1>
+	<h1>Room Details</h1>
 	<ul class="actions">
 		<li><%= link_to "Edit Room", [:edit, @room], class: "edit" %></li>
 		<li><%= link_to "Delete Room", @delete ,class: "delete", method: :delete,

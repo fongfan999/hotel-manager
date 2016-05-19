@@ -17,3 +17,20 @@ end
 unless RoomType.exists?(name: "C")
 	RoomType.create!(name: "C", cost: "200000")
 end
+
+
+unless CustomerType.exists?(name: "Newbie")
+	CustomerType.create!(name: "Newbie", discount: 0)
+end
+
+unless CustomerType.exists?(name: "Basic")
+	CustomerType.create!(name: "Basic", discount: 2)
+end
+
+unless CustomerType.exists?(name: "Standard")
+	CustomerType.create!(name: "Standard", discount: 5)
+end
+
+unless CustomerType.exists?(name: "VIP")
+	CustomerType.create!(name: "VIP", discount: 10)
+end

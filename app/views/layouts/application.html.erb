@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Hotel Manager</title>
+  <title><%= content_for?(:title) ? yield(:title) : "Hotel Manager" %></title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
@@ -29,6 +29,9 @@
         	<li class=<%= "active" if current_page?("rooms") %>>
 						<%= link_to "Room", rooms_path %>
         	</li>
+          <li class=<%= "active" if current_page?("customers") %>>
+            <%= link_to "Customer", customers_path %>
+          </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
         </ul>

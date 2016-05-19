@@ -11,7 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160519094610) do
+ActiveRecord::Schema.define(version: 20160519105627) do
+
+  create_table "customer_types", force: :cascade do |t|
+    t.string   "name"
+    t.float    "discount",   default: 0.0
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.string   "name"
+    t.string   "identity_card"
+    t.text     "address"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "type_id"
+  end
+
+  add_index "customers", ["type_id"], name: "index_customers_on_type_id"
 
   create_table "room_types", force: :cascade do |t|
     t.string   "name"

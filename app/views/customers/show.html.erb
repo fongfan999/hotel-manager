@@ -1,0 +1,32 @@
+<%= title(@customer.name, "Customers") %>
+
+<header>
+	<h1>Customer Details</h1>
+	<ul class="actions">
+		<li><%= link_to "Edit Customer", [:edit, @customer], class: "edit" %></li>
+		<li><%= link_to "Delete Customer", @delete ,class: "delete",
+			method: :delete,
+			data: { confirm: "Are you sure to delete this customer?" } %></li>
+	</ul>
+</header>
+
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<td><%= @customer.name %></td>
+	</tr>
+	<tr>
+		<th>Idenity Card</th>
+		<td><%= @customer.identity_card %></td>
+	</tr>
+	<tr>
+		<th>Type</th>
+		<td><%= @customer.type.name %></td>
+	</tr>
+	<tr>
+		<th>Address</th>
+			<td><%= @customer.check_address %></td>
+	</tr>
+</table>
+
+<%= link_to "Back", customers_path, class: "back" %>
