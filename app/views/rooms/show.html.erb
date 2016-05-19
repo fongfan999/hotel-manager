@@ -1,0 +1,33 @@
+<header>
+	<h1>Room: <%= @room.name %></h1>
+	<ul class="actions">
+		<li><%= link_to "Edit Room", [:edit, @room], class: "edit" %></li>
+		<li><%= link_to "Delete Room", @delete ,class: "delete", method: :delete,
+			data: { confirm: "Are you sure to delete this room?" } %></li>
+	</ul>
+</header>
+
+<table class="info">
+	<tr>
+		<th>ID</th>
+		<td><%= @room.code %></td>
+	</tr>
+	<tr>
+		<th>Name</th>
+		<td><%= @room.name %></td>
+	</tr>
+	<tr>
+		<th>Type</th>
+		<td><%= @room.type.name %></td>
+	</tr>
+	<tr>
+		<th>Cost</th>
+		<td><%= number_with_delimiter(@room.type.cost, delimiter: ',') %></td>
+	</tr>
+	<tr>
+		<th>Annotation</th>
+			<td><%= @room.check_annotation %></td>
+	</tr>
+</table>
+
+<%= link_to "Back", rooms_path, class: "back" %>

@@ -1,0 +1,41 @@
+<header>
+	<h1>Listing Room</h1>
+
+	<ul class="actions">
+		<li><%= link_to "New Room", new_room_path, class: "new" %></li>
+	</ul>
+</header>
+
+<% if @rooms.present? %>
+	<div class="listing-index">
+		<table>
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Cost</th>
+					<th>Annotation</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @rooms.each_with_index do |room, index| %>
+				<tr>
+					<td><%= link_to index + 1, room %></td>
+					<td><%= room.code %></td>
+					<td><%= room.name %></td>
+					<td><%= room.type.name %></td>
+					<td><%= number_with_delimiter(room.type.cost,
+						:delimiter => ',') %></td>
+					<td><%= room.check_annotation %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+<% else %>
+	<p>There is nothing to show. <%= link_to "New one?", new_room_path %></p>
+<% end %>
+
+<%= link_to "Back to home", root_path, class: "back" %>

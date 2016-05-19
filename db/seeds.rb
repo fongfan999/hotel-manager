@@ -5,3 +5,15 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+unless RoomType.exists?(name: "A")
+	RoomType.create!(name: "A", cost: "150000")
+end
+
+unless RoomType.exists?(name: "B")
+	RoomType.create!(name: "B", cost: "170000")
+end
+
+unless RoomType.exists?(name: "C")
+	RoomType.create!(name: "C", cost: "200000")
+end

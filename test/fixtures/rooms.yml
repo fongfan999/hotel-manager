@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyText
+  cost: 9.99
+  annotation: MyString
+
+two:
+  name: MyText
+  cost: 9.99
+  annotation: MyString
