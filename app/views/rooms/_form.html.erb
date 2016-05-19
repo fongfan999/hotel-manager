@@ -1,7 +1,7 @@
 <%= simple_form_for room do |f| %>
 	<%= f.input :code, label: "ID" %>
 	<%= f.input :name %>
-	<%= f.association :type %>
+	<%= f.association :type, label_method: :to_label, include_blank: false %>
 	<%= f.input :annotation %>
 
 	<%= f.button :submit, class: "btn-success" %>

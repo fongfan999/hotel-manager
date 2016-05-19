@@ -31,6 +31,10 @@ unless CustomerType.exists?(name: "Standard")
 	CustomerType.create!(name: "Standard", discount: 5)
 end
 
+unless CustomerType.exists?(name: "Loyal")
+	CustomerType.create!(name: "Loyal", discount: 8)
+end
+
 unless CustomerType.exists?(name: "VIP")
 	CustomerType.create!(name: "VIP", discount: 10)
 end

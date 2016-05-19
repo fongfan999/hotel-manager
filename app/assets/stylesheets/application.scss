@@ -112,3 +112,30 @@ a.back {
 .center {
 	text-align: center;
 }
+
+.label_type {
+	@extend .label;
+	font-size: 15px;
+	display: block;
+	height: 100%;
+}
+
+.room_type-a, .customer_type-standard {
+	@extend .label-info;
+}
+
+.room_type-b, .customer_type-loyal {
+	@extend .label-warning;
+}
+
+.room_type-c, .customer_type-vip {
+	@extend .label-danger;
+}
+
+.customer_type-newbie {
+	@extend .label-default
+}
+
+.customer_type-basic {
+	@extend .label-primary;
+}

@@ -21,7 +21,7 @@
 				<tr>
 					<td><%= link_to index + 1, customer %></td>
 					<td><%= customer.name %></td>
-					<td><%= customer.type.name %></td>
+					<td><%= render customer.type %></td>
 				</tr>
 				<% end %>
 			</tbody>
