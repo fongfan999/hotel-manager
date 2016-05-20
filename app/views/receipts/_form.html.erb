@@ -3,7 +3,7 @@
 		collection: receipt.id.nil? ? Customer.available_customer : receipt.customer.available_customer %>
 	<%= f.association :room, include_blank: false,
 		collection: receipt.id.nil? ? Room.available_room : receipt.room.available_room %>
-	<%= f.input :quantity %>
+	<%= f.input :quantity, label: "Quantity of people" %>
 
 	<%= f.button :submit, class: "btn-success" %>
 <% end %>

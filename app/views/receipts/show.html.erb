@@ -1,6 +1,53 @@
-<td>
-						<span class="label_type receipt_status-<%= receipt.status.
-							parameterize %>">
-							<%= receipt.status %>
-						</span>
-					</td>
+<%= title(@receipt.to_code, "Receipts") %>
+
+<header>
+	<h1>Receipt Details</h1>
+	<ul class="actions">
+		<li><%= link_to "Edit Receipt", [:edit, @receipt], class: "edit" %></li>
+	</ul>
+</header>
+
+<table class="info">
+	<tr>
+		<th>ID</th>
+		<td><%= @receipt.to_code %></td>
+	</tr>
+	<tr>
+		<th>Tax code</th>
+		<td><%= @receipt.to_tax_code %></td>
+	</tr>
+	<tr>
+		<th>Customer</th>
+		<td><%= @receipt.customer.name %></td>
+	</tr>
+	<tr>
+		<th>Room</th>
+		<td><%= @receipt.room.name %></td>
+	</tr>
+	<tr>
+		<th>Quantity of people</th>
+		<td><%= @receipt.quantity %></td>
+	</tr>
+	<tr>
+		<th>Status</th>
+		<td>
+			<div class="row">
+				<div class="all-grid-system-4">
+					<span class="label_type receipt_status-<%= @receipt.status.
+						parameterize %>">
+						<%= @receipt.status %>
+					</span>
+				</div>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<th>Arrival/Departure Date</th>
+		<td>
+			<%= @receipt.created_at.strftime("%d-%m-%Y, %I:%M:%S %p") %>
+			(<%= time_ago_in_words(@receipt.created_at) %> ago)
+		</td>
+	</tr>
+</table>
+
+<%= link_to "Back", receipts_path, class: "back" %>

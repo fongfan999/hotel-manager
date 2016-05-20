@@ -11,6 +11,10 @@ class Receipt < ActiveRecord::Base
   	end
   end
 
+  def to_tax_code
+    "20071996#{self.id}"
+  end
+
   def status
   	"Renting"
   end
