@@ -9,21 +9,28 @@
 </header>
 
 <% if @customers.present? %>
-	<div class="listing-index">
+	<div class="listing-index icon-only">
 		<table>
 			<thead>
 				<tr>
 					<th>No.</th>
 					<th>Name</th>
 					<th>Type</th>
+					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>
 				<% @customers.each_with_index do |customer, index| %>
 				<tr>
-					<td><%= link_to index + 1, customer %></td>
-					<td><%= customer.name %></td>
+					<td class="padding-top-15"><%= link_to index + 1, customer %></td>
+					<td class="padding-top-15"><%= customer.name %></td>
 					<td><%= render customer.type %></td>
+					<td>
+						<%= link_to "", [:edit, customer], class: "edit" %>
+						<%= link_to "", customer ,class: "delete",
+							method: :delete,
+							data: { confirm: "Are you sure to delete this customer?" } %>
+					</td>
 				</tr>
 				<% end %>
 			</tbody>

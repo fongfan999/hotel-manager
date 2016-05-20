@@ -1,8 +1,11 @@
 class ReceiptsController < ApplicationController
-	before_action :set_receipt, only: [:edit, :update]
+	before_action :set_receipt, only: [:show, :edit, :update]
 
 	def index
 		@receipts = Receipt.all
+	end
+
+	def show
 	end
 
 	def new

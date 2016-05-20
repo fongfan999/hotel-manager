@@ -9,7 +9,7 @@
 </header>
 
 <% if @rooms.present? %>
-	<div class="listing-index">
+	<div class="listing-index icon-only">
 		<table>
 			<thead>
 				<tr>
@@ -18,20 +18,27 @@
 					<th>Name</th>
 					<th>Type</th>
 					<th>Status</th>
+					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>
 				<% @rooms.each_with_index do |room, index| %>
 				<tr>
-					<td><%= link_to index + 1, room %></td>
-					<td><%= room.code %></td>
-					<td><%= room.name %></td>
+					<td class="padding-top-15"><%= link_to index + 1, room %></td>
+					<td class="padding-top-15"><%= room.code %></td>
+					<td class="padding-top-15"><%= room.name %></td>
 					<td><%= render room.type %></td>
 					<td>
 						<span class="label_type room_status-<%= room.status.
 							parameterize %>">
 							<%= room.status %>
 						</span>
+					</td>
+					<td>
+						<%= link_to "", [:edit, room], class: "edit" %>
+						<%= link_to "", room, class: "delete",
+							method: :delete,
+							data: { confirm: "Are you sure to delete this room?" } %>
 					</td>
 				</tr>
 				<% end %>

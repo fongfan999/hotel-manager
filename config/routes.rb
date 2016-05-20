@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   resources :customers
 
-  resources :receipts, except: [:show, :destroy]
+  resources :receipts, except: [:destroy]
 
   resources :services, except: [:show]
 

@@ -4,6 +4,14 @@ class Receipt < ActiveRecord::Base
   has_one :bill
 
   def to_code
-  	"RC00#{id}"
+  	if id < 10
+  		"RC0#{id}"
+  	else
+  		"RC#{id}"
+  	end
+  end
+
+  def status
+  	"Renting"
   end
 end

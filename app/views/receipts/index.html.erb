@@ -17,29 +17,21 @@
 					<th>ID</th>
 					<th>Customer name</th>
 					<th>Room</th>
-					<th>Quantity</th>
-					<th>Rental date</th>
-					<th>Actions</th>
+					<th>Status</th>
+					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
 				<% @receipts.each do |receipt| %>
-				<tr>
-					<td><%= receipt.to_code %></td>
+				<tr class="test">
+					<td><%= link_to receipt.to_code, receipt %></td>
 					<td><%= receipt.customer.name %></td>
 					<td><%= receipt.room.name %></td>
-					<td><%= receipt.quantity %></td>
 					<td>
-						<div class="row">
-							<div class="col-md-12">
-								<%= receipt.created_at.strftime("%I:%M:%S %p") %>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<%= receipt.created_at.strftime("%d-%m-%Y") %>
-							</div>
-						</div>
+						<span class="label_type receipt_status-<%= receipt.status.
+							parameterize %>">
+							<%= receipt.status %>
+						</span>
 					</td>
 					<td class="center">
 						<%= link_to "", [:edit, receipt], class: "edit" %>

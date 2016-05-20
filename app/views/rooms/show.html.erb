@@ -4,7 +4,7 @@
 	<h1>Room Details</h1>
 	<ul class="actions">
 		<li><%= link_to "Edit Room", [:edit, @room], class: "edit" %></li>
-		<li><%= link_to "Delete Room", @delete ,class: "delete", method: :delete,
+		<li><%= link_to "Delete Room", @room ,class: "delete", method: :delete,
 			data: { confirm: "Are you sure to delete this room?" } %></li>
 	</ul>
 </header>

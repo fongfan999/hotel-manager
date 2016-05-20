@@ -39,9 +39,11 @@ a.new, a.edit, a.delete, a.back {
 	}
 }
 
-.icon-only a.edit {
-	&:before {
-		padding-right: 0;
+.icon-only {
+	a.edit, a.delete {
+		&:before {
+			padding-right: 0;
+		}
 	}
 }
 
@@ -120,6 +122,10 @@ a.back {
 	}
 }
 
+.padding-top-15 {
+	padding-top: 15px !important;
+}
+
 .center {
 	text-align: center;
 }
@@ -136,10 +142,12 @@ a.back {
 	font-size: 15px;
 	display: block;
 	height: 100%;
+	padding: 10px 4px;
 }
 
 .room_type-a, .customer_type-standard {
 	@extend .label-info;
+	min-width: 74px;
 }
 
 .room_type-b, .customer_type-loyal {
@@ -151,17 +159,25 @@ a.back {
 }
 
 .customer_type-newbie {
-	@extend .label-default
+	@extend .label-default;
+	min-width: 74px;
 }
 
 .customer_type-basic {
 	@extend .label-primary;
 }
 
-.room_status-renting {
+.room_status-renting, .receipt_status-renting {
 	@extend .label-default;
+	min-width: 74px;	
 }
 
 .room_status-available {
 	@extend .label-success;
+	min-width: 74px;
 }
+
+.receipt_status-checked-out {
+	background-color: #2c3e50;
+}
+
