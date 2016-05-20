@@ -5,7 +5,7 @@ class Customer < ActiveRecord::Base
 
 	validates :name, presence: true
 	validates :identity_card, presence: true,
-		length: { minimum: 9, maximum: 15 }
+		length: { minimum: 9, maximum: 15 }, uniqueness: true
 
 	def self.available_customer
 		available_customer = []

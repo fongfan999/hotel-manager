@@ -1,0 +1,67 @@
+<%= title(@bill.name, "Bills") %>
+
+<header>
+	<h1>Bill Details</h1>
+	<ul class="actions">
+		<li><%= link_to "Edit Bill", [:edit, @bill], class: "edit" %></li>
+		<li><%= link_to "Delete Bill", @bill, class: "delete",
+			method: :delete,
+			data: { confirm: "Are you sure to delete this bill?" } %></li>
+	</ul>
+</header>
+
+<table class="info">
+	<tr>
+		<th>Customer</th>
+		<td><%= @bill.receipt.customer.name %></td>
+	</tr>
+	<tr>
+		<th>Address</th>
+			<td><%= @bill.receipt.customer.address %></td>
+	</tr>
+	<tr>
+		<th>Room</th>
+		<td><%= @bill.receipt.room.name %></td>
+	</tr>
+	<tr>
+		<th>Arrival</th>
+		<td><%#= @bill.receipt.room.name %>..</td>
+	</tr>
+	<tr>
+		<th>Departure</th>
+		<td><%#= @bill.receipt.room.name %>...</td>
+	</tr>
+	<tr>
+		<th>Cost</th>
+		<td><%#=  %>..</td>
+	</tr>
+	
+</table>
+
+<div class="listing-index">
+		<table>
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th>Charge</th>
+					<th>Quantity</th>
+					<th>Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td></td>
+				</tr>
+				<% @bills.each_with_index do |bill, index| %>
+				<tr>
+					<td><%= index + 2 %></td>
+					<td><%#= bill.service.name %>...</td>
+					<td><%#= bill.receipt.customer.name %>...</td>
+					<td><%#= bill.receipt.room.name %>...</td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+
+<%= link_to "Back", customers_path, class: "back" %>

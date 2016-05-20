@@ -29,4 +29,8 @@ class Room < ActiveRecord::Base
 	def status
 		customers.blank? ? "Available" : "Renting"
 	end
+
+	def count_days
+		time_ago_in_words(created_at)
+	end
 end
