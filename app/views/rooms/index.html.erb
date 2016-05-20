@@ -1,3 +1,5 @@
+<%= title("Rooms") %>
+
 <header>
 	<h1>Listing Rooms</h1>
 
@@ -15,8 +17,7 @@
 					<th>ID</th>
 					<th>Name</th>
 					<th>Type</th>
-					<th>Cost</th>
-					<th>Annotation</th>
+					<th>Status</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -26,9 +27,12 @@
 					<td><%= room.code %></td>
 					<td><%= room.name %></td>
 					<td><%= render room.type %></td>
-					<td><%= number_with_delimiter(room.type.cost,
-						:delimiter => ',') %></td>
-					<td><%= room.check_annotation %></td>
+					<td>
+						<span class="label_type room_status-<%= room.status.
+							parameterize %>">
+							<%= room.status %>
+						</span>
+					</td>
 				</tr>
 				<% end %>
 			</tbody>

@@ -22,13 +22,25 @@
 		<th>Type</th>
 		<td>
 			<div class="row">
-				<div class="col-md-3"><%= render @room.type %></div>
+				<div class="all-grid-system-4"><%= render @room.type %></div>
 			</div>
 		</td>
 	</tr>
 	<tr>
 		<th>Cost</th>
 		<td><%= number_with_delimiter(@room.type.cost, delimiter: ',') %></td>
+	</tr>
+	<tr>
+		<th>Status</th>
+		<td>
+			<div class="row">
+				<div class="all-grid-system-4">
+					<span class="label_type room_status-<%= @room.status.parameterize %>">
+						<%= @room.status %>
+					</span>
+				</div>
+			</div>
+		</td>
 	</tr>
 	<tr>
 		<th>Annotation</th>

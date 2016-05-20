@@ -1,6 +1,7 @@
 class Room < ActiveRecord::Base
 	belongs_to :type, class_name: "RoomType"
 	has_many :receipts
+	has_many :customers, through: :receipts
 
 	validates :code, :name, presence: true, uniqueness: true
 
@@ -23,5 +24,9 @@ class Room < ActiveRecord::Base
 
 	def to_label
 		"#{name} - #{type.name}"
+	end
+
+	def status
+		customers.blank? ? "Available" : "Renting"
 	end
 end

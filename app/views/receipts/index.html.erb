@@ -1,3 +1,5 @@
+<%= title("Receipts") %>
+
 <header>
 	<h1>Listing Receipts</h1>
 
@@ -23,7 +25,7 @@
 			<tbody>
 				<% @receipts.each do |receipt| %>
 				<tr>
-					<td><%= receipt.id %></td>
+					<td><%= receipt.to_code %></td>
 					<td><%= receipt.customer.name %></td>
 					<td><%= receipt.room.name %></td>
 					<td><%= receipt.quantity %></td>

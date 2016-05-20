@@ -113,10 +113,22 @@ a.back {
 	@extend .table;
 	@extend .table-bordered;
 	@extend .table-hover;
+	text-align: center;
+
+	thead tr th {
+		text-align: center;
+	}
 }
 
 .center {
 	text-align: center;
+}
+
+.all-grid-system-4 {
+	@extend .col-xs-4;
+	@extend .col-sm-4;
+	@extend .col-md-4;
+	@extend .col-lg-4;
 }
 
 .label_type {
@@ -144,4 +156,12 @@ a.back {
 
 .customer_type-basic {
 	@extend .label-primary;
+}
+
+.room_status-renting {
+	@extend .label-default;
+}
+
+.room_status-available {
+	@extend .label-success;
 }
