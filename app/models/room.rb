@@ -8,7 +8,13 @@ class Room < ActiveRecord::Base
 	def self.available_room
 		availabe_room = []
 		Room.all.each do |room|
-			availabe_room.push(room) if room.receipts.blank?
+			if room.receipts.blank?
+				availabe_room.push(room)
+			else
+				if room.receipts.last.status == "Checked-out"
+					availabe_room.push(room)
+				end
+			end
 		end
 		availabe_room.sort_by{ |room| room[:name] }
 	end
@@ -26,8 +32,20 @@ class Room < ActiveRecord::Base
 		"#{name} - #{type.name}"
 	end
 
+	def to_code
+		"R#{self.name}"
+	end
+
 	def status
-		customers.blank? ? "Available" : "Renting"
+		if customers.blank?
+			"Available"
+		else
+			if customers.last.receipts.last.status == "Checked-out"
+				"Available"
+			else
+				"Renting"
+			end
+		end
 	end
 
 	def count_days

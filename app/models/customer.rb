@@ -10,7 +10,13 @@ class Customer < ActiveRecord::Base
 	def self.available_customer
 		available_customer = []
 		Customer.all.each do |customer|
-			available_customer.push(customer) if customer.receipts.blank?
+			if customer.receipts.blank?
+				available_customer.push(customer)
+			else
+				if customer.receipts.last.status == "Checked-out"
+					available_customer.push(customer)
+				end
+			end
 		end
 		available_customer.sort_by{ |customer| customer[:name] }
 	end

@@ -3,9 +3,9 @@ class BillsController < ApplicationController
 	before_action :set_bill, only: [:update_service]
 	before_action :set_service, only: [:update_service]
 
-  # def index
-  # 	@bills = Bill.all
-  # end
+  def index
+  	@bills = Bill.all
+  end
 
   def show
   	@bill = Bill.find(params[:id])
@@ -29,25 +29,15 @@ class BillsController < ApplicationController
   	redirect_to @bill
   end
 
- #  def create
- #  	#@bill = Bill.new(bill_params)
- #  end
+ 	private
 
- #  private
-
- #  def set_receipt
- #  	@receipt = Receipt.find(params[:receipt_id])
- #  end
-
-  def set_bill
+ 	def set_bill
   	@bill = Bill.find(params[:bill_id])
   end
 
   def set_service
   	@service = Service.find(params[:id])
   end
-
- 	private
 
   def quantity
   	params.require(:service)[:quantity].to_i 

@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   resources :services, except: [:show]
 
-  resources :bills, only: [:index, :show, :edit, :update]
+  resources :bills, only: [:index, :show]
 
   resources :bills, only: [] do
     resources :services, only: [] do

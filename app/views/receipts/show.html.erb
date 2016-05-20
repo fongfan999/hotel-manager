@@ -3,7 +3,9 @@
 <header>
 	<h1>Receipt Details</h1>
 	<ul class="actions">
-		<li><%= link_to "Edit Receipt", [:edit, @receipt], class: "edit" %></li>
+		<% if @receipt.bill.nil? %>
+			<li><%= link_to "Edit Receipt", [:edit, @receipt], class: "edit" %></li>
+		<% end %>
 	</ul>
 </header>
 

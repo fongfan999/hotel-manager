@@ -25,7 +25,7 @@
 				<% @rooms.each_with_index do |room, index| %>
 				<tr>
 					<td class="padding-top-15"><%= link_to index + 1, room %></td>
-					<td class="padding-top-15"><%= room.code %></td>
+					<td class="padding-top-15"><%= room.to_code %></td>
 					<td class="padding-top-15"><%= room.name %></td>
 					<td><%= render room.type %></td>
 					<td>

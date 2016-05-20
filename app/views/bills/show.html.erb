@@ -3,8 +3,7 @@
 <header>
 	<h1>Bill Details</h1>
 	<ul class="actions">
-		<li><%= link_to "Edit Bill", [:edit, @bill], class: "edit" %></li>
-		<li><%= link_to "Export Bill", "#", class: "delete" %></li>
+		<li><%= link_to "Export Bill", "#", class: "export" %></li>
 	</ul>
 </header>
 
@@ -19,11 +18,11 @@
 	</tr>
 	<tr>
 		<th>Customer</th>
-		<td><%= @bill.receipt.customer.name %></td>
+		<td><%= @bill.customer.name %></td>
 	</tr>
 	<tr>
 		<th>Room</th>
-		<td><%= @bill.receipt.room.name %></td>
+		<td><%= @bill.room.name %></td>
 	</tr>
 	<tr>
 		<th>Quantity of people</th>
@@ -33,12 +32,18 @@
 		<th>Arrival Date</th>
 		<td>
 			<%= @bill.receipt.created_at.strftime("%d-%m-%Y, %I:%M:%S %p") %>
+		</td>
+	</tr>
+	<tr>
+		<th>Departure Date</th>
+		<td>
+			<%= @bill.created_at.strftime("%d-%m-%Y, %I:%M:%S %p") %>
 			(<%= time_ago_in_words(@bill.receipt.created_at) %> ago)
 		</td>
 	</tr>
 	<tr>
 		<th>Total cost</th>
-		<td><strong>...</strong></td>
+		<td><strong><%= format_money(@bill.total_cost) %></strong></td>
 	</tr>
 </table>
 
@@ -68,12 +73,16 @@
 					<td><%= index + 2 %></td>
 					<td><%= service.name %></td>
 					<td><%= format_money(service.price) %></td>
-					<td><%= service.get_quantity(@bill) %></td>
+					<td><%= pluralize(service.get_quantity(@bill), service.unit) %></td>
 					<td>
 						<%= format_money(service.price * service.get_quantity(@bill)) %>
 					</td>
 				</tr>
 			<% end %>
+			<tr>
+				<td colspan="4">TOTAL</td>
+				<td><strong><%= format_money(@bill.total_cost) %></strong></td>
+			</tr>
 		</tbody>
 	</table>
 </div>

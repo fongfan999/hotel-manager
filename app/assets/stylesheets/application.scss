@@ -7,6 +7,10 @@ body {
 	padding-top: 50px;
 }
 
+div.tooltip-inner {
+  font-size: 20px;
+}
+
 header {
 	h1, h2, h3, h4, h5, h6 {
 		position: relative;
@@ -30,7 +34,7 @@ form {
 	max-width: 500px;
 }
 
-a.new, a.edit, a.delete, a.back, a.pay {
+a.new, a.edit, a.delete, a.back, a.pay, a.export {
 	@extend .btn;
 
 	&:before {
@@ -86,6 +90,18 @@ a.pay {
 	&:before {
 		@extend .fa-money;
 	}
+}
+
+a.export {
+	margin-top: 5px;
+  color: #fff;
+  background-color: #e74c3c;
+  border-color: #c0392b;
+
+  &:before {
+  	@extend .fa-2x;
+  	@extend .fa-file-pdf-o;
+  }
 }
 
 .alert {
@@ -175,9 +191,9 @@ a.pay {
 	@extend .label-primary;
 }
 
-.room_status-renting {
-	@extend .label-default;
-	min-width: 74px;	
+.room_status-renting, .receipt_status-renting {
+	background-color: #1abc9c;
+	min-width: 74px;
 }
 
 .room_status-available {
@@ -185,10 +201,6 @@ a.pay {
 	min-width: 74px;
 }
 
-.receipt_status-renting {
-	background-color: #1abc9c;
-	min-width: 74px;
-}
 .receipt_status-checked-out {
 	background-color: #c0392b;
 	min-width: 100px;
