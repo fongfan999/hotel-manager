@@ -39,6 +39,12 @@ a.new, a.edit, a.delete, a.back {
 	}
 }
 
+.icon-only a.edit {
+	&:before {
+		padding-right: 0;
+	}
+}
+
 a.new {
 	@extend .btn-success;
 

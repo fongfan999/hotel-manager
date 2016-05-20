@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160519105627) do
+ActiveRecord::Schema.define(version: 20160519140019) do
 
   create_table "customer_types", force: :cascade do |t|
     t.string   "name"
@@ -30,6 +30,18 @@ ActiveRecord::Schema.define(version: 20160519105627) do
   end
 
   add_index "customers", ["type_id"], name: "index_customers_on_type_id"
+
+  create_table "receipts", force: :cascade do |t|
+    t.integer  "customer_id"
+    t.integer  "room_id"
+    t.integer  "quantity",       default: 1
+    t.datetime "check_out_date"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "receipts", ["customer_id"], name: "index_receipts_on_customer_id"
+  add_index "receipts", ["room_id"], name: "index_receipts_on_room_id"
 
   create_table "room_types", force: :cascade do |t|
     t.string   "name"

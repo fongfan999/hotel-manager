@@ -1,0 +1,54 @@
+<header>
+	<h1>Listing Receipts</h1>
+
+	<ul class="actions">
+		<li><%= link_to "New Receipt", new_receipt_path,
+			class: "new" %></li>
+	</ul>
+</header>
+
+<% if @receipts.present? %>
+	<div class="listing-index icon-only">
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Customer name</th>
+					<th>Room</th>
+					<th>Quantity</th>
+					<th>Rental date</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @receipts.each do |receipt| %>
+				<tr>
+					<td><%= receipt.id %></td>
+					<td><%= receipt.customer.name %></td>
+					<td><%= receipt.room.name %></td>
+					<td><%= receipt.quantity %></td>
+					<td>
+						<div class="row">
+							<div class="col-md-12">
+								<%= receipt.created_at.strftime("%I:%M:%S %p") %>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<%= receipt.created_at.strftime("%d-%m-%Y") %>
+							</div>
+						</div>
+					</td>
+					<td class="center">
+						<%= link_to "", [:edit, receipt], class: "edit" %>
+					</td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+<% else %>
+	<p>There is nothing to show. <%= link_to "New one?", new_room_path %></p>
+<% end %>
+
+<%= link_to "Back to home", root_path, class: "back" %>

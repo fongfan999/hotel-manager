@@ -21,12 +21,18 @@
 	</tr>
 	<tr>
 		<th>Type</th>
-		<td><%= @customer.type.name %></td>
+		<td>
+			<div class="row">
+				<div class="col-md-3"><%= render @customer.type %></div>
+			</div>
+		</td>
 	</tr>
 	<tr>
 		<th>Address</th>
 			<td><%= @customer.check_address %></td>
 	</tr>
 </table>
+
+<p>History</p>
 
 <%= link_to "Back", customers_path, class: "back" %>
