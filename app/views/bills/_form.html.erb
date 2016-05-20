@@ -1,0 +1,10 @@
+<% services.each do |service| %>
+	<%= simple_form_for service do |f| %>
+		<%= f.input :name, disabled: true %>
+		<%= f.input :price, disabled: true %>
+		<%= f.input :quantity, as: :integer,
+			input_html: { value: f.object.quantity || '1', min: '1' } %>
+
+		<%= f.button :submit, class: "btn-success" %>
+	<% end %>
+<% end %>

@@ -25,10 +25,9 @@ ActiveRecord::Schema.define(version: 20160520034334) do
   add_index "bill_services", ["service_id"], name: "index_bill_services_on_service_id"
 
   create_table "bills", force: :cascade do |t|
-    t.decimal  "cost",       default: 0.0
     t.integer  "receipt_id"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "bills", ["receipt_id"], name: "index_bills_on_receipt_id"
@@ -54,10 +53,10 @@ ActiveRecord::Schema.define(version: 20160520034334) do
   create_table "receipts", force: :cascade do |t|
     t.integer  "customer_id"
     t.integer  "room_id"
-    t.integer  "quantity",       default: 1
-    t.datetime "check_out_date"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.integer  "quantity",         default: 1
+    t.datetime "checked_out_date"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   add_index "receipts", ["customer_id"], name: "index_receipts_on_customer_id"

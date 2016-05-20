@@ -28,7 +28,7 @@
 	</tr>
 	<tr>
 		<th>Cost</th>
-		<td><%= number_with_delimiter(@room.type.cost, delimiter: ',') %></td>
+		<td><%= format_money(@room.type.cost) %></td>
 	</tr>
 	<tr>
 		<th>Status</th>

@@ -3,6 +3,8 @@ class Receipt < ActiveRecord::Base
   belongs_to :room
   has_one :bill
 
+  delegate :type, to: :customer
+
   def to_code
   	if id < 10
   		"RC0#{id}"
@@ -16,6 +18,15 @@ class Receipt < ActiveRecord::Base
   end
 
   def status
-  	"Renting"
+    bill.nil? ? "Renting" : "Checked-out"
+  end
+
+  def total_days
+    total = ((Time.now - self.created_at) / 60 / 60 / 24).to_i
+    if total <= 3
+      total + 1
+    else
+      total
+    end
   end
 end

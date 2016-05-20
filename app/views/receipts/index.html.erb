@@ -18,7 +18,7 @@
 					<th>Customer</th>
 					<th>Room</th>
 					<th>Status</th>
-					<th>Action</th>
+					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -34,7 +34,13 @@
 						</span>
 					</td>
 					<td class="center">
-						<%= link_to "", [:edit, receipt], class: "edit" %>
+						<% if receipt.bill.nil? %>
+							<%= link_to "", [:edit, receipt], class: "edit" %>
+							<%= link_to "", pay_receipt_path(receipt),
+							method: :patch, class: "pay", title: "Pay a bill",
+							data: { toggle: 'tooltip', placement: "bottom",
+								confirm: "Are you sure?" } %>
+						<% end %>
 					</td>
 				</tr>
 				<% end %>
@@ -42,7 +48,7 @@
 		</table>
 	</div>
 <% else %>
-	<p>There is nothing to show. <%= link_to "New one?", new_room_path %></p>
+	<p>There is nothing to show. <%= link_to "New one?", new_receipt_path %></p>
 <% end %>
 
 <%= link_to "Back to home", root_path, class: "back" %>

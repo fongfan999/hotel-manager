@@ -23,3 +23,7 @@ $(document).on("ready page:load", function() {
 	  5000
 	);
 });
+
+$(document).ready(function() {
+  $('[data-toggle="tooltip"]').tooltip();
+});

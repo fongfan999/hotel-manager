@@ -1,19 +1,28 @@
 Rails.application.routes.draw do
 
-  
-  
-
   root 'welcome#index'
 
   resources :rooms
 
   resources :customers
 
-  resources :receipts, except: [:destroy]
+  resources :receipts, except: [:destroy] do
+    member do
+      patch :pay, to: "receipts#pay"
+    end
+  end
 
   resources :services, except: [:show]
 
-  resources :bills, only: [:index, :show]
+  resources :bills, only: [:index, :show, :edit, :update]
+
+  resources :bills, only: [] do
+    resources :services, only: [] do
+      member do
+        patch :update_service, to: "bills#update_service"
+      end
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

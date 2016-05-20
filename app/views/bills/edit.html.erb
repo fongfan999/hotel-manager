@@ -1,39 +1,35 @@
-<%= title("Bill Details") %>
+<%= title("New Bill") %>
 
 <header>
-	<h1>Bill Details</h1>
-	<ul class="actions">
-		<li><%= link_to "Edit Bill", [:edit, @bill], class: "edit" %></li>
-		<li><%= link_to "Export Bill", "#", class: "delete" %></li>
-	</ul>
+	<h1>New Bill</h1>
 </header>
 
 <table class="info">
 	<tr>
 		<th>ID</th>
-		<td><%= @bill.receipt.to_code %></td>
+		<td><%= @receipt.to_code %></td>
 	</tr>
 	<tr>
 		<th>Tax code</th>
-		<td><%= @bill.receipt.to_tax_code %></td>
+		<td><%= @receipt.to_tax_code %></td>
 	</tr>
 	<tr>
 		<th>Customer</th>
-		<td><%= @bill.receipt.customer.name %></td>
+		<td><%= @receipt.customer.name %></td>
 	</tr>
 	<tr>
 		<th>Room</th>
-		<td><%= @bill.receipt.room.name %></td>
+		<td><%= @receipt.room.name %></td>
 	</tr>
 	<tr>
 		<th>Quantity of people</th>
-		<td><%= @bill.receipt.quantity %></td>
+		<td><%= @receipt.quantity %></td>
 	</tr>
 	<tr>
 		<th>Arrival Date</th>
 		<td>
-			<%= @bill.receipt.created_at.strftime("%d-%m-%Y, %I:%M:%S %p") %>
-			(<%= time_ago_in_words(@bill.receipt.created_at) %> ago)
+			<%= @receipt.created_at.strftime("%d-%m-%Y, %I:%M:%S %p") %>
+			(<%= time_ago_in_words(@receipt.created_at) %> ago)
 		</td>
 	</tr>
 	<tr>
@@ -41,7 +37,6 @@
 		<td><strong>...</strong></td>
 	</tr>
 </table>
-
 <div class="listing-index">
 	<table>
 		<thead>
@@ -57,10 +52,10 @@
 			<tr>
 				<td>1</td>
 				<td>Room Rent</td>
-				<td><%= format_money(@bill.receipt.room.type.cost) %></td>
-				<td><%= pluralize(@bill.receipt.total_days, 'day') %></td>
+				<td><%= format_money(@receipt.room.type.cost) %></td>
+				<td><%= pluralize(@receipt.total_days, 'day') %></td>
 				<td>
-					<%= format_money(@bill.receipt.room.type.cost * @bill.receipt.total_days) %>
+					<%= format_money(@receipt.room.type.cost * @receipt.total_days) %>
 				</td>
 			</tr>
 			<% @bill.services.each_with_index do |service, index| %>
@@ -98,9 +93,11 @@
 					<td><%= service.name %></td>
 					<td><%= format_money(service.price) %></td>
 					<%= simple_form_for service,
-						url: update_service_bill_service_path(@bill, service) do |f| %>
+						url: update_service_receipt_bill_service_path(@receipt, @bill,
+							service) do |f| %>
+						
 						<td><%= f.input :quantity, as: :integer, label: false, 
-							input_html: { value: service.get_quantity(@bill) || '1', min: '0' } %></td>
+							input_html: { value: f.object.get_quantity(@bill) || '0', min: '0' } %></td>
 
 						<td><%= f.button :submit, value: "Update", class: "btn-success" %></td>
 					<% end %>
@@ -109,5 +106,3 @@
 		</tbody>
 	</table>
 </div>
-
-<%= link_to "Back to home", root_path, class: "back" %>
