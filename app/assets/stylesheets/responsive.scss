@@ -22,6 +22,10 @@
 	a.edit, a.delete, a.pay {
 		margin-bottom: 5px;
 	}
+
+	#book-roo, .form-control {
+		margin-bottom: 10px;
+	}
 }
 
 @media(max-width: $screen-xs-max) {

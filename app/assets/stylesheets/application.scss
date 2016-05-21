@@ -2,9 +2,18 @@
 @import "bootstrap";
 @import "font-awesome";
 @import "responsive";
+@import "welcome";
 
 body {
 	padding-top: 50px;
+}
+
+body a {
+	transition:0.3s all;
+	-webkit-transition:0.3s all;
+	-moz-transition:0.3s all;
+	-o-transition:0.3s all;
+	-ms-transition:0.3s all;
 }
 
 div.tooltip-inner {

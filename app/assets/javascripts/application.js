@@ -26,4 +26,8 @@ $(document).on("ready page:load", function() {
 
 $(document).ready(function() {
   $('[data-toggle="tooltip"]').tooltip();
+  var height = $(window).height();
+  $(".bg").css("height", height - 50);
 });
+
+
