@@ -47,8 +47,4 @@ class Room < ActiveRecord::Base
 			end
 		end
 	end
-
-	def count_days
-		time_ago_in_words(created_at)
-	end
 end

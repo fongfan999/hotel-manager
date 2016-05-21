@@ -10,4 +10,8 @@ class RoomType < ActiveRecord::Base
 	def to_s
 		name
 	end
+
+	def quantity
+		Room.where(type: self).count
+	end
 end

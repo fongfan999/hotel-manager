@@ -41,6 +41,50 @@
 	</tr>
 </table>
 
-<p>History</p>
+<header>
+	<h1>History</h1>
+</header>
+
+<% if @receipts.present? %>
+	<div class="listing-index">
+		<table>
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th>Room</th>
+					<th>Status</th>
+					<th>Arrival/Departure Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @receipts.each_with_index do |receipt, index| %>
+				<tr>
+					<td class="padding-top-15">
+						<%= link_to index + 1, receipt %>
+					</td>
+					<td class="padding-top-15"><%= receipt.room.name %></td>
+					<td>
+						<span class="label_type receipt_status-<%= receipt.status.
+							parameterize %>">
+							<%= receipt.status %>
+						</span>
+					</td>
+					<td class="padding-top-15">
+						<% if receipt.bill.blank? %>
+							<%= receipt.created_at.strftime("%d-%m-%Y, %I:%M:%S %p") %>
+							(<%= time_ago_in_words(receipt.created_at) %> ago)
+						<% else %>
+							<%= receipt.bill.created_at.strftime("%d-%m-%Y") %>
+						<% end %>
+					</td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+<% else %>
+	<p>There is nothing to show.</p>
+<% end %>
+
 
 <%= link_to "Back", customers_path, class: "back" %>

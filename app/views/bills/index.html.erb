@@ -4,27 +4,36 @@
 	<h1>Listing Bills</h1>
 </header>
 
-<div class="listing-index">
-	<table>
-		<thead>
-			<tr>
-				<th>No.</th>
-				<th>Customer</th>
-				<th>Room</th>
-				<th>Cost</th>
-			</tr>
-		</thead>
-		<tbody>
-			<% @bills.each_with_index do |bill, index| %>
-			<tr>
-				<td><%= link_to index + 1, bill %></td>
-				<td><%= bill.customer.name %></td>
-				<td><%= bill.room.name %></td>
-				<td><strong><%= format_money(bill.total_cost) %></strong></td>
-			</tr>
-			<% end %>
-		</tbody>
-	</table>
-</div>
+<% if @bills.present? %>
+	<div class="listing-index">
+		<table>
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th>Customer</th>
+					<th>Room</th>
+					<th>Date</th>
+					<th>Cost</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @bills.each_with_index do |bill, index| %>
+				<tr>
+					<td><%= link_to index + 1, bill %></td>
+					<td><%= bill.customer.name %></td>
+					<td><%= bill.room.name %></td>
+					<td>
+						<%= bill.created_at.strftime("%d-%m-%Y") %>
+					</td>
+					<td><strong><%= format_money(bill.amount) %></strong></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+<% else %>
+	<p>There is nothing to show.</p>
+<% end %>
 
-<%= link_to "Back to home", root_path, class: "back" %>
+
+<%= link_to "Back", bills_path, class: "back" %>

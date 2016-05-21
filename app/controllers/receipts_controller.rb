@@ -11,6 +11,7 @@ class ReceiptsController < ApplicationController
 	def pay
 		@bill = @receipt.bill
 		@bill.employee = current_user
+		@bill.update(created_at: Time.now)
 		@bill.save
 		redirect_to @bill
 	end

@@ -45,7 +45,9 @@
 			</tbody>
 		</table>
 	</div>
-
+<% else %>
+	<p>There is nothing to show. <%= link_to "New one?", new_room_path %></p>
+<% end %>
 	<div class="listing-index icon-only">
 		<table>
 			<thead>
@@ -56,20 +58,15 @@
 				</tr>
 			</thead>
 			<tbody>
-				<% Room.all.each_with_index do |room, index| %>
+				<% RoomType.all.each_with_index do |type, index| %>
 				<tr>
 					<td class="padding-top-15"><%= index + 1 %></td>
-					<td><%= render room.type %></td>
-					<td><%= 1 %></td>
+					<td><%= render type %></td>
+					<td><%= type.quantity %></td>
 				</tr>
 				<% end %>
 			</tbody>
 		</table>
 	</div>
-
-	<p>How many type A, B, C ..</p>
-<% else %>
-	<p>There is nothing to show. <%= link_to "New one?", new_room_path %></p>
-<% end %>
 
 <%= link_to "Back to home", root_path, class: "back" %>

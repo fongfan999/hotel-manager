@@ -6,6 +6,7 @@ class CustomersController < ApplicationController
   end
 
   def show
+    @receipts = Receipt.where(customer: @customer)
   end
 
   def new
