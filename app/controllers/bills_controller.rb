@@ -9,7 +9,7 @@ class BillsController < ApplicationController
 
   def show
   	@bill = Bill.find(params[:id])
-  	@services = Service.all.order(:price)
+  	@services = Service.all.order(:name)
   end
 
   def update_service

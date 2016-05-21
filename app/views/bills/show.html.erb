@@ -42,8 +42,12 @@
 		</td>
 	</tr>
 	<tr>
+		<th>Employee</th>
+		<td><%= @bill.employee.email %></td>
+	</tr>
+	<tr>
 		<th>Total cost</th>
-		<td><strong><%= format_money(@bill.total_cost) %></strong></td>
+		<td><strong><%= format_money(@bill.grand_total) %></strong></td>
 	</tr>
 </table>
 
@@ -55,7 +59,7 @@
 				<th>Charge</th>
 				<th>Price</th>
 				<th>Quantity</th>
-				<th>Total</th>
+				<th>Amount</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -64,7 +68,7 @@
 				<td>Room Rent</td>
 				<td><%= format_money(@bill.receipt.room.type.cost) %></td>
 				<td><%= pluralize(@bill.receipt.total_days, 'day') %></td>
-				<td>
+				<td class="right">
 					<%= format_money(@bill.receipt.room.type.cost * @bill.receipt.total_days) %>
 				</td>
 			</tr>
@@ -74,14 +78,30 @@
 					<td><%= service.name %></td>
 					<td><%= format_money(service.price) %></td>
 					<td><%= pluralize(service.get_quantity(@bill), service.unit) %></td>
-					<td>
+					<td class="right">
 						<%= format_money(service.price * service.get_quantity(@bill)) %>
 					</td>
 				</tr>
 			<% end %>
 			<tr>
-				<td colspan="4">TOTAL</td>
-				<td><strong><%= format_money(@bill.total_cost) %></strong></td>
+				<td colspan="4">Total</td>
+				<td class="right"><%= format_money(@bill.amount) %></td>
+			</tr>
+			<tr>
+				<td colspan="4">VAT amount (10%)</td>
+				<td class="right">+ <%= format_money(@bill.amount/10) %></td>
+			</tr>
+			<tr>
+				<td colspan="4">Discount (<%= @bill.discount %>%)</td>
+				<td class="right">
+					- <%= format_money(@bill.amount * @bill.discount / 100) %> 
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4">Grand total</td>
+				<td class="right">
+					<strong><%= format_money(@bill.grand_total) %></strong>
+				</td>
 			</tr>
 		</tbody>
 	</table>

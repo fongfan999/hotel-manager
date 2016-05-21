@@ -3,7 +3,7 @@
 <header>
 	<h1>Receipt Details</h1>
 	<ul class="actions">
-		<% if @receipt.bill.nil? %>
+		<% if @receipt.bill.employee.nil? %>
 			<li><%= link_to "Edit Receipt", [:edit, @receipt], class: "edit" %></li>
 		<% end %>
 	</ul>
@@ -46,9 +46,18 @@
 	<tr>
 		<th>Arrival/Departure Date</th>
 		<td>
-			<%= @receipt.created_at.strftime("%d-%m-%Y, %I:%M:%S %p") %>
-			(<%= time_ago_in_words(@receipt.created_at) %> ago)
+			<% if @receipt.bill.blank? %>
+				<%= @receipt.created_at.strftime("%d-%m-%Y, %I:%M:%S %p") %>
+				(<%= time_ago_in_words(@receipt.created_at) %> ago)
+			<% else %>
+				<%= @receipt.bill.created_at.strftime("%d-%m-%Y, %I:%M:%S %p") %>
+				(<%= time_ago_in_words(@receipt.created_at) %> ago)
+			<% end %>
 		</td>
+	</tr>
+	<tr>
+		<th>Employee</th>
+		<td><%= @receipt.employee.email %></td>
 	</tr>
 </table>
 

@@ -46,6 +46,27 @@
 		</table>
 	</div>
 
+	<div class="listing-index icon-only">
+		<table>
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th>Type</th>
+					<th>Quantity</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% Room.all.each_with_index do |room, index| %>
+				<tr>
+					<td class="padding-top-15"><%= index + 1 %></td>
+					<td><%= render room.type %></td>
+					<td><%= 1 %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+
 	<p>How many type A, B, C ..</p>
 <% else %>
 	<p>There is nothing to show. <%= link_to "New one?", new_room_path %></p>

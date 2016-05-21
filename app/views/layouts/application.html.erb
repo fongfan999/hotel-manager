@@ -29,25 +29,48 @@
         	<li class=<%= "active" if current_page?("rooms") %>>
 						<%= link_to "Room", rooms_path %>
         	</li>
-          <li class=<%= "active" if current_page?("customers") %>>
-            <%= link_to "Customer", customers_path %>
-          </li>
-          <li class=<%= "active" if current_page?("receipts") %>>
-            <%= link_to "Receipt", receipts_path %>
-          </li>
           <li class=<%= "active" if current_page?("bills") %>>
             <%= link_to "Bill", bills_path %>
           </li>
-          
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin
             <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><%= link_to "Services", services_path %></li>
+              <li class=<%= "active" if current_page?("customers") %>>
+                <%= link_to "Customer", customers_path %>
+              </li>
+              <li class=<%= "active" if current_page?("receipts") %>>
+                <%= link_to "Receipt", receipts_path %>
+              </li>
             </ul>
           </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <% if user_signed_in? %>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              Account
+            <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="navbar-text page-header">
+                Signed in as <%= current_user.email %>
+              </li>
+              <li>
+                <%= link_to "Edit", edit_user_registration_path %>
+              </li>
+              <li>
+                  <%= link_to "Log out", destroy_user_session_path,
+                    method: :delete %>
+              </li>
+            </ul>
+          </li>
+          <% else %>
+            <li class=<%= "active" if current_page?("users/sign_in") %>>
+              <%= link_to "Sign in", new_user_session_path %>
+            </li>
+          <% end %>
         </ul>
       </div>
       <!-- /.navbar-collapse -->

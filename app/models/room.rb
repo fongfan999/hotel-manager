@@ -24,8 +24,8 @@ class Room < ActiveRecord::Base
 		available_room.push(self).sort_by{ |room| room[:name] }
 	end
 
-	def check_annotation
-		annotation.blank? ? "Nothing" : annotation
+	def check_blank(object)
+		object.blank? ? "Not yet been updated." : object
 	end
 
 	def to_label

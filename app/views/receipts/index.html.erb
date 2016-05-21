@@ -24,9 +24,9 @@
 			<tbody>
 				<% @receipts.each do |receipt| %>
 				<tr class="test">
-					<td><%= link_to receipt.to_code, receipt %></td>
-					<td><%= receipt.customer.name %></td>
-					<td><%= receipt.room.name %></td>
+					<td class="padding-top-15"><%= link_to receipt.to_code, receipt %></td>
+					<td class="padding-top-15"><%= receipt.customer.name %></td>
+					<td class="padding-top-15"><%= receipt.room.name %></td>
 					<td>
 						<span class="label_type receipt_status-<%= receipt.status.
 							parameterize %>">
@@ -34,7 +34,7 @@
 						</span>
 					</td>
 					<td class="center">
-						<% if receipt.bill.nil? %>
+						<% if receipt.bill.employee.nil? %>
 							<%= link_to "", [:edit, receipt], class: "edit" %>
 							<%= link_to "", pay_receipt_path(receipt),
 							method: :patch, class: "pay", title: "Pay a bill",

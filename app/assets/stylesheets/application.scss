@@ -154,6 +154,10 @@ a.export {
 	text-align: center;
 }
 
+.right {
+	text-align: right;
+}
+
 .all-grid-system-4 {
 	@extend .col-xs-4;
 	@extend .col-sm-4;

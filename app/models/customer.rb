@@ -26,8 +26,8 @@ class Customer < ActiveRecord::Base
 		available_customer.push(self).sort_by{ |customer| customer[:name] }
 	end
 
-	def check_address
-		address.blank? ? "Nothing" : address
+	def check_blank(object)
+		object.blank? ? "not yet been updated." : object
 	end
 
 	def to_label

@@ -1,5 +1,5 @@
 class ReceiptsController < ApplicationController
-	before_action :set_receipt, only: [:show, :edit, :pay]
+	before_action :set_receipt, only: [:show, :edit, :update, :pay]
 
 	def index
 		@receipts = Receipt.all
@@ -9,7 +9,9 @@ class ReceiptsController < ApplicationController
 	end
 
 	def pay
-		@bill = Bill.create(receipt_id: @receipt.id) if @receipt.bill.nil?
+		@bill = @receipt.bill
+		@bill.employee = current_user
+		@bill.save
 		redirect_to @bill
 	end
 
@@ -18,16 +20,23 @@ class ReceiptsController < ApplicationController
 	end
 
 	def edit
-		unless @receipt.bill.nil?
+		unless @receipt.bill.employee.nil?
 			flash[:alert] = "You aren't allowed to do that."
 			redirect_to receipts_path
 		end
 	end
 
 	def create
-		Receipt.create(receipt_params)
-		flash[:notice] = "Receipt was successfully created."
-		redirect_to receipts_path
+		@receipt = Receipt.new(receipt_params)
+		@receipt.employee = current_user
+		if @receipt.save
+			Bill.create(receipt_id: @receipt.id)
+			flash[:notice] = "Receipt was successfully created."
+			redirect_to @receipt
+		else
+			flash[:alert] = "Receipt was not successfully created."
+			render :new
+		end
 	end
 
 	def update

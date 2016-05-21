@@ -2,7 +2,7 @@ class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
 
   def index
-    @customers = Customer.all
+    @customers = Customer.all.order(:name)
   end
 
   def show
@@ -50,7 +50,8 @@ class CustomersController < ApplicationController
   end
 
   def room_params
-    params.require(:customer).permit(:name, :type_id, :identity_card, :address)
+    params.require(:customer).permit(:name, :type_id, :identity_card,
+      :phone_number, :address)
   end
 end
 
