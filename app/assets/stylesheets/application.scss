@@ -6,6 +6,7 @@
 
 body {
 	padding-top: 50px;
+	min-height: 700px;
 }
 
 body a {
@@ -47,7 +48,7 @@ form {
 	max-width: 500px;
 }
 
-a.new, a.edit, a.delete, a.back, a.pay, a.export {
+a.new, a.edit, a.delete, a.back, a.pay, li.export > a {
 	@extend .btn;
 
 	&:before {
@@ -105,7 +106,7 @@ a.pay {
 	}
 }
 
-a.export {
+li > a.export {
 	margin-top: 5px;
   color: #fff;
   background-color: #e74c3c;
@@ -146,6 +147,8 @@ a.export {
 	td, th {
 		line-height: 24px !important;
 	}
+
+	margin-bottom: 30px;
 }
 
 .listing-index table {
@@ -223,3 +226,67 @@ a.export {
 	min-width: 100px;
 }
 
+#footer {
+	margin-top: 50px;
+	h4 {
+		font-size: 14px;
+	}
+
+	.border-top-info {
+		margin-top: -5px;
+		display: block;
+		width: 40px;
+		border-top: 2px solid #e74c3c;
+		margin-bottom: 10px;
+	}
+
+	p {
+		padding-top: 5px;
+		font-size: 12px;
+		font-weight: lighter;
+		color: #878B8B;
+	}
+}
+
+#fixed-bottom { page-break-inside: avoid; }
+
+#bill-pdf {
+	margin-top: -70px;
+	color: #043E7B !important;
+	
+	table {
+		border-color: #043E7B;
+	}
+
+	tr, td, th {
+		color: #043E7B;
+		border-color: #043E7B;
+	}
+
+	h3 {
+		font-weight: bold;
+		color: #e74c3c;
+	}
+
+	h4 {
+		padding-top: 35px;
+	}
+
+	.col-xs-12 {
+		text-align: right;
+	}
+
+	p {
+		font-size: 0.7em;
+	}
+
+	#info {
+		position: absolute;
+		bottom: 10px;
+		left: 10px;
+	}
+
+	#fixed-bottom {
+		height: 180px;
+	}
+}

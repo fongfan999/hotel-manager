@@ -3,7 +3,6 @@
 <header>
 	<h1>Listing Bills</h1>
 </header>
-
 <% if @bills.present? %>
 	<div class="listing-index">
 		<table>
@@ -25,7 +24,7 @@
 					<td>
 						<%= bill.created_at.strftime("%d-%m-%Y") %>
 					</td>
-					<td><strong><%= format_money(bill.amount) %></strong></td>
+					<td><strong><%= format_money(bill.grand_total) %></strong></td>
 				</tr>
 				<% end %>
 			</tbody>
@@ -36,4 +35,4 @@
 <% end %>
 
 
-<%= link_to "Back", bills_path, class: "back" %>
+<%= link_to "Back to home", root_path, class: "back" %>

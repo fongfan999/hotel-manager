@@ -3,7 +3,7 @@ class Room < ActiveRecord::Base
 	has_many :receipts
 	has_many :customers, through: :receipts
 
-	validates :code, :name, presence: true, uniqueness: true
+	validates :name, presence: true, uniqueness: true
 
 	def self.available_room
 		availabe_room = []

@@ -1,9 +1,11 @@
 <%= title("Bill Details") %>
 
+<div class="bill">
 <header>
 	<h1>Bill Details</h1>
 	<ul class="actions">
-		<li><%= link_to "Export Bill", "#", class: "export" %></li>
+		<li class="export"><%= link_to "Export Bill", :action => "show",
+			:format => :pdf %></li>
 	</ul>
 </header>
 
@@ -73,15 +75,17 @@
 				</td>
 			</tr>
 			<% @bill.services.each_with_index do |service, index| %>
-				<tr>
-					<td><%= index + 2 %></td>
-					<td><%= service.name %></td>
-					<td><%= format_money(service.price) %></td>
-					<td><%= pluralize(service.get_quantity(@bill), service.unit) %></td>
-					<td class="right">
-						<%= format_money(service.price * service.get_quantity(@bill)) %>
-					</td>
-				</tr>
+				<% unless service.get_quantity(@bill) == 0 %>
+					<tr>
+						<td><%= index + 2 %></td>
+						<td><%= service.name %></td>
+						<td><%= format_money(service.price) %></td>
+						<td><%= pluralize(service.get_quantity(@bill), service.unit) %></td>
+						<td class="right">
+							<%= format_money(service.price * service.get_quantity(@bill)) %>
+						</td>
+					</tr>
+				<% end %>
 			<% end %>
 			<tr>
 				<td colspan="4">Total</td>
@@ -106,7 +110,9 @@
 		</tbody>
 	</table>
 </div>
+</div>
 
+<div id="services">
 <header>
 	<h1>Services</h1>
 </header>
@@ -138,5 +144,6 @@
 		</tbody>
 	</table>
 </div>
+</div>
 
-<%= link_to "Back to home", root_path, class: "back" %>
+<%= link_to "Back", bills_path, class: "back" %>

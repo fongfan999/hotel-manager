@@ -5,6 +5,10 @@
 	<ul class="actions">
 		<% if @receipt.bill.employee.nil? %>
 			<li><%= link_to "Edit Receipt", [:edit, @receipt], class: "edit" %></li>
+			<li><%= link_to "Pay a bill", pay_receipt_path(@receipt),
+				method: :patch, class: "pay",
+				data: { toggle: 'tooltip', placement: "bottom",
+				confirm: "Are you sure to pay a bill?" } %></li>
 		<% end %>
 	</ul>
 </header>

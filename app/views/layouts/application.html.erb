@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= content_for?(:title) ? yield(:title) : "Hotel Manager" %></title>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <title><%= content_for?(:title) ? yield(:title) : "ABC Hotel" %></title>
+  <%= stylesheet_link_tag    'application', :media => 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
@@ -34,6 +34,8 @@
           <li class=<%= "active" if current_page?("bills") %>>
             <%= link_to "Bill", bills_path %>
           </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin
             <span class="caret"></span></a>
@@ -47,8 +49,6 @@
               </li>
             </ul>
           </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
           <% if user_signed_in? %>
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -79,18 +79,75 @@
   </div>
 </nav>
 
-<div class=<%= "container" unless current_page?("/") %>>
-	<% flash.each do |key, message| %>
-		<div class="alert alert-<%= key %> fade in">
+<div class="container">
+  <% unless current_page?("/") %>
+    <% flash.each do |key, message| %>
+    <div class="alert alert-<%= key %> fade in">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">
+        &times;
+      </a>
+      <%= message %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
 
-			<a href="#" class="close" data-dismiss="alert" aria-label="close">
-				&times;
-			</a>
-			<%= message %>
-		</div>
-	<% end %>
+<div class=<%= "container" unless current_page?("/") %>>
 	<%= yield %>
 </div>
 
+<div id="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-3">
+        <h4>ADDRESS</h4>
+        <span class="border-top-info"></span>
+        <p>5046 S Greenwood Avenue, Chicago, IL 60615</p>
+      </div>
+      <div class="col-sm-3">
+        <h4>CONTACT</h4>
+        <span class="border-top-info"></span>
+        <p>
+          info@abchotel.com
+        </p>
+        <p>
+          Tel: 123-456-789
+        </p>
+      </div>
+      <div class="col-sm-3">
+        <h4>ABOUT US</h4>
+        <span class="border-top-info"></span>
+        <p>Alphabet Inc. is an American multinational conglomerate created in 2015 as the parent company of Google and several other companies previously owned by Google.</p>
+      </div>
+      <div class="col-sm-3">
+        <h4>WE ACCEPT</h4>
+        <span class="border-top-info"></span>
+        <p>
+          <span style="color: #132C92;">
+            <i class="fa fa-cc-visa fa-2x"></i>
+          </span>
+          <span style="color: #FFAA18;">
+            <i class="fa fa-cc-mastercard fa-2x "></i>
+          </span>
+          <span style="color: #C09B43;">
+            <i class="fa fa-cc-amex fa-2x"></i>
+          </span>
+          <span style="color: #3BA134;">
+            <i class="fa fa-cc-jcb fa-2x"></i>
+          </span>
+          <span style="color: #002F86;">
+            <i class="fa fa-cc-paypal fa-2x"></i>
+          </span>
+          <span style="color: #A2C2CD;">
+            <i class="fa fa-cc-discover fa-2x"></i>
+          </span>
+          <span style="color: #0370CD;">
+            <i class="fa fa-cc-dinners-club fa-2x"></i>
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>

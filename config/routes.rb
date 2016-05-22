@@ -15,13 +15,23 @@ Rails.application.routes.draw do
 
   resources :services, except: [:show]
 
-  resources :bills, only: [:index, :show]
-
-  resources :bills, only: [] do
+  resources :bills, only: [:index, :show] do
     resources :services, only: [] do
       member do
         patch :update_service, to: "bills#update_service"
       end
+    end
+
+    member do
+      get :report, to: "bills#report"
+    end
+  end
+
+  
+
+  get 'statistics', to: "statistics#index" do
+    collection do
+      get :search
     end
   end
 

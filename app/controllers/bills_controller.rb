@@ -10,10 +10,21 @@ class BillsController < ApplicationController
   def show
   	@bill = Bill.find(params[:id])
   	@services = Service.all.order(:name)
+    
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render :pdf => "##{@bill.receipt.to_code}",
+          :template => 'bills/show.pdf.erb'
+      end
+    end
+  end
+
+  def report
   end
 
   def update_service
-  	if quantity == 0 || quantity == -1
+  	if quantity <= -1
   		flash[:alert] = "There was a problem with Quantity"
 		else
 			bill_services = BillService.find_by(service_id: @service.id,

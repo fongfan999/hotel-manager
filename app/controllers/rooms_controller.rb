@@ -38,6 +38,10 @@ class RoomsController < ApplicationController
 	end
 
 	def destroy
+		if @room.customers.blank?
+			flash[:alert] = "You aren't allowed to do that."
+			redirect_to rooms_path
+		end
 		@room.destroy
 		flash.now[:notice] = "Room was successfully destroyed."
 		redirect_to rooms_path
@@ -50,6 +54,6 @@ class RoomsController < ApplicationController
 	end
 
 	def room_params
-		params.require(:room).permit(:code, :name, :type_id, :annotation)
+		params.require(:room).permit(:name, :type_id, :annotation)
 	end
 end

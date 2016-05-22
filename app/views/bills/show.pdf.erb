@@ -1,0 +1,151 @@
+<%= wicked_pdf_stylesheet_link_tag "application" %>
+
+<div id="bill-pdf">
+	<div class="container">
+		<header>
+			<div class="row">
+				<div class="col-xs-6">
+					<h3>ABC Hotel</h3>
+					<h4>Bill #<%= @bill.receipt.to_code %></h4>
+				</div>
+
+				<div class="col-xs-6">
+					<div class="row">
+					<div class="col-xs-12">
+						<h6>ADDRESS</h6>
+		        <span class="border-top-info"></span>
+		        <p>5046 S Greenwood Avenue, Chicago, IL 60615</p>
+					</div>
+					</div>
+					
+					<div class="row">
+					<div class="col-xs-12">
+						<h6>CONTACT</h6>
+		        <span class="border-top-info"></span>
+		        <p>
+		          info@abchotel.com
+		        </p>
+		        <p>
+		          Tel: 123-456-789
+		        </p>
+					</div>
+					</div>
+
+				</div>
+			</div>
+		</header>
+
+		<table class="info">
+			<tr>
+				<th>ID</th>
+				<td><%= @bill.receipt.to_code %></td>
+			</tr>
+			<tr>
+				<th>Tax code</th>
+				<td><%= @bill.receipt.to_tax_code %></td>
+			</tr>
+			<tr>
+				<th>Customer</th>
+				<td><%= @bill.customer.name %></td>
+			</tr>
+			<tr>
+				<th>Room</th>
+				<td><%= @bill.room.name %></td>
+			</tr>
+			<tr>
+				<th>Quantity of people</th>
+				<td><%= @bill.receipt.quantity %></td>
+			</tr>
+			<tr>
+				<th>Arrival Date</th>
+				<td>
+					<%= @bill.receipt.created_at.strftime("%d-%m-%Y, %I:%M:%S %p") %>
+				</td>
+			</tr>
+			<tr>
+				<th>Departure Date</th>
+				<td>
+					<%= @bill.created_at.strftime("%d-%m-%Y, %I:%M:%S %p") %>
+				</td>
+			</tr>
+			<tr>
+				<th>Employee</th>
+				<td><%= @bill.employee.email %></td>
+			</tr>
+			<tr>
+				<th>Total cost</th>
+				<td><strong><%= format_money(@bill.grand_total) %></strong></td>
+			</tr>
+		</table>
+
+		<div class="listing-index">
+			<table>
+				<thead>
+					<tr>
+						<th>No.</th>
+						<th>Charge</th>
+						<th>Price</th>
+						<th>Quantity</th>
+						<th>Amount</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>Room Rent</td>
+						<td><%= format_money(@bill.receipt.room.type.cost) %></td>
+						<td><%= pluralize(@bill.receipt.total_days, 'day') %></td>
+						<td class="right">
+							<%= format_money(@bill.receipt.room.type.cost * @bill.receipt.total_days) %>
+						</td>
+					</tr>
+					<% @bill.services.each_with_index do |service, index| %>
+						<% unless service.get_quantity(@bill) == 0 %>
+						<tr>
+							<td><%= index + 2 %></td>
+							<td><%= service.name %></td>
+							<td><%= format_money(service.price) %></td>
+							<td><%= pluralize(service.get_quantity(@bill), service.unit) %></td>
+							<td class="right">
+								<%= format_money(service.price * service.get_quantity(@bill)) %>
+							</td>
+						</tr>
+						<% end %>
+					<% end %>
+					<tr>
+						<td colspan="4">Total</td>
+						<td class="right"><%= format_money(@bill.amount) %></td>
+					</tr>
+					<tr>
+						<td colspan="4">VAT amount (10%)</td>
+						<td class="right">+ <%= format_money(@bill.amount/10) %></td>
+					</tr>
+					<tr>
+						<td colspan="4">Discount (<%= @bill.discount %>%)</td>
+						<td class="right">
+							- <%= format_money(@bill.amount * @bill.discount / 100) %> 
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">Grand total</td>
+						<td class="right">
+							<strong><%= format_money(@bill.grand_total) %></strong>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<div id="fixed-bottom">
+			<div class="row">
+				<div style="padding-bottom: 150px" class="col-xs-6 center">
+					<i><b>Cashier Signature</b></i>
+				</div>
+				<div style="padding-bottom: 150px" class="col-xs-6 center">
+					<i><b>Guest Signature</b></i>
+				</div>
+			</div>
+			<p class="center"><strong>THANK YOU!</strong></p>
+		</div>
+	</div>
+</div>

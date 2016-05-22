@@ -36,9 +36,12 @@
 					</td>
 					<td>
 						<%= link_to "", [:edit, room], class: "edit" %>
-						<%= link_to "", room, class: "delete",
-							method: :delete,
-							data: { confirm: "Are you sure to delete this room?" } %>
+						<% if room.customers.blank? %>
+							<%= link_to "", room, class: "delete",
+								method: :delete,
+								data: { confirm: "Are you sure to delete this room?" } %>
+						<% end %>
+						
 					</td>
 				</tr>
 				<% end %>
