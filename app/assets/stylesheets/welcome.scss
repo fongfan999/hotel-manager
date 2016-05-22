@@ -152,10 +152,6 @@
 	margin-bottom: 80px;
 }
 
-.form-control, .btn {
-	border-radius: 0;
-}
-
 #search-btn {
 	padding: 6px;
 	width: 100%;
@@ -170,18 +166,17 @@
 	font-weight: bold;
 	background-color: #ECECEC;
 	text-align: center;
-	
+	padding-top: 30px;
 	padding-right: 10px;
 
 	.fa-3x {
 		margin-left: 30px;
-		line-height: 115px;
 	}
 
 	span:first-child {
 		font-size: 20px;
 		padding-right: 15px;
-		line-height: 100px;
+
 	}
 }
 

@@ -26,8 +26,26 @@ $(document).on("ready page:load", function() {
 
 $(document).ready(function() {
   $('[data-toggle="tooltip"]').tooltip();
-  var height = $(window).height();
-  $(".bg").css("height", height - 50);
+
+  var current_path = window.location.pathname
+  console.log(current_path)
+  if (current_path != "/") {
+  	$(".navbar-default > .container").css("border-bottom", "3px solid #2db893");
+  	$(".navbar-default .navbar-nav li a").css("color", "#e74c3c");
+  	$(".navbar-default .navbar-toggle .icon-bar").css("background-color", "#e74c3c");
+  	$(".navbar-default .navbar-text").css("color", "#fff");
+  	$(".navbar-default .navbar-brand").css("color", "#e74c3c");
+  	$(".navbar-default .navbar-nav .dropdown-menu li a").css("color", "#fff");
+  	$(".navbar-default .navbar-nav .dropdown-menu").css("background-color",
+  		"black");
+  	$(".navbar-default .navbar-brand").hover(function(){
+  		$(this).css("color", "#fff");
+  		$(this).css("background-color", "#e74c3c");
+    }, function(){
+  		$(this).css("color", "#e74c3c");
+  		$(this).css("background-color", "#fff");
+    });
+  }
 });
 
 
