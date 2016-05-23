@@ -29,6 +29,7 @@ gem 'font-awesome-rails', '~> 4.6', '>= 4.6.2.0'
 gem 'devise', '~> 4.1', '>= 4.1.1'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem "chartkick"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

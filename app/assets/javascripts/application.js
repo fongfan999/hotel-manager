@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require_tree .
 //= require bootstrap-sprockets
+//= require chartkick
 
 $(document).on("ready page:load", function() {
   setTimeout(

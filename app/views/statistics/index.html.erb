@@ -1,24 +1,63 @@
-<header>
-	<h1>Welcome index</h1>
-</header>
+<div id="statistic_date">
+	<header>
+		<div class="row">
+			<%= simple_form_for @date, :url => search_statistics_path,
+				:method => 'get' do |f| %>
+				<div class="col-sm-5">
+				  <%= f.input :start_date, order: [:day, :month, :year],
+				  selected: @date.start_date %>
+				</div>
+				<div class="col-sm-5">
+					<%= f.input :end_date, order: [:day,:month, :year],
+					selected: @date.end_date %>
+				</div>
+				<div class="col-sm-2">
+					<label>&nbsp;</label>
+					<%= f.button :submit, value: "Search",
+						class: "btn btn-default search-btn" %>
+				</div>
+			<% end %>
+		</div>
+	</header>
+	
+	<div class="row">
+		<div class="col-md-6">
+			<div class="listing-index icon-only">
+				<table>
+					<thead>
+						<tr>
+							<th>No.</th>
+							<th>Type</th>
+							<th>Revenue</th>
+							<th>Percentage</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% RoomType.all.each_with_index do |type, index| %>
+						<tr>
+							<td class="padding-top-15"><%= index + 1 %></td>
+							<td><%= render type %></td>
+							<td class="padding-top-15"><%= format_money(type.amount) %></td>
+							<td class="padding-top-15"><%= type.percentage %> %</td>
+						</tr>
+						<% end %>
+						<tr>
+							<td colspan="4">
+								<strong>
+									Total revenue: <%= format_money(RoomType.total_amount) %>
+								</strong>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 
-<div id="statistic_date" class="row">
-	<%= simple_form_for @date, :url => search_statistics_path,
-		:method => 'get' do |f| %>
-		<div class="col-sm-5">
-		  <%= f.input :start_date, order: [:day, :month, :year],
-		  selected: @date.start_date %>
+		<div class="col-md-6">
+			<%= pie_chart RoomType.revenue_chart %>
 		</div>
-		<div class="col-sm-5">
-			<%= f.input :end_date, order: [:day,:month, :year],
-			selected: @date.end_date %>
-		</div>
-		<div class="col-sm-2">
-			<label>&nbsp;</label>
-			<%= f.button :submit, value: "Search",
-				class: "btn btn-default search-btn" %>
-		</div>
-	<% end %>
+	</div>
+	
 </div>
 
 

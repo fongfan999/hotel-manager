@@ -106,7 +106,7 @@ a.pay {
 	}
 }
 
-li > a.export {
+li.export > a {
 	margin-top: 5px;
   color: #fff;
   background-color: #e74c3c;
@@ -257,9 +257,9 @@ li > a.export {
 		max-width: 100%;
 	}
 
-	// .form-search {
-	// 	@extend .form-inline;
-	// }
+	.listing-index table {
+		width: 100% !important;
+	}
 }
 
 #fixed-bottom { page-break-inside: avoid; }

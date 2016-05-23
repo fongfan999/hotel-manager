@@ -51,25 +51,29 @@
 <% else %>
 	<p>There is nothing to show. <%= link_to "New one?", new_room_path %></p>
 <% end %>
-	<div class="listing-index icon-only">
-		<table>
-			<thead>
-				<tr>
-					<th>No.</th>
-					<th>Type</th>
-					<th>Quantity</th>
-				</tr>
-			</thead>
-			<tbody>
-				<% RoomType.all.each_with_index do |type, index| %>
-				<tr>
-					<td class="padding-top-15"><%= index + 1 %></td>
-					<td><%= render type %></td>
-					<td><%= type.quantity %></td>
-				</tr>
-				<% end %>
-			</tbody>
-		</table>
-	</div>
+
+<div class="listing-index icon-only">
+	<table>
+		<thead>
+			<tr>
+				<th>No.</th>
+				<th>Type</th>
+				<th>Quantity</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% RoomType.all.each_with_index do |type, index| %>
+			<tr>
+				<td class="padding-top-15"><%= index + 1 %></td>
+				<td><%= render type %></td>
+				<td><%= type.quantity %></td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+
+
+<%= RoomType.first.amount %>
 
 <%= link_to "Back to home", root_path, class: "back" %>

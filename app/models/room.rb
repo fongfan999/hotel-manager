@@ -47,4 +47,12 @@ class Room < ActiveRecord::Base
 			end
 		end
 	end
+
+	def amount
+		receipts.includes(:bill).where
+			.not(bills: { employee_id: nil }).inject(0) do |amount, receipt|
+				amount += receipt.bill.grand_total
+				# receipt.type.cost ??? which one?
+			end
+	end
 end
