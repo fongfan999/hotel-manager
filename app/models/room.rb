@@ -1,6 +1,7 @@
 class Room < ActiveRecord::Base
 	belongs_to :type, class_name: "RoomType"
 	has_many :receipts
+	has_many :bills, through: :receipts
 	has_many :customers, through: :receipts
 
 	validates :name, presence: true, uniqueness: true
@@ -48,10 +49,9 @@ class Room < ActiveRecord::Base
 		end
 	end
 
-	def amount
-		receipts.includes(:bill).where
-			.not(bills: { employee_id: nil }).inject(0) do |amount, receipt|
-				amount += receipt.bill.grand_total
+	def amount(start_date, end_date)
+		bills.fill_date(start_date, end_date).inject(0) do |amount, bill|
+				amount += bill.grand_total
 				# receipt.type.cost ??? which one?
 			end
 	end

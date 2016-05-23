@@ -37,14 +37,21 @@
 						<tr>
 							<td class="padding-top-15"><%= index + 1 %></td>
 							<td><%= render type %></td>
-							<td class="padding-top-15"><%= format_money(type.amount) %></td>
-							<td class="padding-top-15"><%= type.percentage %> %</td>
+							<td class="padding-top-15">
+								<%= format_money(type.amount(@date.start_date,
+									@date.end_date)) %>
+							</td>
+							<td class="padding-top-15">
+								<%= type.percentage(@date.start_date, @date.end_date) %> %
+							</td>
 						</tr>
 						<% end %>
 						<tr>
 							<td colspan="4">
 								<strong>
-									Total revenue: <%= format_money(RoomType.total_amount) %>
+									Total revenue: 
+									<%= format_money(RoomType.total_amount(@date.start_date,
+										@date.end_date)) %>
 								</strong>
 							</td>
 						</tr>
@@ -54,7 +61,7 @@
 		</div>
 
 		<div class="col-md-6">
-			<%= pie_chart RoomType.revenue_chart %>
+			<%= pie_chart RoomType.revenue_chart(@date.start_date, @date.end_date) %>
 		</div>
 	</div>
 	

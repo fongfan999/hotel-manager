@@ -7,6 +7,11 @@ class Bill < ActiveRecord::Base
   delegate :customer, to: :receipt
   delegate :room, to: :receipt
 
+  scope :fill_date, -> (start_date, end_date) do
+    where(['bills.created_at >= ?', start_date.beginning_of_day])
+    .where(['bills.created_at <= ?', end_date.end_of_day])
+  end
+
   def amount
   	total = receipt.room.type.cost * receipt.total_days
   	services.each do |service|
