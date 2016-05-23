@@ -92,6 +92,8 @@ ActiveRecord::Schema.define(version: 20160522081007) do
   end
 
   create_table "statistics", force: :cascade do |t|
+    t.date     "start_date"
+    t.date     "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

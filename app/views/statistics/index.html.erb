@@ -2,9 +2,23 @@
 	<h1>Welcome index</h1>
 </header>
 
-<%= simple_form_for @revenue do |f| %>
-	<%= f.input :start_date %>
-	<%= f.input :end_date %>
+<div id="statistic_date" class="row">
+	<%= simple_form_for @date, :url => search_statistics_path,
+		:method => 'get' do |f| %>
+		<div class="col-sm-5">
+		  <%= f.input :start_date, order: [:day, :month, :year],
+		  selected: @date.start_date %>
+		</div>
+		<div class="col-sm-5">
+			<%= f.input :end_date, order: [:day,:month, :year],
+			selected: @date.end_date %>
+		</div>
+		<div class="col-sm-2">
+			<label>&nbsp;</label>
+			<%= f.button :submit, value: "Search",
+				class: "btn btn-default search-btn" %>
+		</div>
+	<% end %>
+</div>
 
-	<%= f.button :submit, class: "btn-success" %>
-<% end %>
+

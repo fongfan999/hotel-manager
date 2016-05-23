@@ -27,9 +27,9 @@ Rails.application.routes.draw do
     end
   end
 
-  
+  get 'statistics', to: "statistics#index"
 
-  get 'statistics', to: "statistics#index" do
+  resources :statistics, only: [] do
     collection do
       get :search
     end

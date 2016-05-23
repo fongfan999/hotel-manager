@@ -248,6 +248,20 @@ li > a.export {
 	}
 }
 
+.max-width-100 {
+	max-width: 100% !important;
+}
+
+#statistic_date {
+	form {
+		max-width: 100%;
+	}
+
+	// .form-search {
+	// 	@extend .form-inline;
+	// }
+}
+
 #fixed-bottom { page-break-inside: avoid; }
 
 #bill-pdf {
