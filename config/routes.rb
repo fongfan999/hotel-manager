@@ -15,6 +15,10 @@ Rails.application.routes.draw do
     member do
       patch :pay, to: "receipts#pay"
     end
+
+    collection do
+      get :search
+    end
   end
 
   resources :services, except: [:show, :destroy]

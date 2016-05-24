@@ -27,8 +27,22 @@ class ReceiptsController < ApplicationController
 		redirect_to @bill
 	end
 
+	def search
+		unless params[:search][:q].blank?
+			@receipts = Receipt.search(params[:search][:q]).paginate(:page => params[:page], per_page: 10)
+		else
+			@receipts = Receipt.all.paginate(:page => params[:page], per_page: 10)
+		end
+		
+		render :index
+	end
+
 	def new
 		@receipt = Receipt.new
+		if Room.available_room.count == 0
+			flash[:alert] = "There are no rooms available :("
+			redirect_to receipts_path
+		end
 	end
 
 	def edit
@@ -41,6 +55,7 @@ class ReceiptsController < ApplicationController
 	def create
 		@receipt = Receipt.new(receipt_params)
 		@receipt.employee = current_user
+		@receipt.code = @receipt.to_code
 		if @receipt.save
 			Bill.create(receipt_id: @receipt.id)
 			flash[:notice] = "Receipt was successfully created."

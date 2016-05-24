@@ -2,11 +2,29 @@
 
 <header>
 	<h1>Listing Receipts</h1>
-
+	
 	<ul class="actions">
-		<li><%= link_to "New Receipt", new_receipt_path,
-			class: "new" %></li>
+		<% unless Room.available_room.count == 0 %>
+			<li><%= link_to "New Receipt", new_receipt_path,
+				class: "new" %></li>
+		<% end %>
 	</ul>
+</header>
+
+<header>
+	<div id="receipt-search" class="row">
+		<%= simple_form_for :search,
+			url: search_receipts_path(:search), :method => 'get' do |f| %>
+			<div class="col-sm-8">
+			  <%= f.input :q, as: :string, label: false, placeholder: "Enter Receipt ID",
+			  	autofocus: true, 
+			  	:input_html => { value: (params[:search].nil?) ? "" : params[:search][:q] } %>
+			</div>
+			<div class="col-sm-4">
+				<%= f.button :submit, value: "Find!", class: "btn-default search-btn" %>
+			</div>
+		<% end %>
+	</div>
 </header>
 
 <% if @receipts.present? %>

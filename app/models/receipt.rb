@@ -15,6 +15,11 @@ class Receipt < ActiveRecord::Base
     joins(:customer).where(customer_id: Customer.set_customer)
   }
 
+  def self.search(search)
+    search = search.split(//).map {|x| x[/\d+/]}.compact.join("").to_i
+    where("code LIKE ?", "%#{search}%") 
+  end
+
   def max_quantity
     if quantity > room.max_quantity
       errors.add(:quantity, "is limited (#{room.max_quantity})")
