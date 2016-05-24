@@ -9,7 +9,11 @@ Rails.application.routes.draw do
 
   resources :rooms
 
-  resources :customers
+  resources :customers do
+    collection do
+      get :search
+    end
+  end
 
   resources :receipts, except: [:destroy] do
     member do

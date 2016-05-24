@@ -12,7 +12,7 @@ class ReceiptsController < ApplicationController
       respond_to do |format|
         format.html
         format.pdf do
-          render :pdf => "##{@receipt.to_code}",
+          render :pdf => "##{@receipt.code}",
             :template => 'receipts/show.pdf.erb'
         end
       end
@@ -29,11 +29,13 @@ class ReceiptsController < ApplicationController
 
 	def search
 		unless params[:search][:q].blank?
-			@receipts = Receipt.search(params[:search][:q]).paginate(:page => params[:page], per_page: 10)
+			@receipts = Receipt.search(params[:search][:q])
 		else
-			@receipts = Receipt.all.paginate(:page => params[:page], per_page: 10)
+			@receipts = Receipt.all
 		end
 		
+		@receipts = @receipts.paginate(:page => params[:page], per_page: 10)
+
 		render :index
 	end
 
@@ -55,7 +57,7 @@ class ReceiptsController < ApplicationController
 	def create
 		@receipt = Receipt.new(receipt_params)
 		@receipt.employee = current_user
-		@receipt.code = @receipt.to_code
+		@receipt.code = @receiptcode
 		if @receipt.save
 			Bill.create(receipt_id: @receipt.id)
 			flash[:notice] = "Receipt was successfully created."

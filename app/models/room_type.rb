@@ -17,7 +17,7 @@ class RoomType < ActiveRecord::Base
   scope :revenue_chart, -> (start_date, end_date) do
     hash = {}
 		RoomType.all.each do |type|
-			tmp_hash = Hash[type.name, type.percentage_revenues(start_date, end_date)]
+			tmp_hash = Hash[type.name, type.amount(start_date, end_date)]
 			hash = hash.merge(tmp_hash)
 		end
 		hash
@@ -26,7 +26,7 @@ class RoomType < ActiveRecord::Base
   scope :day_chart, -> (start_date, end_date) do
     hash = {}
 		RoomType.all.each do |type|
-			tmp_hash = Hash[type.name, type.percentage_days(start_date, end_date)]
+			tmp_hash = Hash[type.name, type.total_days(start_date, end_date)]
 			hash = hash.merge(tmp_hash)
 		end
 		hash

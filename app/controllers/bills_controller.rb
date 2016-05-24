@@ -16,7 +16,7 @@ class BillsController < ApplicationController
       respond_to do |format|
         format.html
         format.pdf do
-          render :pdf => "##{@bill.receipt.to_code}",
+          render :pdf => "##{@bill.receipt.code}",
             :template => 'bills/show.pdf.erb'
         end
       end

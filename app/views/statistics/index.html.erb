@@ -33,6 +33,15 @@
 	</header>
 	
 	<div class="row">
+		<div class="col-md-12">
+			<div id="spinner" class="spinner" style="display: none;">
+				<%= image_tag("spinner.gif", alt: "Loading") %>
+			</div>
+		</div>
+	</div>
+	
+	<div id="statistics">
+	<div class="row">
 		<div class="col-md-6">
 			<div class="listing-index icon-only">
 				<table>
@@ -119,5 +128,6 @@
 		<div class="col-md-6 col-md-pull-6">
 			<%= pie_chart RoomType.day_chart(@date.start_date, @date.end_date) %>
 		</div>
+	</div>
 	</div>
 </div>

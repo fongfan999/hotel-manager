@@ -38,4 +38,31 @@ class Customer < ActiveRecord::Base
 	def to_label
 		"#{name} - #{type.name}"
 	end
+
+	def self.search(param)
+    param.strip!
+    param.downcase!
+    (name_matches(param) + identity_card_matches(param) +
+    	phone_number_matches(param) + address_matches(param)).uniq
+  end
+
+  def self.name_matches(param)
+    matches("name", param)
+  end
+
+  def self.identity_card_matches(param)
+    matches("identity_card", param)
+  end
+
+  def self.phone_number_matches(param)
+    matches("phone_number", param)
+  end
+
+  def self.address_matches(param)
+  	matches("address", param)
+  end
+
+  def self.matches(field_name, param)
+    where("lower(#{field_name}) like ?", "%#{param}%")
+  end
 end

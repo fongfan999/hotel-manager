@@ -6,7 +6,7 @@
 			<div class="row">
 				<div class="col-xs-6">
 					<h3>ABC Hotel</h3>
-					<h4>Bill #<%= @bill.receipt.to_code %></h4>
+					<h4>Bill #<%= @bill.receipt.code %></h4>
 				</div>
 
 				<div class="col-xs-6">
@@ -38,7 +38,7 @@
 		<table class="info">
 			<tr>
 				<th>ID</th>
-				<td><%= @bill.receipt.to_code %></td>
+				<td><%= @bill.receiptcode %></td>
 			</tr>
 			<tr>
 				<th>Tax code</th>

@@ -20,6 +20,18 @@ class CustomersController < ApplicationController
   def edit
   end
 
+  def search
+    unless params[:search][:q].blank?
+      @customers = Customer.search(params[:search][:q])
+    else
+      @customers = Customer.all
+    end
+    
+    @customers = @customers
+
+    render :index
+  end
+
   def create
     @customer = Customer.new(room_params)
 

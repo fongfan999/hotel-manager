@@ -49,8 +49,15 @@ $(document).ready(function() {
   }
 
   $(".export").on("click", function() {
-    $(".export").hide();
-    $("#spinner").show();
+    $("li.export").hide();
+    $("li#spinner").show();
+  });
+
+  $(".search-btn").on("click", function() {
+    $("#statistics").hide();
+    $("#customers").hide();
+    $("#receipts").hide();
+    $("div#spinner").show();
   });
 });
 

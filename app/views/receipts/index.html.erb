@@ -27,6 +27,16 @@
 	</div>
 </header>
 
+<div class="row">
+	<div class="col-md-12">
+		<div id="spinner" class="spinner" style="display: none;">
+			<%= image_tag("spinner.gif", alt: "Loading") %>
+		</div>
+	</div>
+</div>
+
+<div id="receipts">
+
 <% if @receipts.present? %>
 	<div class="listing-index icon-only">
 		<table>
@@ -42,7 +52,7 @@
 			<tbody>
 				<% @receipts.each do |receipt| %>
 				<tr>
-					<td class="padding-top-15"><%= link_to receipt.to_code, receipt %></td>
+					<td class="padding-top-15"><%= link_to receipt.code, receipt %></td>
 					<td class="padding-top-15"><%= receipt.customer.name %></td>
 					<td class="padding-top-15"><%= receipt.room.name %></td>
 					<td>
@@ -68,6 +78,7 @@
 <% else %>
 	<p>There is nothing to show. <%= link_to "New one?", new_receipt_path %></p>
 <% end %>
+</div>
 
 <div class="will_page">
 	<div class="center">
