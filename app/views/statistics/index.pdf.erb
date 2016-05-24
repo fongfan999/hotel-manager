@@ -1,0 +1,140 @@
+<%= wicked_pdf_stylesheet_link_tag "application" %>
+<%= javascript_include_tag "https://www.google.com/jsapi" %>
+ <%= wicked_pdf_javascript_include_tag "application" %>
+
+
+<div id="statistics-pdf">
+	<div class="container">
+		<header>
+			<div class="row">
+				<div class="col-xs-6">
+					<h3>ABC Hotel</h3>
+					<h4>From: <%= @date.start_date %> to: <%= @date.end_date %></h4>
+				</div>
+
+				<div class="col-xs-6">
+					<div class="row">
+					<div class="col-xs-12">
+						<h6>ADDRESS</h6>
+		        <span class="border-top-info"></span>
+		        <p>5046 S Greenwood Avenue, Chicago, IL 60615</p>
+					</div>
+					</div>
+					
+					<div class="row">
+					<div class="col-xs-12">
+						<h6>CONTACT</h6>
+		        <span class="border-top-info"></span>
+		        <p>
+		          info@abchotel.com
+		        </p>
+		        <p>
+		          Tel: 123-456-789
+		        </p>
+					</div>
+					</div>
+
+				</div>
+			</div>
+		</header>
+
+		<div class="row">
+			<div class="col-md-6">
+				<div class="listing-index icon-only">
+					<table>
+						<thead>
+							<tr>
+								<th>No.</th>
+								<th>Type</th>
+								<th>Revenue</th>
+								<th>Percentage</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% RoomType.all.each_with_index do |type, index| %>
+							<tr>
+								<td class="padding-top-15"><%= index + 1 %></td>
+								<td>
+									<span class="label_type room_type-<%= type.name.parameterize %>">
+										<%= type %>
+									</span>
+								</td>
+								<td class="padding-top-15">
+									<%= format_money(type.amount(@date.start_date,
+										@date.end_date)) %>
+								</td>
+								<td class="padding-top-15">
+									<%= type.percentage_revenues(@date.start_date,
+										@date.end_date) %> %
+								</td>
+							</tr>
+							<% end %>
+							<tr>
+								<td colspan="4">
+									<strong>
+										Total revenue: 
+										<%= format_money(RoomType.total_amount(@date.start_date,
+											@date.end_date)) %>
+									</strong>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<%= pie_chart RoomType.revenue_chart(@date.start_date, @date.end_date) %>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6 col-md-push-6">
+					<div class="listing-index icon-only">
+						<table>
+							<thead>
+								<tr>
+									<th>No.</th>
+									<th>Type</th>
+									<th>Number of days rented</th>
+									<th>Percentage</th>
+								</tr>
+							</thead>
+							<tbody>
+								<% RoomType.all.each_with_index do |type, index| %>
+								<tr>
+									<td class="padding-top-15"><%= index + 1 %></td>
+									<td>
+										<span class="label_type room_type-<%= type.name.parameterize %>">
+											<%= type %>
+										</span>
+									</td>
+									<td class="padding-top-15">
+										<%= type.total_days(@date.start_date,	@date.end_date) %>
+									</td>
+									<td class="padding-top-15">
+										<%= type.percentage_days(@date.start_date, @date.end_date) %> %
+									</td>
+								</tr>
+								<% end %>
+								<tr>
+									<td colspan="4">
+										<strong>
+											Total days: 
+											<%= RoomType.total_days(@date.start_date, @date.end_date) %>
+										</strong>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div class="col-md-6 col-md-pull-6">
+					<%= pie_chart RoomType.day_chart(@date.start_date, @date.end_date) %>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+</div>

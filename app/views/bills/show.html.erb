@@ -4,8 +4,11 @@
 <header>
 	<h1>Bill Details</h1>
 	<ul class="actions">
-		<li class="export"><%= link_to "Export Bill", :action => "show",
+		<li class="export"><%= link_to "Generate PDF", :action => "show",
 			:format => :pdf %></li>
+		<li id="spinner" class="spinner" style="display: none;">
+	    <%= image_tag("spinner.gif", alt: "Loading") %>
+	  </li>
 	</ul>
 </header>
 

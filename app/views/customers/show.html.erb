@@ -39,6 +39,10 @@
 		<th>Address</th>
 			<td><%= @customer.check_blank(@customer.address) %></td>
 	</tr>
+	<tr>
+		<th>Created at</th>
+			<td><%= @customer.created_at.strftime("%d-%m-%Y, %I:%M:%S %p") %></td>
+	</tr>
 </table>
 
 <header>

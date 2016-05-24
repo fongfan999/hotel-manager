@@ -5,6 +5,14 @@ class StatisticsController < ApplicationController
 		begin_day = Date.today
 		end_day = Date.today
 		@date.update(start_date: begin_day, end_date: end_day)
+
+		respond_to do |format|
+      format.html
+      format.pdf do
+        render :pdf => "Statistics",
+          :template => 'statistics/index.pdf.erb'
+      end
+    end
 	end
 
 	def search

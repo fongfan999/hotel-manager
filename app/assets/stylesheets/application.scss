@@ -304,3 +304,33 @@ li.export > a {
 		height: 180px;
 	}
 }
+
+#statistics-pdf {
+	margin-top: -70px;
+
+	header {
+		color: #043E7B !important;
+		margin-bottom: 50px;
+	}
+	
+	h3 {
+		font-weight: bold;
+		color: #e74c3c;
+	}
+
+	h4 {
+		padding-top: 35px;
+	}
+
+	.col-xs-12 {
+		text-align: right;
+	}
+
+	p {
+		font-size: 0.7em;
+	}
+
+	.row {
+		page-break-inside: avoid;
+	}
+}

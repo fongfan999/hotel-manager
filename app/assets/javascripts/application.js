@@ -47,6 +47,11 @@ $(document).ready(function() {
   		$(this).css("background-color", "#fff");
     });
   }
+
+  $(".export").on("click", function() {
+    $(".export").hide();
+    $("#spinner").show();
+  });
 });
 
 
