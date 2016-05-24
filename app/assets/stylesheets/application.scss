@@ -39,7 +39,7 @@ header {
 	}
 }
 
-ul.actions {
+ul.actions, ul.list-actions {
 	@extend .list-unstyled;
 	@extend .list-inline;
 }

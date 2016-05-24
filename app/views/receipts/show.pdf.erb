@@ -1,0 +1,97 @@
+<%= wicked_pdf_stylesheet_link_tag "application" %>
+
+<div id="bill-pdf">
+	<div class="container">
+		<header>
+			<div class="row">
+				<div class="col-xs-6">
+					<h3>ABC Hotel</h3>
+					<h4>Receipt #<%= @receipt.to_code %></h4>
+				</div>
+
+				<div class="col-xs-6">
+					<div class="row">
+					<div class="col-xs-12">
+						<h6>ADDRESS</h6>
+		        <span class="border-top-info"></span>
+		        <p>5046 S Greenwood Avenue, Chicago, IL 60615</p>
+					</div>
+					</div>
+					
+					<div class="row">
+					<div class="col-xs-12">
+						<h6>CONTACT</h6>
+		        <span class="border-top-info"></span>
+		        <p>
+		          info@abchotel.com
+		        </p>
+		        <p>
+		          Tel: 123-456-789
+		        </p>
+					</div>
+					</div>
+
+				</div>
+			</div>
+		</header>
+
+		<table class="info">
+			<tr>
+				<th>ID</th>
+				<td><%= @receipt.to_code %></td>
+			</tr>
+			<tr>
+				<th>Tax code</th>
+				<td><%= @receipt.to_tax_code %></td>
+			</tr>
+			<tr>
+				<th>Customer</th>
+				<td><%= @receipt.customer.name %></td>
+			</tr>
+			<tr>
+				<th>Room</th>
+				<td><%= @receipt.room.name %></td>
+			</tr>
+			<tr>
+				<th>Quantity of people</th>
+				<td><%= @receipt.quantity %></td>
+			</tr>
+			<tr>
+				<th>Status</th>
+				<td>
+					<div class="row">
+						<div class="all-grid-system-4">
+							<span class="label_type receipt_status-<%= @receipt.status.
+								parameterize %>">
+								<%= @receipt.status %>
+							</span>
+						</div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>Arrival/Departure Date</th>
+				<td>
+					<% if @receipt.bill.blank? %>
+						<%= @receipt.created_at.strftime("%d-%m-%Y, %I:%M:%S %p") %>
+						(<%= time_ago_in_words(@receipt.created_at) %> ago)
+					<% else %>
+						<%= @receipt.bill.created_at.strftime("%d-%m-%Y, %I:%M:%S %p") %>
+					<% end %>
+				</td>
+			</tr>
+			<tr>
+				<th>Employee</th>
+				<td><%= @receipt.employee.email %></td>
+			</tr>
+		</table>
+
+		<div id="fixed-bottom">
+			<div class="row">
+				<div style="padding-bottom: 150px" class="col-xs-6 col-xs-push-6 center">
+					<i><b>Cashier Signature</b></i>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

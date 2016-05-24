@@ -7,7 +7,16 @@ class ReceiptsController < ApplicationController
 	end
 
 	def show
-		authorize_customer!(@receipt.customer) unless current_user.admin?
+		status = authorize_customer!(@receipt.customer) unless current_user.admin?
+		unless status
+      respond_to do |format|
+        format.html
+        format.pdf do
+          render :pdf => "##{@receipt.to_code}",
+            :template => 'receipts/show.pdf.erb'
+        end
+      end
+    end
 	end
 
 	def pay

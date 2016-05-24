@@ -3,7 +3,7 @@
 <header>
 	<h1>Receipt Details</h1>
 	<ul class="actions">
-		<% if @receipt.bill.employee.nil? %>
+		<% if @receipt.bill.employee.nil? && current_user.try(:admin?) %>
 			<li><%= link_to "Edit Receipt", [:edit, @receipt], class: "edit" %></li>
 			<li><%= link_to "Pay a bill", pay_receipt_path(@receipt),
 				method: :patch, class: "pay",
@@ -64,5 +64,15 @@
 		<td><%= @receipt.employee.email %></td>
 	</tr>
 </table>
+
+<% if current_user.try(:admin?) %>
+	<ul class="list-actions">
+		<li class="export"><%= link_to "Generate PDF", :action => "show",
+			:format => :pdf %></li>
+		<li id="spinner" class="spinner" style="display: none;">
+	    <%= image_tag("spinner.gif", alt: "Loading") %>
+	  </li>
+  </ul>
+<% end %>
 
 <%= link_to "Back", receipts_path, class: "back" %>
