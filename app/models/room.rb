@@ -5,6 +5,9 @@ class Room < ActiveRecord::Base
 	has_many :customers, through: :receipts
 
 	validates :name, presence: true, uniqueness: true
+	validates :max_quantity, presence: true,
+		numericality: {	only_integer: true, greater_than_or_equal_to: 1,
+			less_than_or_equal_to: 6 }
 
 	def self.available_room
 		availabe_room = []
@@ -38,14 +41,10 @@ class Room < ActiveRecord::Base
 	end
 
 	def status
-		if customers.blank?
+		if receipts.blank? || receipts.last.status == "Checked-out"
 			"Available"
 		else
-			if customers.last.receipts.last.status == "Checked-out"
-				"Available"
-			else
-				"Renting"
-			end
+			"Renting"
 		end
 	end
 

@@ -56,6 +56,6 @@ class RoomsController < ApplicationController
 	end
 
 	def room_params
-		params.require(:room).permit(:name, :type_id, :annotation)
+		params.require(:room).permit(:name, :max_quantity, :type_id, :annotation)
 	end
 end

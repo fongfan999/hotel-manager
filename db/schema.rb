@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160524065922) do
+ActiveRecord::Schema.define(version: 20160524091844) do
 
   create_table "bill_services", force: :cascade do |t|
     t.integer  "quantity",   default: 0
@@ -76,9 +76,10 @@ ActiveRecord::Schema.define(version: 20160524065922) do
   create_table "rooms", force: :cascade do |t|
     t.string   "name"
     t.text     "annotation"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.integer  "type_id"
+    t.integer  "max_quantity", default: 1
   end
 
   add_index "rooms", ["type_id"], name: "index_rooms_on_type_id"

@@ -46,7 +46,7 @@ class ReceiptsController < ApplicationController
 			flash[:notice] = "Receipt was successfully created."
 			redirect_to @receipt
 		else
-			flash[:alert] = "Receipt was not successfully created."
+			flash.now[:alert] = "Receipt was not successfully created."
 			render :new
 		end
 	end
@@ -56,7 +56,7 @@ class ReceiptsController < ApplicationController
 			flash[:notice] = "Receipt was successfully updated."
 			redirect_to receipts_path
 		else
-			flash[:alert] = "Receipt was not successfully updated."
+			flash.now[:alert] = "Receipt was not successfully updated."
 			render :edit
 		end
 	end

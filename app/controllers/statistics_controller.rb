@@ -1,4 +1,6 @@
 class StatisticsController < ApplicationController
+	before_action :authorize_admin!
+	
 	def index
 		@date = Statistic.first || Statistic.create
 

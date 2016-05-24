@@ -5,9 +5,17 @@ class Receipt < ActiveRecord::Base
   belongs_to :employee, class_name: "User"
 
   validates :quantity, presence: true,
-    numericality: { greater_than_or_equal_to: 1 }
+    numericality: { only_integer: true, greater_than_or_equal_to: 1 }
+
+  validate :max_quantity
 
   delegate :type, to: :customer
+
+  def max_quantity
+    if quantity > room.max_quantity
+      errors.add(:quantity, "is limited (#{room.max_quantity})")
+    end
+  end
 
   def to_code
   	if id < 10
