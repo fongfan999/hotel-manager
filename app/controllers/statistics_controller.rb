@@ -11,19 +11,14 @@ class StatisticsController < ApplicationController
 		@date = Statistic.first
 		@date.update(date_params)
 
-		begin_day = @date.start_date.beginning_of_day
-		end_day = @date.end_date.end_of_day
-		@date.update(start_date: begin_day, end_date: end_day)
-
-		if @date.start_date <= @date.end_date
-			flash[:notice] = "Successful" 
-			# @bill = Bill.first
-		else
-			flash[:alert] = "There"
+		unless @date.start_date <= @date.end_date
+			flash.now[:alert] = "There was a problem with date"
+			begin_day = Date.today
+			end_day = Date.today
+			@date.update(start_date: begin_day, end_date: end_day)
 		end
 
 		render "statistics/index"
-		# redirect_to statistics_path
 	end
 
 	private

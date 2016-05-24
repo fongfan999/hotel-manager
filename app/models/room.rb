@@ -55,4 +55,10 @@ class Room < ActiveRecord::Base
 				# receipt.type.cost ??? which one?
 			end
 	end
+
+	def total_days(start_date, end_date)
+		bills.fill_date(start_date, end_date).inject(0) do |total_days, bill|
+			total_days += bill.receipt.total_days
+		end
+	end
 end
