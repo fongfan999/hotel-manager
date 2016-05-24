@@ -92,6 +92,16 @@
 	<p>There is nothing to show.</p>
 <% end %>
 
+<div class="will_page">
+	<div class="center">
+		<div class="row">
+			<div class="col-md-12">
+				<%= will_paginate @receipts %>
+			</div>
+		</div>
+	</div>
+</div>
+
 <header>
 	<h1>Bill</h1>
 </header>
@@ -109,16 +119,14 @@
 			</thead>
 			<tbody>
 				<% @bills.each_with_index do |bill, index| %>
-					<% if bill.customer.account == current_user %>
-						<tr>
-							<td><%= link_to index + 1, bill %></td>
-							<td><%= bill.room.name %></td>
-							<td>
-								<%= bill.created_at.strftime("%d-%m-%Y") %>
-							</td>
-							<td><strong><%= format_money(bill.grand_total) %></strong></td>
-						</tr>
-					<% end %>
+					<tr>
+						<td><%= link_to index + 1, bill %></td>
+						<td><%= bill.room.name %></td>
+						<td>
+							<%= bill.created_at.strftime("%d-%m-%Y") %>
+						</td>
+						<td><strong><%= format_money(bill.grand_total) %></strong></td>
+					</tr>
 				<% end %>
 			</tbody>
 		</table>
@@ -127,5 +135,14 @@
 	<p>There is nothing to show.</p>
 <% end %>
 
+<div class="will_page">
+	<div class="center">
+		<div class="row">
+			<div class="col-md-12">
+				<%= will_paginate @bills %>
+			</div>
+		</div>
+	</div>
+</div>
 
 <%= link_to "Back", customers_path, class: "back" %>

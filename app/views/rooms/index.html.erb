@@ -41,7 +41,7 @@
 					<% if user_signed_in? && current_user.admin? %>
 						<td>
 							<%= link_to "", [:edit, room], class: "edit" %>
-							<% if room.customers.blank? %>
+							<% if room.status == "Available" %>
 								<%= link_to "", room, class: "delete",
 									method: :delete,
 									data: { confirm: "Are you sure to delete this room?" } %>

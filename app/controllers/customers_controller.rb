@@ -9,7 +9,8 @@ class CustomersController < ApplicationController
   def show
     authorize_customer!(@customer) unless current_user.admin?
     @receipts = Receipt.where(customer: @customer)
-    @bills = Bill.all
+      .paginate(:page => params[:page], per_page: 10)
+    @bills = Bill.available_bill.paginate(:page => params[:page], per_page: 10)
   end
 
   def new

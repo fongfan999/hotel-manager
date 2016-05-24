@@ -3,7 +3,7 @@ class ReceiptsController < ApplicationController
 	before_action :authorize_admin!, except: [:show]
 
 	def index
-		@receipts = Receipt.all
+		@receipts = Receipt.all.paginate(:page => params[:page], per_page: 10)
 	end
 
 	def show

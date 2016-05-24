@@ -12,6 +12,10 @@ class Bill < ActiveRecord::Base
     .where(['bills.created_at <= ?', end_date.end_of_day])
   end
 
+  scope :available_bill, lambda {
+    joins(:receipt).merge(Receipt.set_receipt)
+  }
+
   def amount
   	total = receipt.room.type.cost * receipt.total_days
   	services.each do |service|

@@ -11,6 +11,10 @@ class Receipt < ActiveRecord::Base
 
   delegate :type, to: :customer
 
+  scope :set_receipt, lambda {
+    joins(:customer).where(customer_id: Customer.set_customer)
+  }
+
   def max_quantity
     if quantity > room.max_quantity
       errors.add(:quantity, "is limited (#{room.max_quantity})")

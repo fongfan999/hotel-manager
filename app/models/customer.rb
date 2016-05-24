@@ -8,6 +8,10 @@ class Customer < ActiveRecord::Base
 	validates :identity_card, presence: true,
 		length: { minimum: 9, maximum: 15 }, uniqueness: true
 
+	scope :set_customer, lambda {
+	  joins(:account).where( users: {id: User.current_user.id})
+  }
+
 	def self.available_customer
 		available_customer = []
 		Customer.all.each do |customer|
