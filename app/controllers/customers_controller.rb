@@ -1,12 +1,15 @@
 class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_admin!, except: [:show]
 
   def index
     @customers = Customer.all.order(:name)
   end
 
   def show
+    authorize_customer!(@customer) unless current_user.admin?
     @receipts = Receipt.where(customer: @customer)
+    @bills = Bill.all
   end
 
   def new
@@ -20,6 +23,12 @@ class CustomersController < ApplicationController
     @customer = Customer.new(room_params)
 
     if @customer.save
+      password = @customer.identity_card
+      email = @customer.name.split[-1].downcase + "#{password}@example.com"
+      account = User.create!(email: email, password: password)
+      @customer.account = account
+      @customer.save
+
       flash[:notice] = "Customer was successfully created."
       redirect_to @customer
     else

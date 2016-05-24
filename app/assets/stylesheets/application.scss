@@ -120,6 +120,7 @@ li.export > a {
 
 .alert {
 	margin-top: 10px;
+	border-radius: 0;
 }
 
 .alert-notice {
@@ -164,6 +165,10 @@ li.export > a {
 
 .padding-top-15 {
 	padding-top: 15px !important;
+}
+
+.margin-right-15 {
+	margin-right: 15px;
 }
 
 .center {

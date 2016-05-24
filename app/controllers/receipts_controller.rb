@@ -1,11 +1,13 @@
 class ReceiptsController < ApplicationController
 	before_action :set_receipt, only: [:show, :edit, :update, :pay]
+	before_action :authorize_admin!, except: [:show]
 
 	def index
 		@receipts = Receipt.all
 	end
 
 	def show
+		authorize_customer!(@receipt.customer) unless current_user.admin?
 	end
 
 	def pay

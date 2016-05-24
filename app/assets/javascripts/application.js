@@ -21,7 +21,7 @@ $(document).on("ready page:load", function() {
   	function() {
 	   $(".alert").fadeOut();
 	  },
-	  5000000
+	  5000
 	);
 });
 

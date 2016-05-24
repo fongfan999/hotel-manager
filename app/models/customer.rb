@@ -2,6 +2,7 @@ class Customer < ActiveRecord::Base
 	belongs_to :type, class_name: "CustomerType"
 	has_many :receipts
 	has_many :rooms, through: :receipts
+	has_one :account, class_name: "User"
 
 	validates :name, presence: true
 	validates :identity_card, presence: true,

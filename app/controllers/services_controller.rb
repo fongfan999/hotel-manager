@@ -1,5 +1,6 @@
 class ServicesController < ApplicationController
   before_action :set_service, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_admin!, except: [:index]
 
   # GET /services
   # GET /services.json
@@ -50,16 +51,6 @@ class ServicesController < ApplicationController
         format.html { render :edit }
         format.json { render json: @service.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # DELETE /services/1
-  # DELETE /services/1.json
-  def destroy
-    @service.destroy
-    respond_to do |format|
-      format.html { redirect_to services_url, notice: 'Service was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 

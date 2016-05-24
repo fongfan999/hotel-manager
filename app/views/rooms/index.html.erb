@@ -2,10 +2,12 @@
 
 <header>
 	<h1>Listing Rooms</h1>
-
-	<ul class="actions">
-		<li><%= link_to "New Room", new_room_path, class: "new" %></li>
-	</ul>
+	
+	<% if user_signed_in? && current_user.admin? %>
+		<ul class="actions">
+			<li><%= link_to "New Room", new_room_path, class: "new" %></li>
+		</ul>
+	<% end %>
 </header>
 
 <% if @rooms.present? %>
@@ -18,7 +20,9 @@
 					<th>Name</th>
 					<th>Type</th>
 					<th>Status</th>
-					<th>Actions</th>
+					<% if user_signed_in? && current_user.admin? %>
+						<th>Actions</th>
+					<% end %>
 				</tr>
 			</thead>
 			<tbody>
@@ -34,15 +38,16 @@
 							<%= room.status %>
 						</span>
 					</td>
-					<td>
-						<%= link_to "", [:edit, room], class: "edit" %>
-						<% if room.customers.blank? %>
-							<%= link_to "", room, class: "delete",
-								method: :delete,
-								data: { confirm: "Are you sure to delete this room?" } %>
-						<% end %>
-						
-					</td>
+					<% if user_signed_in? && current_user.admin? %>
+						<td>
+							<%= link_to "", [:edit, room], class: "edit" %>
+							<% if room.customers.blank? %>
+								<%= link_to "", room, class: "delete",
+									method: :delete,
+									data: { confirm: "Are you sure to delete this room?" } %>
+							<% end %>
+						</td>
+					<% end %>
 				</tr>
 				<% end %>
 			</tbody>
@@ -52,12 +57,14 @@
 	<p>There is nothing to show. <%= link_to "New one?", new_room_path %></p>
 <% end %>
 
+<% if user_signed_in? && current_user.admin? %>
 <div class="listing-index icon-only">
 	<table>
 		<thead>
 			<tr>
 				<th>No.</th>
 				<th>Type</th>
+				<th>Price</th>
 				<th>Quantity</th>
 			</tr>
 		</thead>
@@ -66,11 +73,13 @@
 			<tr>
 				<td class="padding-top-15"><%= index + 1 %></td>
 				<td><%= render type %></td>
+				<td><%= format_money(type.cost) %></td>
 				<td><%= type.quantity %></td>
 			</tr>
 			<% end %>
 		</tbody>
 	</table>
 </div>
+<% end %>
 
 <%= link_to "Back to home", root_path, class: "back" %>

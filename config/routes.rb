@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :services, except: [:show]
+  resources :services, except: [:show, :destroy]
 
   resources :bills, only: [:index, :show] do
     resources :services, only: [] do

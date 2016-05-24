@@ -4,9 +4,11 @@
 
 <header>
   <h1>Listing Services</h1>
-  <ul class="actions">
-    <li><%= link_to "New Service", new_service_path, class: "new" %></li>
-  </ul>
+  <% if user_signed_in? && current_user.admin? %>
+    <ul class="actions">
+      <li><%= link_to "New Service", new_service_path, class: "new" %></li>
+    </ul>
+  <% end %>
 </header>
 
 <% if @services.present? %>
@@ -17,7 +19,9 @@
           <th>Name</th>
           <th>Unit price</th>
           <th>Price</th>
-          <th>Actions</th>
+          <% if user_signed_in? && current_user.admin? %>
+            <th>Actions</th>            
+          <% end %>
         </tr>
       </thead>
       <tbody>
@@ -28,11 +32,11 @@
             <td>
               <%= number_with_delimiter(service.price, delimiter: ',') %>
             </td>
-            <td>
-              <%= link_to 'Edit', [:edit, service], class: "edit" %>
-              <%= link_to 'Delete', service, method: :delete, class: "delete",
-                data: { confirm: 'Are you sure to delete this service?' } %>
-            </td>
+            <% if user_signed_in? && current_user.admin? %>
+              <td>
+                <%= link_to 'Edit', [:edit, service], class: "edit" %>
+              </td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>

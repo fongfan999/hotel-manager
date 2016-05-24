@@ -19,6 +19,31 @@ unless RoomType.exists?(name: "C")
 end
 
 
+unless Room.exists?(name: "101")
+	Room.create!(name: "101", type: RoomType.first)
+end
+
+unless Room.exists?(name: "102")
+	Room.create!(name: "102", type: RoomType.first)
+end
+
+unless Room.exists?(name: "103")
+	Room.create!(name: "103", type: RoomType.first)
+end
+
+unless Room.exists?(name: "201")
+	Room.create!(name: "201", type: RoomType.second)
+end
+
+unless Room.exists?(name: "202")
+	Room.create!(name: "202", type: RoomType.second)
+end
+
+unless Room.exists?(name: "301")
+	Room.create!(name: "301", type: RoomType.third)
+end
+
+
 unless CustomerType.exists?(name: "Newbie")
 	CustomerType.create!(name: "Newbie", discount: 0)
 end
@@ -69,4 +94,11 @@ end
 
 unless Service.exists?(name: "Vinh Hao")
 	Service.create!(name: "Vinh Hao", unit: "bottle", price: "10000")
+end
+
+
+unless User.exists?(email: "admin@example.com")
+	User.create!(email: "admin@example.com", password: "password",
+		admin: true
+	)
 end

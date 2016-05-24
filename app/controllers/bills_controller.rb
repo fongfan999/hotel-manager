@@ -1,7 +1,7 @@
 class BillsController < ApplicationController
-	# before_action :set_receipt
 	before_action :set_bill, only: [:update_service]
 	before_action :set_service, only: [:update_service]
+  before_action :authorize_admin!, except: [:show]
 
   def index
   	@bills = Bill.all
@@ -9,13 +9,16 @@ class BillsController < ApplicationController
 
   def show
   	@bill = Bill.find(params[:id])
+    status = authorize_customer!(@bill.customer) unless current_user.admin?
   	@services = Service.all.order(:name)
     
-    respond_to do |format|
-      format.html
-      format.pdf do
-        render :pdf => "##{@bill.receipt.to_code}",
-          :template => 'bills/show.pdf.erb'
+    unless status
+      respond_to do |format|
+        format.html
+        format.pdf do
+          render :pdf => "##{@bill.receipt.to_code}",
+            :template => 'bills/show.pdf.erb'
+        end
       end
     end
   end
