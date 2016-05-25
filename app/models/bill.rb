@@ -16,6 +16,8 @@ class Bill < ActiveRecord::Base
     joins(:receipt).merge(Receipt.set_receipt)
   }
 
+  self.per_page = 10
+  
   def amount
   	total = receipt.room.type.cost * receipt.total_days
   	services.each do |service|

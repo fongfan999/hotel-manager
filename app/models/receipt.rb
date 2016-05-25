@@ -15,6 +15,8 @@ class Receipt < ActiveRecord::Base
     joins(:customer).where(customer_id: Customer.set_customer)
   }
 
+  self.per_page = 10
+  
   def self.search(search)
     search = search.split(//).map {|x| x[/\d+/]}.compact.join("").to_i
     where("code LIKE ?", "%#{search}%") 

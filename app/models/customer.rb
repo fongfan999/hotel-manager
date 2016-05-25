@@ -12,6 +12,8 @@ class Customer < ActiveRecord::Base
 	  joins(:account).where( users: {id: User.current_user.id})
   }
 
+  self.per_page = 10
+
 	def self.available_customer
 		available_customer = []
 		Customer.all.each do |customer|

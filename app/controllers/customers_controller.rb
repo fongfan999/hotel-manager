@@ -1,16 +1,17 @@
+require 'will_paginate/array'
 class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
   before_action :authorize_admin!, except: [:show]
 
   def index
-    @customers = Customer.all.order(:name)
+    @customers = Customer.all.order(:name).paginate(:page => params[:page])
   end
 
   def show
     authorize_customer!(@customer) unless current_user.admin?
     @receipts = Receipt.where(customer: @customer)
-      .paginate(:page => params[:page], per_page: 10)
-    @bills = Bill.available_bill.paginate(:page => params[:page], per_page: 10)
+      .paginate(:page => params[:page])
+    @bills = Bill.available_bill.paginate(:page => params[:page])
   end
 
   def new
@@ -27,7 +28,7 @@ class CustomersController < ApplicationController
       @customers = Customer.all
     end
     
-    @customers = @customers
+    @customers = @customers.paginate(:page => params[:page])
 
     render :index
   end

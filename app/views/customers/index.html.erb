@@ -65,4 +65,14 @@
 <% end %>
 </div>
 
+<div class="will_page">
+	<div class="center">
+		<div class="row">
+			<div class="col-md-12">
+				<%= will_paginate @customers %>
+			</div>
+		</div>
+	</div>
+</div>
+
 <%= link_to "Back to home", root_path, class: "back" %>
