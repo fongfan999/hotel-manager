@@ -1,3 +1,98 @@
-// Place all the styles related to the admin/application controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#statistic {
+	background-color: #F1F4F7;
+}
+
+#statistic > .row {
+	margin-left: 20px;
+}
+
+
+#statistic {
+	h1, h2, h3, h4, h5, h6 {
+		color: #5f6468;
+	}
+}
+
+.col-md-3 {
+	padding-right: 40px;
+}
+
+.top-customers > .col-md-5 {
+	background-color: #30A5FF;
+}
+
+.bot-customers > p {
+	border-color: #30A5FF !important;
+	color: #30A5FF !important;
+}
+
+.top-rooms > .col-md-5 {
+	background-color: #FFB53E;
+}
+
+.bot-rooms > p {
+	border-color: #FFB53E !important;
+	color: #FFB53E !important;
+}
+
+.top-employees > .col-md-5 {
+	background-color: #1EBFAE;
+}
+
+.bot-employees > p {
+	border-color: #1EBFAE !important;
+	color: #1EBFAE !important;
+}
+
+.top-services > .col-md-5 {
+	background-color: #F9243F;
+}
+
+.bot-services > p {
+	border-color: #F9243F !important;
+	color: #F9243F !important;
+}
+
+.top-item {
+	background-color: #fff;
+	height: 80px;
+
+	.col-md-5 {
+		height: 80px;
+		text-align: center;
+
+		img {
+			width: 60px;
+			height: 60px;
+			margin-top: 10px;
+		}
+	}
+}
+
+.bot-item {
+	background-color: #fff;
+	height: 180px;
+	margin: 20px 0;
+	text-align: center;
+
+	h4 {
+		font-weight: 300;
+	}
+
+	p {
+		font-size: 26px;
+    color: #48CFAD;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    border: 2px solid #48CFAD;
+    line-height: 100px;
+    border-radius: 50px;
+    margin-top: 25px;
+	}
+}
+
+
+
+
+    

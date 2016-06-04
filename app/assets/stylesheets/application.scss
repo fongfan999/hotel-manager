@@ -3,10 +3,12 @@
 @import "font-awesome";
 @import "responsive";
 @import "welcome";
+@import "admin/application";
 
 body {
 	padding-top: 50px;
 	min-height: 700px;
+	background-color: #F1F4F7;
 }
 
 body a {
