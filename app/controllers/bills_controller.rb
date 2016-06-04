@@ -4,7 +4,7 @@ class BillsController < ApplicationController
   before_action :authorize_admin!, except: [:show]
 
   def index
-  	@bills = Bill.all.paginate(:page => params[:page])
+  	@bills = Bill.persisted.paginate(:page => params[:page])
   end
 
   def show

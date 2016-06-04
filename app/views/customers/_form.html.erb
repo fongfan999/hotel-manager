@@ -1,7 +1,9 @@
 <%= simple_form_for customer do |f| %>
 	<%= f.input :name %>
 	<%= f.input :identity_card %>
-	<%= f.association :type, label_method: :to_label, include_blank: false %>
+	<% admins_only do %>
+		<%= f.association :type, label_method: :to_label, include_blank: false %>
+	<% end %>
 	<%= f.input :phone_number %>
 	<%= f.input :address %>
 

@@ -114,7 +114,7 @@ li.export > a {
 
   &:before {
   	@extend .fa-2x;
-  	@extend .fa-file-pdf-o;
+  	@extend .fa-print;
   }
 }
 
@@ -267,9 +267,16 @@ li.export > a {
 	}
 }
 
-div.spinner {
-	width: 128px;
-	margin: 0 auto;
+.spinner {
+	width: 167px !important;
+  text-align: center;
+  margin: 0 auto;
+  display: none;
+  
+  img {
+  	width: 48px;
+  	height: 48px;
+  }
 }
 
 #fixed-bottom { page-break-inside: avoid; }
