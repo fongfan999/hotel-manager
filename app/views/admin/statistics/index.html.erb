@@ -13,13 +13,13 @@
 
 	<header>
 		<div class="row">
-			<%= simple_form_for @date, :url => search_statistics_path,
+			<%= simple_form_for @date, :url => search_admin_statistics_path,
 				:method => 'get' do |f| %>
-				<div class="col-sm-5">
+				<div class="col-sm-3">
 				  <%= f.input :start_date, order: [:day, :month, :year],
 				  selected: @date.start_date %>
 				</div>
-				<div class="col-sm-5">
+				<div class="col-sm-3">
 					<%= f.input :end_date, order: [:day,:month, :year],
 					selected: @date.end_date %>
 				</div>
@@ -57,7 +57,8 @@
 						<% RoomType.all.each_with_index do |type, index| %>
 						<tr>
 							<td class="padding-top-15"><%= index + 1 %></td>
-							<td><%= render type %></td>
+							<td><%= render partial: "room_types/room_type",
+								locals: { room_type: type } %></td>
 							<td class="padding-top-15">
 								<%= format_money(type.amount(@date.start_date,
 									@date.end_date)) %>
@@ -103,7 +104,8 @@
 						<% RoomType.all.each_with_index do |type, index| %>
 						<tr>
 							<td class="padding-top-15"><%= index + 1 %></td>
-							<td><%= render type %></td>
+							<td><%= render partial: "room_types/room_type",
+								locals: { room_type: type } %></td>
 							<td class="padding-top-15">
 								<%= type.total_days(@date.start_date,	@date.end_date) %>
 							</td>

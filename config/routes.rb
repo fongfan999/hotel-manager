@@ -2,6 +2,16 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root 'application#index'
+
+    get 'statistics', to: "statistics#index"
+
+    resources :statistics, only: [] do
+      collection do
+        get :search
+      end
+    end
+    
+    resources :users
   end
 
   devise_for :users, :skip => [:registrations]                                          
@@ -41,14 +51,6 @@ Rails.application.routes.draw do
 
     member do
       get :report, to: "bills#report"
-    end
-  end
-
-  get 'statistics', to: "statistics#index"
-
-  resources :statistics, only: [] do
-    collection do
-      get :search
     end
   end
 

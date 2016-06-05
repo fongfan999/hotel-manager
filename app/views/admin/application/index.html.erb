@@ -6,7 +6,8 @@
 	<div class="row">
 		<div class="col-md-3">
 			<div class="row top-item top-customers">
-				<div class="col-md-5"><%= image_tag "customer.png" %></div>
+				<div class="col-md-5"><%= link_to image_tag("customer.png"),
+					customers_path %></div>
 				<div class="col-md-7">
 					<h3>120</h3>
 					<h5>Customers</h5>
@@ -23,7 +24,8 @@
 
 		<div class="col-md-3">
 			<div class="row top-item top-rooms">
-				<div class="col-md-5"><%= image_tag "room.png" %></div>
+				<div class="col-md-5"><%= link_to image_tag("room.png"),
+					rooms_path %></div>
 				<div class="col-md-7">
 					<h3>120</h3>
 					<h5>Rooms</h5>
@@ -40,7 +42,8 @@
 
 		<div class="col-md-3">
 			<div class="row top-item top-employees">
-				<div class="col-md-5"><%= image_tag "employee.png" %></div>
+				<div class="col-md-5"><%= link_to image_tag("employee.png"),
+					admin_users_path %></div>
 				<div class="col-md-7">
 					<h3>120</h3>
 					<h5>Employees</h5>
@@ -57,7 +60,8 @@
 
 		<div class="col-md-3">
 			<div class="row top-item top-services">
-				<div class="col-md-5"><%= image_tag "service.png" %></div>
+				<div class="col-md-5"><%= link_to image_tag("service.png"),
+					services_path %></div>
 				<div class="col-md-7">
 					<h3>120</h3>
 					<h5>Services</h5>
