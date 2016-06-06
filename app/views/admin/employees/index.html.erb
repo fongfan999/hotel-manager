@@ -1,0 +1,66 @@
+<%= title("Employees") %>
+
+<header>
+	<h1>Listing Employees</h1>
+
+	<ul class="actions">
+		<li><%= link_to "New Employee", new_admin_employee_path,
+			class: "new" %></li>
+	</ul>
+</header>
+
+<div id="employees">
+<% if @employees.present? %>
+	<div class="listing-index icon-only">
+		<table>
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th>Name</th>
+					<th>Gender</th>
+					<th>Birthday</th>
+					<th>Hire day</th>
+					<th>Phone</th>
+					<th>Address</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @employees.each_with_index do |employee, index| %>
+				<tr>
+					<td class="padding-top-15"><%= link_to index + 1 %></td>
+					<td class="padding-top-15"><%= employee.name %></td>
+					<td class="padding-top-15"><%= employee.to_gender %></td>
+					<td class="padding-top-15">
+						<%= employee.date_of_birth.strftime("%d-%m-%Y") %>
+					</td>
+					<td class="padding-top-15">
+						<%= employee.created_at.strftime("%d-%m-%Y") %>
+					</td>
+					<td class="padding-top-15"><%= employee.phone %></td>
+					<td class="padding-top-15"><%= employee.address %></td>
+					<td>
+						<%= link_to "", [:edit, :admin, employee], class: "edit" %>
+						<%= link_to "", [:admin, employee] ,class: "delete",
+							method: :delete,
+							data: { confirm: "Are you sure to delete this employee?" } %>
+					</td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+<% end %>
+</div>
+
+<div class="will_page">
+	<div class="center">
+		<div class="row">
+			<div class="col-md-12">
+				<%= will_paginate @employees %>
+			</div>
+		</div>
+	</div>
+</div>
+
+<%= link_to "Back to home", root_path, class: "back" %>

@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 	has_many :bills
 	belongs_to :customer
+  belongs_to :employee
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, 
@@ -16,7 +17,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def haha
-  	User.current_user.email
+  def employee?
+    role == "employee"
   end
 end

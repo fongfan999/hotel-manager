@@ -17,6 +17,7 @@
 //= require chartkick
 //= require flat-ui
 
+
 $(document).on("ready page:load", function() {
   setTimeout(
   	function() {
@@ -45,6 +46,11 @@ $(document).ready(function() {
     $("#receipts").hide();
     $("div#spinner").show();
   });
+
+  // Fix Flat UI
+  var tmp = $(".radio").find("label");
+  tmp[1].click();
+  tmp[0].click();
 });
 
 

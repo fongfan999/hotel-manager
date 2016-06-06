@@ -1,0 +1,9 @@
+<%= title("New Employee") %>
+
+<header>
+	<h1>New Employee</h1>
+</header>
+
+<%= render "form", employee: @employee %>
+
+<%= link_to "Back", admin_employees_path, class: "back" %>

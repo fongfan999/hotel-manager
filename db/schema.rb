@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160524155110) do
+ActiveRecord::Schema.define(version: 20160606110401) do
 
   create_table "bill_services", force: :cascade do |t|
     t.integer  "quantity",   default: 0
@@ -52,6 +52,16 @@ ActiveRecord::Schema.define(version: 20160524155110) do
   end
 
   add_index "customers", ["type_id"], name: "index_customers_on_type_id"
+
+  create_table "employees", force: :cascade do |t|
+    t.string   "name"
+    t.boolean  "gender",        default: false
+    t.date     "date_of_birth"
+    t.string   "phone"
+    t.text     "address"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
 
   create_table "receipts", force: :cascade do |t|
     t.integer  "customer_id"
@@ -115,10 +125,13 @@ ActiveRecord::Schema.define(version: 20160524155110) do
     t.datetime "updated_at",                             null: false
     t.boolean  "admin",                  default: false
     t.integer  "customer_id"
+    t.string   "role",                   default: ""
+    t.integer  "employee_id"
   end
 
   add_index "users", ["customer_id"], name: "index_users_on_customer_id"
   add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["employee_id"], name: "index_users_on_employee_id"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end

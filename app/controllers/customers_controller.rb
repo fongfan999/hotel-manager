@@ -1,4 +1,5 @@
 require 'will_paginate/array'
+
 class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
   before_action :authorize_admin!, except: [:show]
@@ -34,7 +35,7 @@ class CustomersController < ApplicationController
   end
 
   def create
-    @customer = Customer.new(room_params)
+    @customer = Customer.new(customer_params)
 
     if @customer.save
       password = @customer.identity_card
@@ -46,17 +47,17 @@ class CustomersController < ApplicationController
       flash[:notice] = "Customer was successfully created."
       redirect_to @customer
     else
-      flash[:alert] = "Customer was not successfully created."
+      flash.now[:alert] = "Customer was not successfully created."
       render :new
     end
   end
 
   def update
-    if @customer.update(room_params)
+    if @customer.update(customer_params)
       flash[:notice] = "Customer was successfully updated."
       redirect_to @customer
     else
-      flash[:alert] = "Customer was not successfully updated."
+      flash.now[:alert] = "Customer was not successfully updated."
       render :edit
     end
   end
@@ -73,7 +74,7 @@ class CustomersController < ApplicationController
     @customer = Customer.find(params[:id])
   end
 
-  def room_params
+  def customer_params
     params.require(:customer).permit(:name, :type_id, :identity_card,
       :phone_number, :address)
   end

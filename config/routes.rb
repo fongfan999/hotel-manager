@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       end
     end
     
-    resources :users
+    resources :employees
   end
 
   devise_for :users, :skip => [:registrations]                                          

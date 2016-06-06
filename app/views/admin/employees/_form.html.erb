@@ -1,0 +1,11 @@
+<%= simple_form_for [:admin, employee] do |f| %>
+	<%= f.input :name %>
+	<%= f.input :gender, collection: [['Male', true] ,['Female', false]],
+		as: :radio_buttons, checked: employee.gender %>
+	<%= f.input :date_of_birth, start_year: Date.today.year - 90,
+    end_year: Date.today.year - 15, order: [:day, :month, :year] %>
+	<%= f.input :phone %>
+	<%= f.input :address %>
+
+	<%= f.button :submit, class: "btn-success" %>
+<% end %>

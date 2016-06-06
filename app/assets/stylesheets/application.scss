@@ -6,12 +6,12 @@
 @import "responsive";
 @import "welcome";
 @import "admin/application";
-@import 'flat-ui/modules/footer';
-@import 'flat-ui/modules/login';
-@import 'flat-ui/modules/palette';
-@import 'flat-ui/modules/share';
-@import 'flat-ui/modules/tile';
-@import 'flat-ui/modules/todo';
+// @import 'flat-ui/modules/footer';
+// @import 'flat-ui/modules/login';
+// @import 'flat-ui/modules/palette';
+// @import 'flat-ui/modules/share';
+// @import 'flat-ui/modules/tile';
+// @import 'flat-ui/modules/todo';
 
 body {
 	padding-top: 50px;
@@ -161,6 +161,10 @@ li.export > a {
 	margin-bottom: 30px;
 }
 
+.listing-index {
+	overflow-x: auto;
+}
+
 .listing-index table {
 	@extend .table;
 	@extend .table-bordered;
@@ -238,6 +242,10 @@ li.export > a {
 .receipt_status-checked-out {
 	background-color: #c0392b;
 	min-width: 100px;
+}
+
+.first-icon, .second-icon {
+	top: 7px !important;
 }
 
 #footer {
