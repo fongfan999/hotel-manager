@@ -16,7 +16,7 @@
 body {
 	padding-top: 50px;
 	min-height: 700px;
-	// background-color: #F1F4F7;
+	overflow-x: hidden;
 }
 
 body a {
@@ -26,10 +26,6 @@ body a {
 	-o-transition:0.3s all;
 	-ms-transition:0.3s all;
 }
-
-// .form-control, .btn, .label {
-// 	border-radius: 0;
-// }
 
 div.tooltip-inner {
   font-size: 20px;
