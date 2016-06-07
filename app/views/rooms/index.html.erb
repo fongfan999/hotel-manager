@@ -3,9 +3,9 @@
 <header>
 	<h1>Listing Rooms</h1>
 	
-	<% if user_signed_in? && current_user.admin? %>
+	<% admins_only do %>
 		<ul class="actions">
-			<li><%= link_to "New Room", new_room_path, class: "new" %></li>
+			<li><%= link_to "New Room", new_admin_room_path, class: "new" %></li>
 		</ul>
 	<% end %>
 </header>
@@ -38,11 +38,11 @@
 							<%= room.status %>
 						</span>
 					</td>
-					<% if user_signed_in? && current_user.admin? %>
+					<% admins_only do %>
 						<td>
-							<%= link_to "", [:edit, room], class: "edit" %>
+							<%= link_to "", [:edit, :admin, room], class: "edit" %>
 							<% if room.status == "Available" %>
-								<%= link_to "", room, class: "delete",
+								<%= link_to "", [:admin, room], class: "delete",
 									method: :delete,
 									data: { confirm: "Are you sure to delete this room?" } %>
 							<% end %>
@@ -54,10 +54,10 @@
 		</table>
 	</div>
 <% else %>
-	<p>There is nothing to show. <%= link_to "New one?", new_room_path %></p>
+	<p>There is nothing to show.</p>
 <% end %>
 
-<% if user_signed_in? && current_user.admin? %>
+<% admins_only do %>
 <div class="listing-index icon-only">
 	<table>
 		<thead>

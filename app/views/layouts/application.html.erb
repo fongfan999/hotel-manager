@@ -29,12 +29,6 @@
           <li class=<%= "active" if current_page?("/") %>>
             <%= link_to "Home", root_path %>
           </li>
-          <li class=<%= "active" if current_page?("/rooms") %>>
-            <%= link_to "Room", rooms_path %>
-          </li>
-          <li class=<%= "active" if current_page?("/services") %>>
-            <%= link_to "Service", services_path %>
-          </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <% if user_signed_in? %>
@@ -43,10 +37,8 @@
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Actions
                 <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><%= link_to "Receipt", receipts_path %></li>
-                  <li><%= link_to "Bill", bills_path %></li>
-                  <li><%= link_to "Customer", customers_path %></li>
-                  <li><%= link_to "Statistic", admin_statistics_path %></li>
+                  <li><%= link_to "Receipts", receipts_path %></li>
+                  <li><%= link_to "Bills", bills_path %></li>
                 </ul>
               </li>
             <% end %>
@@ -102,7 +94,7 @@
   <% end %>
 </div>
 
-<div class=<%= "container" unless current_page?("/") %>>
+<div class=<%= "container" unless current_page?("/") || current_page?("/admin") %>>
 	<%= yield %>
 </div>
 

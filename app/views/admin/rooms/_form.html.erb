@@ -1,4 +1,4 @@
-<%= simple_form_for room do |f| %>
+<%= simple_form_for [:admin, room] do |f| %>
 	<%= f.input :name %>
 	<%= f.input :max_quantity %>
 	<%= f.association :type, label_method: :to_label, include_blank: false %>

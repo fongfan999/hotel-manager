@@ -4,10 +4,10 @@
 
 <header>
   <h1>Listing Services</h1>
-  <% if user_signed_in? && current_user.admin? %>
-    <ul class="actions">
-      <li><%= link_to "New Service", new_service_path, class: "new" %></li>
-    </ul>
+  <% admins_only do %>
+  <ul class="actions">
+    <li><%= link_to "New Service", new_admin_service_path, class: "new" %></li>
+  </ul>
   <% end %>
 </header>
 
@@ -19,9 +19,7 @@
           <th>Name</th>
           <th>Unit price</th>
           <th>Price</th>
-          <% if user_signed_in? && current_user.admin? %>
-            <th>Actions</th>            
-          <% end %>
+          <th>Actions</th>            
         </tr>
       </thead>
       <tbody>
@@ -30,12 +28,12 @@
             <td><%= service.name %></td>
             <td><%= service.unit %></td>
             <td>
-              <%= number_with_delimiter(service.price, delimiter: ',') %>
+              <%= format_money(service.price) %>
             </td>
-            <% if user_signed_in? && current_user.admin? %>
-              <td>
-                <%= link_to 'Edit', [:edit, service], class: "edit" %>
-              </td>
+            <% admins_only do %>
+            <td>
+              <%= link_to 'Edit', [:edit, :admin, service], class: "edit" %>
+            </td>
             <% end %>
           </tr>
         <% end %>
@@ -43,7 +41,7 @@
     </table>
   </div>
 <% else %>
-  <p>There is nothing to show. <%= link_to "New one?", new_room_path %></p>
+  <p>There is nothing to show.</p>
 <% end %>
 
 <%= link_to "Back to Home", root_path, class: "back" %>

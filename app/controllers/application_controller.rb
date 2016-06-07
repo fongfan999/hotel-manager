@@ -14,6 +14,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def authorize_employee!
+    unless current_user.employee? || current_user.admin?
+      flash.now[:alert] = "You aren't allowed to do that."
+      redirect_to root_path
+    end
+  end
+
   def set_current_user
     User.current_user = current_user
   end

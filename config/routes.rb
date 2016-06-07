@@ -12,6 +12,10 @@ Rails.application.routes.draw do
     end
     
     resources :employees
+
+    resources :rooms, except: [:index, :show]
+
+    resources :services, except: [:index, :show, :destroy]
   end
 
   devise_for :users, :skip => [:registrations]                                          
@@ -22,7 +26,7 @@ Rails.application.routes.draw do
   
   root 'welcome#index'
 
-  resources :rooms
+  resources :rooms, only: [:index, :show]
 
   resources :customers do
     collection do
@@ -40,7 +44,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :services, except: [:show, :destroy]
+  resources :services, only: [:index]
 
   resources :bills, only: [:index, :show] do
     resources :services, only: [] do
