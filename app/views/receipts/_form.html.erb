@@ -1,10 +1,10 @@
 <%= simple_form_for receipt do |f| %>
 	<%= f.association :customer, include_blank: false, 
-		collection: receipt.id.nil? ? Customer.available_customer : receipt.customer.available_customer %>
+		collection: receipt.id.nil? ? Customer.available_customer : receipt.customer.available_customer %><br/>
 	<small>
 		New Customer? <%= link_to "Bring me to New Customer page",
 			new_customer_path %>
-	</small>
+	</small><br/>
 	<%= f.association :room, include_blank: false,
 		collection: receipt.id.nil? ? Room.available_room : receipt.room.available_room %>
 	<%= f.input :quantity, label: "Quantity of people" %>

@@ -3,12 +3,12 @@
 <header>
 	<h1>Receipt Details</h1>
 	<ul class="actions">
-		<% if @receipt.bill.employee.nil? && current_user.try(:admin?) %>
+		<% if @receipt.bill.employee.nil? && 
+			(current_user.try(:admin?) || current_user.employee?) %>
 			<li><%= link_to "Edit Receipt", [:edit, @receipt], class: "edit" %></li>
 			<li><%= link_to "Pay a bill", pay_receipt_path(@receipt),
 				method: :patch, class: "pay",
-				data: { toggle: 'tooltip', placement: "bottom",
-				confirm: "Are you sure to pay a bill?" } %></li>
+				data: { confirm: "Are you sure to pay a bill?" } %></li>
 		<% end %>
 	</ul>
 </header>
@@ -61,18 +61,16 @@
 	</tr>
 	<tr>
 		<th>Employee</th>
-		<td><%= @receipt.employee.email %></td>
+		<td><%= @receipt.employee_name %></td>
 	</tr>
 </table>
 
-<% if current_user.try(:admin?) %>
-	<ul class="list-actions">
-		<li class="export"><%= link_to "Generate PDF", :action => "show",
-			:format => :pdf %></li>
-		<li id="spinner" class="spinner" style="display: none;">
-	    <%= image_tag("spinner.gif", alt: "Loading") %>
-	  </li>
-  </ul>
-<% end %>
+<ul class="list-actions">
+	<li class="export"><%= link_to "Generate PDF", :action => "show",
+		:format => :pdf %></li>
+	<li id="spinner" class="spinner" style="display: none;">
+    <%= image_tag("spinner.gif", alt: "Loading") %>
+  </li>
+</ul>
 
 <%= link_to "Back", receipts_path, class: "back" %>

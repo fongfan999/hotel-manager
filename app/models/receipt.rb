@@ -52,4 +52,8 @@ class Receipt < ActiveRecord::Base
       total
     end
   end
+
+  def employee_name
+    employee.admin? ? "Admin" : employee.employee.name
+  end
 end

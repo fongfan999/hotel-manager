@@ -36,4 +36,8 @@ class Bill < ActiveRecord::Base
   def grand_total
     (amount) + (amount / 10) - (amount * discount / 100)
   end
+
+  def employee_name
+    employee.admin? ? "Admin" : employee.employee.name
+  end
 end

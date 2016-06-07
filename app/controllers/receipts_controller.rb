@@ -1,20 +1,21 @@
 class ReceiptsController < ApplicationController
 	before_action :set_receipt, only: [:show, :edit, :update, :pay]
-	before_action :authorize_admin!, except: [:show]
+	before_action :authorize_employee!, except: [:show]
 
 	def index
 		@receipts = Receipt.all.paginate(:page => params[:page])
 	end
 
 	def show
-		status = authorize_customer!(@receipt.customer) unless current_user.admin?
-		unless status
-      respond_to do |format|
-        format.html
-        format.pdf do
-          render :pdf => "##{@receipt.code}",
-            :template => 'receipts/show.pdf.erb'
-        end
+		unless current_user.admin? || current_user.employee?
+			authorize_customer!(@receipt.customer)
+		end
+		
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render :pdf => "##{@receipt.code}",
+          :template => 'receipts/show.pdf.erb'
       end
     end
 	end
