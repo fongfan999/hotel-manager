@@ -2,7 +2,7 @@ require 'will_paginate/array'
 
 class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
-  before_action :authorize_employee!, except: [:show]
+  before_action :authorize_employee!, except: [:show, :new, :create]
 
   def index
     @customers = Customer.all.order(:name).paginate(:page => params[:page])
@@ -19,6 +19,7 @@ class CustomersController < ApplicationController
   end
 
   def new
+    redirect_to root_path unless current_user.customer.nil?
     @customer = Customer.new
   end
 
@@ -41,10 +42,8 @@ class CustomersController < ApplicationController
     @customer = Customer.new(customer_params)
 
     if @customer.save
-      password = @customer.identity_card
-      email = @customer.name.split[-1].downcase + "#{password}@example.com"
-      account = User.create!(email: email, password: password)
-      @customer.account = account
+      @customer.account = current_user
+      @customer.type = CustomerType.first
       @customer.save
 
       flash[:notice] = "Customer was successfully created."

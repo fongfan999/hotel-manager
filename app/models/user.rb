@@ -1,11 +1,11 @@
 class User < ActiveRecord::Base
 	has_many :bills
-	belongs_to :customer
-  belongs_to :employee
+	belongs_to :customer, dependent: :destroy
+  belongs_to :employee, dependent: :destroy
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, 
-         :recoverable, :rememberable, :trackable, :validatable      
+         :recoverable, :rememberable, :trackable, :validatable  
 
   class << self
     def current_user=(user)

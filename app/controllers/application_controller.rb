@@ -21,6 +21,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def activate_account!
+    unless current_user.nil?
+      if current_user.customer.nil? && !current_user.employee? && !current_user.admin?
+       redirect_to new_customer_path
+      end
+    end
+  end
+
   def set_current_user
     User.current_user = current_user
   end
