@@ -76,7 +76,7 @@
 		</table>
 	</div>
 <% else %>
-	<p>There is nothing to show. <%= link_to "New one?", new_receipt_path %></p>
+	<p>There is nothing to show.</p>
 <% end %>
 </div>
 
@@ -90,4 +90,4 @@
 	</div>
 </div>
 
-<%= link_to "Back to home", root_path, class: "back" %>
+<%= link_to "Back", :back, class: "back" %>

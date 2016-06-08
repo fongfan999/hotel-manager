@@ -3,12 +3,16 @@
 <header>
 	<h1>Receipt Details</h1>
 	<ul class="actions">
-		<% if @receipt.bill.employee.nil? && 
-			(current_user.try(:admin?) || current_user.employee?) %>
+		<% if @receipt.bill.employee.nil? %>
+			<% if (current_user.try(:admin?) || current_user.employee?) %>
 			<li><%= link_to "Edit Receipt", [:edit, @receipt], class: "edit" %></li>
 			<li><%= link_to "Pay a bill", pay_receipt_path(@receipt),
 				method: :patch, class: "pay",
 				data: { confirm: "Are you sure to pay a bill?" } %></li>
+			<% end %>
+			
+		<% else %>
+			<li><%= link_to "Go to Bill", bill_path(@receipt.bill) %></li>
 		<% end %>
 	</ul>
 </header>
@@ -52,10 +56,8 @@
 		<td>
 			<% if @receipt.bill.blank? %>
 				<%= @receipt.created_at.strftime("%d-%m-%Y, %I:%M:%S %p") %>
-				(<%= time_ago_in_words(@receipt.created_at) %> ago)
 			<% else %>
 				<%= @receipt.bill.created_at.strftime("%d-%m-%Y, %I:%M:%S %p") %>
-				(<%= time_ago_in_words(@receipt.created_at) %> ago)
 			<% end %>
 		</td>
 	</tr>
@@ -73,4 +75,99 @@
   </li>
 </ul>
 
-<%= link_to "Back", receipts_path, class: "back" %>
+<% if @receipt.bill.employee.nil? %>
+<div class="listing-index">
+	<table>
+		<thead>
+			<tr>
+				<th>No.</th>
+				<th>Charge</th>
+				<th>Price</th>
+				<th>Quantity</th>
+				<th>Amount</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>Room Rent</td>
+				<td><%= format_money(@receipt.room.type.cost) %></td>
+				<td><%= pluralize(@receipt.total_days, 'day') %></td>
+				<td class="right">
+					<%= format_money(@receipt.room.type.cost * @receipt.total_days) %>
+				</td>
+			</tr>
+			<% @receipt.services.each_with_index do |service, index| %>
+				<% unless service.get_quantity(@receipt) == 0 %>
+					<tr>
+						<td><%= index + 2 %></td>
+						<td><%= service.name %></td>
+						<td><%= format_money(service.price) %></td>
+						<td><%= pluralize(service.get_quantity(@receipt), service.unit) %></td>
+						<td class="right">
+							<%= format_money(service.price * service.get_quantity(@receipt)) %>
+						</td>
+					</tr>
+				<% end %>
+			<% end %>
+			<tr>
+				<td colspan="4">Total</td>
+				<td class="right"><%= format_money(@receipt.amount) %></td>
+			</tr>
+			<tr>
+				<td colspan="4">VAT amount (10%)</td>
+				<td class="right">+ <%= format_money(@receipt.amount.to_f/10) %></td>
+			</tr>
+			<tr>
+				<td colspan="4">Discount (<%= @receipt.discount %>%)</td>
+				<td class="right">
+					- <%= format_money(@receipt.amount * @receipt.discount / 100) %> 
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4">Grand total</td>
+				<td class="right">
+					<strong><%= format_money(@receipt.grand_total) %></strong>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div id="services">
+	<header>
+		<h1>Services</h1>
+	</header>
+
+	<div class="listing-index icon-only">
+		<%= simple_form_for :update_individual,
+			url: update_individual_receipt_path, method: :post do |f| %>
+			<table>
+			  <thead>
+			    <tr>
+			      <th>Name</th>
+			      <th>Price</th>
+			      <th>Quantity</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+					<% Service.all.order(:name).each do |service| %>
+						<tr>
+							<td><%= service.name %></td>
+							<td><%= format_money(service.price) %></td>
+							<%= f.simple_fields_for "services[]", service do |r| %>
+						    <td><%= r.input :quantity, as: :integer, label: false, 
+								input_html: { value: service.get_quantity(@receipt), min: '0' } %></td>
+							<% end %>
+							
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+			<%= f.button :submit, value: "Update", class: "btn-success" %>
+		<% end %>
+	</div>
+</div>
+<% end %>
+
+<%= link_to "Back", :back, class: "back" %>

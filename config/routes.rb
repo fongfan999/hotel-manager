@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   resources :receipts, except: [:destroy] do
     member do
       patch :pay, to: "receipts#pay"
+      post :update_individual
     end
 
     collection do

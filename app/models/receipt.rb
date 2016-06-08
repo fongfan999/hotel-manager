@@ -3,6 +3,8 @@ class Receipt < ActiveRecord::Base
   belongs_to :room
   has_one :bill
   belongs_to :employee, class_name: "User"
+  has_many :receipt_services
+  has_many :services, through: :receipt_services
 
   validates :quantity, presence: true,
     numericality: { only_integer: true, greater_than_or_equal_to: 1 }
@@ -16,11 +18,6 @@ class Receipt < ActiveRecord::Base
   }
 
   self.per_page = 10
-  
-  def self.search(search)
-    search = search.split(//).map {|x| x[/\d+/]}.compact.join("").to_i
-    where("code LIKE ?", "%#{search}%") 
-  end
 
   def max_quantity
     if quantity > room.max_quantity
@@ -40,6 +37,10 @@ class Receipt < ActiveRecord::Base
     bill.employee.nil? ? "Renting" : "Checked-out"
   end
 
+  def employee_name
+    employee.admin? ? "Admin" : employee.employee.name
+  end
+
   def total_days
     total = ((bill.created_at - created_at) / 60 / 60 / 24).to_i
     if total <= 3
@@ -49,7 +50,57 @@ class Receipt < ActiveRecord::Base
     end
   end
 
-  def employee_name
-    employee.admin? ? "Admin" : employee.employee.name
+  def amount
+    total = room.type.cost * total_days
+    services.each do |service|
+      total += service.price * service.get_quantity(self)
+    end
+    total
+  end
+
+  def discount
+    customer.type.discount
+  end
+
+  def grand_total
+    (amount) + (amount / 10) - (amount * discount / 100)
+  end
+
+  # def self.search(search)
+  #   search = search.split(//).map {|x| x[/\d+/]}.compact.join("").to_i
+  #   where("id LIKE ?", "%#{search}%") 
+  # end
+
+  def self.search(param)
+    param.strip!
+    param.downcase!
+    (id_matches(param) + customer_name_matches(param) +
+      room_name_matches(param)).uniq
+  end
+
+  def self.id_matches(param)
+    matches("receipts", "id", param)
+  end
+
+  def self.customer_name_matches(param)
+    matches("customers", "name", param)
+  end
+
+  def self.room_name_matches(param)
+    matches("rooms", "name", param)
+  end
+
+  def self.matches(table_name, field_name, param)
+    if table_name == "customers"
+      results = Receipt.joins(:customer)
+    else
+      if table_name == "rooms"
+        results = Receipt.joins(:room)
+      else
+        results = Receipt
+      end
+    end
+
+    results.where("lower(#{table_name}.#{field_name}) LIKE ?", "%#{param}%")
   end
 end

@@ -11,18 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160608044230) do
-
-  create_table "bill_services", force: :cascade do |t|
-    t.integer  "quantity",   default: 0
-    t.integer  "service_id"
-    t.integer  "bill_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
-  add_index "bill_services", ["bill_id"], name: "index_bill_services_on_bill_id"
-  add_index "bill_services", ["service_id"], name: "index_bill_services_on_service_id"
+ActiveRecord::Schema.define(version: 20160608075838) do
 
   create_table "bills", force: :cascade do |t|
     t.integer  "receipt_id"
@@ -63,6 +52,15 @@ ActiveRecord::Schema.define(version: 20160608044230) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
   end
+
+  create_table "receipt_services", force: :cascade do |t|
+    t.integer "receipt_id"
+    t.integer "service_id"
+    t.integer "quantity",   default: 0
+  end
+
+  add_index "receipt_services", ["receipt_id"], name: "index_receipt_services_on_receipt_id"
+  add_index "receipt_services", ["service_id"], name: "index_receipt_services_on_service_id"
 
   create_table "receipts", force: :cascade do |t|
     t.integer  "customer_id"

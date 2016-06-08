@@ -5,6 +5,7 @@
 		<header>
 			<div class="row">
 				<div class="col-xs-6">
+					<span><%= Time.now.strftime("%d-%m-%Y, %I:%M:%S %p") %></span>
 					<h3>ABC Hotel</h3>
 					<h4>Bill <%= @bill.receipt.to_code %></h4>
 				</div>

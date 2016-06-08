@@ -24,7 +24,7 @@
 					<td>
 						<%= bill.created_at.strftime("%d-%m-%Y") %>
 					</td>
-					<td><strong><%= format_money(bill.grand_total) %></strong></td>
+					<td><strong><%= format_money(bill.receipt.grand_total) %></strong></td>
 				</tr>
 				<% end %>
 			</tbody>
@@ -44,4 +44,4 @@
 	</div>
 </div>
 
-<%= link_to "Back to home", root_path, class: "back" %>
+<%= link_to "Back", :back, class: "back" %>

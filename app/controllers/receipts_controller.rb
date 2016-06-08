@@ -1,5 +1,8 @@
+require 'will_paginate/array'
+
 class ReceiptsController < ApplicationController
-	before_action :set_receipt, only: [:show, :edit, :update, :pay]
+	before_action :set_receipt, only: [:show, :edit, :update, :pay,
+		:update_individual]
 	before_action :authorize_employee!, except: [:show]
 
 	def index
@@ -14,7 +17,7 @@ class ReceiptsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render :pdf => "##{@receipt.code}",
+        render :pdf => "#{@receipt.to_code}",
           :template => 'receipts/show.pdf.erb'
       end
     end
@@ -79,6 +82,26 @@ class ReceiptsController < ApplicationController
 			flash.now[:alert] = "Receipt was not successfully updated."
 			render :edit
 		end
+	end
+
+	def update_individual
+		redirect_to @receipt and return unless @receipt.bill.employee.nil?
+
+		receipts_params = params.require(:update_individual).require(:services)
+		quantities = receipts_params.values
+		receipts_params.keys.each_with_index do |service_id, index|
+			service = Service.find(service_id)
+			quantity = quantities[index]["quantity"].to_i
+
+			receipt_service = ReceiptService.find_or_initialize_by(receipt: @receipt,
+				service: service)
+
+			receipt_service.update_attributes(receipt: @receipt,service: service,
+				quantity: quantity)
+		end
+
+		flash[:notice] = "Update successfully"
+		redirect_to @receipt
 	end
 
 	private

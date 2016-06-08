@@ -5,8 +5,9 @@
 		<header>
 			<div class="row">
 				<div class="col-xs-6">
+					<span><%= Time.now.strftime("%d-%m-%Y, %I:%M:%S %p") %></span>
 					<h3>ABC Hotel</h3>
-					<h4>Receipt #<%= @receipt.code %></h4>
+					<h4>Receipt <%= @receipt.to_code %></h4>
 				</div>
 
 				<div class="col-xs-6">
@@ -38,7 +39,7 @@
 		<table class="info">
 			<tr>
 				<th>ID</th>
-				<td><%= @receiptcode %></td>
+				<td><%= @receipt.to_code %></td>
 			</tr>
 			<tr>
 				<th>Tax code</th>
@@ -61,7 +62,6 @@
 				<td>
 					<% if @receipt.bill.blank? %>
 						<%= @receipt.created_at.strftime("%d-%m-%Y, %I:%M:%S %p") %>
-						(<%= time_ago_in_words(@receipt.created_at) %> ago)
 					<% else %>
 						<%= @receipt.bill.created_at.strftime("%d-%m-%Y, %I:%M:%S %p") %>
 					<% end %>

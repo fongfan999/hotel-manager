@@ -48,7 +48,7 @@ class Customer < ActiveRecord::Base
 	end
 
 	def total_bills
-		bills.nil? ? 0 : bills.inject(0) { |total, bill| total += bill.grand_total }
+		bills.nil? ? 0 : bills.inject(0) { |total, bill| total += bill.receipt.grand_total }
 	end
 
 	def level_up!

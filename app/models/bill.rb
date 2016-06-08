@@ -1,7 +1,5 @@
 class Bill < ActiveRecord::Base
   belongs_to :receipt
-  has_many :bill_services
-  has_many :services, through: :bill_services
   belongs_to :employee, class_name: "User"
 
   delegate :customer, to: :receipt
@@ -15,22 +13,6 @@ class Bill < ActiveRecord::Base
   scope :persisted, -> { where("employee_id is NOT NULL") }
 
   self.per_page = 10
-  
-  def amount
-  	total = receipt.room.type.cost * receipt.total_days
-  	services.each do |service|
-  		total += service.price * service.get_quantity(self)
-  	end
-  	total
-  end
-
-  def discount
-    CustomerType.find(customer_type).discount
-  end
-
-  def grand_total
-    (amount) + (amount / 10) - (amount * discount / 100)
-  end
 
   def employee_name
     employee.admin? ? "Admin" : employee.employee.name
