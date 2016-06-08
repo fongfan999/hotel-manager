@@ -2,10 +2,6 @@
 
 <header>
 	<h1>Listing Customers</h1>
-
-	<ul class="actions">
-		<li><%= link_to "New Customer", new_customer_path, class: "new" %></li>
-	</ul>
 </header>
 
 <header>
@@ -40,6 +36,9 @@
 					<th>No.</th>
 					<th>Name</th>
 					<th>Type</th>
+					<% admins_only do %>
+					<th>Grand toal bills</th>
+					<% end %>
 					<th>Actions</th>
 				</tr>
 			</thead>
@@ -48,7 +47,10 @@
 				<tr>
 					<td class="padding-top-15"><%= link_to index + 1, customer %></td>
 					<td class="padding-top-15"><%= customer.name %></td>
-					<td><%= render customer.type %></td>
+					<td class="padding-top-15"><%= render customer.type %></td>
+					<% admins_only do %>
+					<td><strong><%= format_money(customer.total_bills) %></strong></td>
+					<% end %>
 					<td>
 						<%= link_to "", [:edit, customer], class: "edit" %>
 						<%= link_to "", customer ,class: "delete",
@@ -61,7 +63,7 @@
 		</table>
 	</div>
 <% else %>
-	<p>There is nothing to show. <%= link_to "New one?", new_customer_path %></p>
+	<p>There is nothing to show.</p>
 <% end %>
 </div>
 

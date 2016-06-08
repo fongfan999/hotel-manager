@@ -41,6 +41,36 @@ class Customer < ActiveRecord::Base
 		"#{name} - #{type.name}"
 	end
 
+	def bills
+		bills = []
+		receipts.each { |receipt| bills.push(receipt.bill) }
+		bills.select(&:employee_id)
+	end
+
+	def total_bills
+		bills.nil? ? 0 : bills.inject(0) { |total, bill| total += bill.grand_total }
+	end
+
+	def level_up!
+		if total_bills >= 30000000
+			update(type_id: 5)
+		else
+			if total_bills >= 20000000
+				update(type_id: 4)
+			else
+				if total_bills >= 10000000
+					update(type_id: 3)
+				else
+					if total_bills >= 5000000
+						update(type_id: 2)
+					else
+						update(type_id: 1)
+					end
+				end
+			end
+		end
+	end
+
 	def self.search(param)
     param.strip!
     param.downcase!

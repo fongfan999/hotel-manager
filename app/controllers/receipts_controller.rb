@@ -24,7 +24,10 @@ class ReceiptsController < ApplicationController
 		@bill = @receipt.bill
 		@bill.employee = current_user
 		@bill.update(created_at: Time.now)
+		@bill.customer_type = @receipt.customer.type_id
 		@bill.save
+
+		@receipt.customer.level_up!
 		redirect_to @bill
 	end
 
@@ -58,7 +61,6 @@ class ReceiptsController < ApplicationController
 	def create
 		@receipt = Receipt.new(receipt_params)
 		@receipt.employee = current_user
-		@receipt.code = @receiptcode
 		if @receipt.save
 			Bill.create(receipt_id: @receipt.id)
 			flash[:notice] = "Receipt was successfully created."

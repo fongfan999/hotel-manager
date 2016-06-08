@@ -12,11 +12,6 @@ class Bill < ActiveRecord::Base
     .where(['bills.created_at <= ?', end_date.end_of_day])
   end
 
-  # Customer's availalble Bill 
-  scope :available_bill, lambda {
-    joins(:receipt).merge(Receipt.set_receipt)
-  }
-
   scope :persisted, -> { where("employee_id is NOT NULL") }
 
   self.per_page = 10
@@ -30,7 +25,7 @@ class Bill < ActiveRecord::Base
   end
 
   def discount
-    customer.type.discount
+    CustomerType.find(customer_type).discount
   end
 
   def grand_total

@@ -92,6 +92,7 @@
 	<p>There is nothing to show.</p>
 <% end %>
 
+<% unless @customer.receipts.nil? %>
 <div class="will_page">
 	<div class="center">
 		<div class="row">
@@ -101,6 +102,7 @@
 		</div>
 	</div>
 </div>
+<% end %>
 
 <header>
 	<h1>Bill</h1>
@@ -128,6 +130,10 @@
 						<td><strong><%= format_money(bill.grand_total) %></strong></td>
 					</tr>
 				<% end %>
+				<tr>
+					<td class="center" colspan="3">Total</td>
+					<td><strong><%= format_money(@customer.total_bills) %></strong></td>
+				</tr>
 			</tbody>
 		</table>
 	</div>
@@ -135,6 +141,7 @@
 	<p>There is nothing to show.</p>
 <% end %>
 
+<% unless @customer.bills.nil? %>
 <div class="will_page">
 	<div class="center">
 		<div class="row">
@@ -144,5 +151,6 @@
 		</div>
 	</div>
 </div>
+<% end %>
 
 <%= link_to "Back", customers_path, class: "back" %>

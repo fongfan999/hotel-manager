@@ -29,11 +29,7 @@ class Receipt < ActiveRecord::Base
   end
 
   def to_code
-  	if id < 10
-  		"RC0#{id}"
-  	else
-  		"RC#{id}"
-  	end
+  	"##{id}"
   end
 
   def to_tax_code

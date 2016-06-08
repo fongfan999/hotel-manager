@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160606110401) do
+ActiveRecord::Schema.define(version: 20160608044230) do
 
   create_table "bill_services", force: :cascade do |t|
     t.integer  "quantity",   default: 0
@@ -26,9 +26,10 @@ ActiveRecord::Schema.define(version: 20160606110401) do
 
   create_table "bills", force: :cascade do |t|
     t.integer  "receipt_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.integer  "employee_id"
+    t.integer  "customer_type"
   end
 
   add_index "bills", ["employee_id"], name: "index_bills_on_employee_id"
@@ -70,7 +71,6 @@ ActiveRecord::Schema.define(version: 20160606110401) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.integer  "employee_id"
-    t.string   "code"
   end
 
   add_index "receipts", ["customer_id"], name: "index_receipts_on_customer_id"

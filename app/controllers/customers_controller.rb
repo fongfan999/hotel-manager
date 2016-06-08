@@ -12,14 +12,21 @@ class CustomersController < ApplicationController
     unless current_user.admin? || current_user.employee?
       authorize_customer!(@customer)
     end
-    
-    @receipts = Receipt.where(customer: @customer)
-      .paginate(:page => params[:page])
-    @bills = Bill.available_bill.paginate(:page => params[:page])
+
+    unless @customer.receipts.nil?
+      @receipts = @customer.receipts
+        .paginate(:page => params[:page])
+    end
+
+    unless @customer.bills.nil?
+      @bills = @customer.bills.paginate(:page => params[:page])
+    end
   end
 
   def new
-    redirect_to root_path unless current_user.customer.nil?
+    if !current_user.customer.nil? || current_user.admin?
+      redirect_to root_path
+    end
     @customer = Customer.new
   end
 
@@ -39,7 +46,15 @@ class CustomersController < ApplicationController
   end
 
   def create
-    @customer = Customer.new(customer_params)
+    if !current_user.customer.nil? || current_user.admin?
+      redirect_to root_path
+    end
+
+    sanitized_params = customer_params
+
+    sanitized_params.delete(:type_id) if current_user.admin?
+    
+    @customer = Customer.new(sanitized_params)
 
     if @customer.save
       @customer.account = current_user
@@ -77,8 +92,8 @@ class CustomersController < ApplicationController
   end
 
   def customer_params
-    params.require(:customer).permit(:name, :type_id, :identity_card,
-      :phone_number, :address)
+    params.require(:customer).permit(:name, :type_id,
+      :identity_card, :phone_number, :address)
   end
 end
 

@@ -9,6 +9,9 @@ class BillsController < ApplicationController
 
   def show
   	@bill = Bill.find(params[:id])
+
+    redirect_to root_path if @bill.employee.nil?
+    
     unless current_user.admin? || current_user.employee?
       authorize_customer!(@bill.customer)
     end
@@ -17,7 +20,7 @@ class BillsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render :pdf => "##{@bill.receipt.code}",
+        render :pdf => "##{@bill.receipt.to_code}",
           :template => 'bills/show.pdf.erb'
       end
     end
@@ -27,22 +30,22 @@ class BillsController < ApplicationController
   def report
   end
 
-  # def update_service
-  # 	if quantity <= -1
-  # 		flash[:alert] = "There was a problem with Quantity"
-		# else
-		# 	bill_services = BillService.find_by(service_id: @service.id,
-	 #  		bill_id: @bill.id)
-		# 	if bill_services
-		# 		bill_services.update(quantity: quantity)
-		# 	else
-		# 		BillService.create(quantity: quantity, service_id: @service.id,
-		# 			bill_id: @bill.id)
-		# 	end
-		# 	flash[:notice] = "Bill has been updated"
-  # 	end
-  # 	redirect_to @bill
-  # end
+  def update_service
+  	if quantity <= -1
+  		flash[:alert] = "There was a problem with Quantity"
+		else
+			bill_services = BillService.find_by(service_id: @service.id,
+	  		bill_id: @bill.id)
+			if bill_services
+				bill_services.update(quantity: quantity)
+			else
+				BillService.create(quantity: quantity, service_id: @service.id,
+					bill_id: @bill.id)
+			end
+			flash[:notice] = "Bill has been updated"
+  	end
+  	redirect_to @bill
+  end
 
  	private
 
