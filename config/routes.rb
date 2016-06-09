@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     resources :rooms, except: [:index, :show]
 
     resources :services, except: [:index, :show, :destroy]
+
+    resources :room_types, only: [:index, :edit, :update]
   end
 
   devise_for :users

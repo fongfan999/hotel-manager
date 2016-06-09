@@ -1,0 +1,33 @@
+<%= title("Room Types") %>
+
+<header>
+  <h1>Listing Room Types</h1>
+</header>
+
+<% if @types.present? %>
+  <div class="listing-index">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Cost</th>   
+          <th>Actions</th>         
+        </tr>
+      </thead>
+      <tbody>
+        <% @types.each do |type| %>
+          <tr>
+            <td class="padding-top-15"><%= render partial: "room_types/room_type",
+                locals: { room_type: type } %></td>
+            <td class="padding-top-15"><%= format_money(type.cost) %></td>
+            <td>
+              <%= link_to 'Edit', [:edit, :admin, type], class: "edit" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<%= link_to "Back", :back, class: "back" %>

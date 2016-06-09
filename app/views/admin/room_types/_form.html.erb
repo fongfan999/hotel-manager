@@ -1,0 +1,6 @@
+<%= simple_form_for [:admin, type] do |f| %>
+	<%= f.input :name %>
+	<%= f.input :cost %>
+
+	<%= f.button :submit, class: "btn-success" %>
+<% end %>

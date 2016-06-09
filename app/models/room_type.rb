@@ -2,6 +2,8 @@ class RoomType < ActiveRecord::Base
 	include ActionView::Helpers::NumberHelper
 	has_many :rooms, foreign_key: "type_id"
 
+	validates :name, :cost, presence: true
+
 	scope :total_amount, -> (start_date, end_date) do
     total_amount = RoomType.all.inject(0) do |total_amount, type|
 			total_amount += type.amount(start_date, end_date)
