@@ -17,4 +17,15 @@ class Bill < ActiveRecord::Base
   def employee_name
     employee.admin? ? "Admin" : employee.employee.name
   end
+
+  def self.search(param)
+    receipts = Receipt.search(param)
+
+    bills = []
+    receipts.each do |receipt|
+      bills.push(receipt.bill) unless receipt.bill.employee.nil?
+    end
+
+    bills
+  end
 end

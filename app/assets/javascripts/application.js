@@ -12,6 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require angular
+//= require angular-resource
 //= require_tree .
 //= require bootstrap-sprockets
 //= require chartkick
@@ -44,6 +46,7 @@ $(document).ready(function() {
     $("#statistics").hide();
     $("#customers").hide();
     $("#receipts").hide();
+    $("#bills").hide();
     $("div#spinner").show();
   });
 

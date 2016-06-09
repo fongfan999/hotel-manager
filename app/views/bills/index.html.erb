@@ -3,6 +3,33 @@
 <header>
 	<h1>Listing Bills</h1>
 </header>
+
+<header>
+	<div class="row">
+		<%= simple_form_for :search,
+			url: search_bills_path(:search), :method => 'get' do |f| %>
+			<div class="col-sm-8">
+			  <%= f.input :q, as: :string, label: false, placeholder: "Enter Bill ID, Name, Room, etc.",
+			  	autofocus: true, 
+			  	:input_html => { value: (params[:search].nil?) ? "" : params[:search][:q] } %>
+			</div>
+			<div class="col-sm-4">
+				<%= f.button :submit, value: "Find!", class: "btn-default search-btn" %>
+			</div>
+		<% end %>
+	</div>
+</header>
+
+<div class="row">
+	<div class="col-md-12">
+		<div id="spinner" class="spinner" style="display: none;">
+			<%= image_tag("spinner.gif", alt: "Loading") %>
+		</div>
+	</div>
+</div>
+
+<div id="bills">
+
 <% if @bills.present? %>
 	<div class="listing-index">
 		<table>
@@ -16,9 +43,9 @@
 				</tr>
 			</thead>
 			<tbody>
-				<% @bills.each_with_index do |bill, index| %>
+				<% @bills.each do |bill| %>
 				<tr>
-					<td><%= link_to index + 1, bill %></td>
+					<td><%= link_to bill.receipt.to_code, bill %></td>
 					<td><%= bill.customer.name %></td>
 					<td><%= bill.room.name %></td>
 					<td>
@@ -33,6 +60,8 @@
 <% else %>
 	<p>There is nothing to show.</p>
 <% end %>
+
+</div>
 
 <div class="will_page">
 	<div class="center">

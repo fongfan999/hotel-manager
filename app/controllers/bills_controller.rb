@@ -30,6 +30,18 @@ class BillsController < ApplicationController
   def report
   end
 
+  def search
+    unless params[:search][:q].blank?
+      @bills = Bill.search(params[:search][:q])
+    else
+      @bills = Bill.all
+    end
+    
+    @bills = @bills.paginate(:page => params[:page])
+
+    render :index
+  end
+
   def update_service
   	if quantity <= -1
   		flash[:alert] = "There was a problem with Quantity"

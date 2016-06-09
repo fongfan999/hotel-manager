@@ -6,6 +6,8 @@ class Service < ActiveRecord::Base
 	validates :unit, :price, presence: true
 	validates :name, presence: true, uniqueness: true
 
+	self.per_page = 10
+
 	def get_quantity(receipt)
 		receipt_services = ReceiptService.find_by(service: self, receipt: receipt)
 		if receipt_services

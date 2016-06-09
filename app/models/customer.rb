@@ -95,7 +95,7 @@ class Customer < ActiveRecord::Base
 	def self.search(param)
     param.strip!
     param.downcase!
-    param = to_utf(param)
+    param = Customer.to_utf(param)
     (name_matches(param) + identity_card_matches(param) +
     	phone_number_matches(param) + address_matches(param)).uniq
   end

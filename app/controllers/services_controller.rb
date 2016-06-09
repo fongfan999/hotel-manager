@@ -5,5 +5,10 @@ class ServicesController < ApplicationController
   # GET /services.json
   def index
     @services = Service.all.order(:name)
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => Service.all }
+    end
   end
 end

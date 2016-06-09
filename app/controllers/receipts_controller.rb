@@ -2,7 +2,7 @@ require 'will_paginate/array'
 
 class ReceiptsController < ApplicationController
 	before_action :set_receipt, only: [:show, :edit, :update, :pay,
-		:update_individual]
+		:update_individual, :search_service]
 	before_action :authorize_employee!, except: [:show]
 
 	def index
@@ -13,9 +13,14 @@ class ReceiptsController < ApplicationController
 		unless current_user.admin? || current_user.employee?
 			authorize_customer!(@receipt.customer)
 		end
+
+		@receipt_services = @receipt.receipt_services.reject { |rc| rc.quantity == 0 }
+
+		@services = Service.all.order(:name).paginate(:page => params[:page])
 		
     respond_to do |format|
       format.html
+      format.json { render :json => @receipt.receipt_services }
       format.pdf do
         render :pdf => "#{@receipt.to_code}",
           :template => 'receipts/show.pdf.erb'

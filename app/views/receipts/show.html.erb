@@ -97,18 +97,16 @@
 					<%= format_money(@receipt.room.type.cost * @receipt.total_days) %>
 				</td>
 			</tr>
-			<% @receipt.services.each_with_index do |service, index| %>
-				<% unless service.get_quantity(@receipt) == 0 %>
+			<% @receipt_services.each_with_index do |rc, index| %>
 					<tr>
 						<td><%= index + 2 %></td>
-						<td><%= service.name %></td>
-						<td><%= format_money(service.price) %></td>
-						<td><%= pluralize(service.get_quantity(@receipt), service.unit) %></td>
+						<td><%= rc.service.name %></td>
+						<td><%= format_money(rc.service.price) %></td>
+						<td><%= pluralize(rc.service.get_quantity(@receipt), rc.service.unit) %></td>
 						<td class="right">
-							<%= format_money(service.price * service.get_quantity(@receipt)) %>
+							<%= format_money(rc.service.price * rc.service.get_quantity(@receipt)) %>
 						</td>
 					</tr>
-				<% end %>
 			<% end %>
 			<tr>
 				<td colspan="4">Total</td>
@@ -134,10 +132,32 @@
 	</table>
 </div>
 
-<div id="services">
+<div id="services" ng-controller="ServiceCtrl">
 	<header>
 		<h1>Services</h1>
+		<ul class="actions">
+			<li>
+			
+		<form name="myForm">
+
+		<input name="mySearch" placeholder="Search page" ng-model="search_by_name"
+			style="padding-left: 10px;">
+
+		</form>
+
+			</li>
+		</ul>
 	</header>
+
+	<header style="margin-top: -20px">
+		<ul class="list-unstyled" ng-show="myForm.mySearch.$dirty">
+			<li ng-repeat="service in services | orderBy: 'name' | filter:search_by_name">
+				{{service.name}} - Page: {{formatNumber($index/10) + 1}} 
+			</li>
+		</ul>
+	</header>
+
+
 
 	<div class="listing-index icon-only">
 		<%= simple_form_for :update_individual,
@@ -151,7 +171,7 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-					<% Service.all.order(:name).each do |service| %>
+					<% @services.each do |service| %>
 						<tr>
 							<td><%= service.name %></td>
 							<td><%= format_money(service.price) %></td>
@@ -164,7 +184,16 @@
 					<% end %>
 				</tbody>
 			</table>
-			<%= f.button :submit, value: "Update", class: "btn-success" %>
+			<div class="will_page">
+				<div class="center">
+					<div class="row">
+						<div class="col-md-12">
+							<%= will_paginate @services %>
+						</div>
+					</div>
+				</div>
+			</div>
+			<%= f.button :submit, value: "Update Now!", class: "btn-success" %>
 		<% end %>
 	</div>
 </div>

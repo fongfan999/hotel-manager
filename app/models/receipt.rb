@@ -66,14 +66,10 @@ class Receipt < ActiveRecord::Base
     (amount) + (amount / 10) - (amount * discount / 100)
   end
 
-  # def self.search(search)
-  #   search = search.split(//).map {|x| x[/\d+/]}.compact.join("").to_i
-  #   where("id LIKE ?", "%#{search}%") 
-  # end
-
   def self.search(param)
     param.strip!
     param.downcase!
+     param = Customer.to_utf(param)
     (id_matches(param) + room_name_matches(param) + 
       customer_name_matches(param)).uniq
   end
@@ -83,7 +79,7 @@ class Receipt < ActiveRecord::Base
   end
 
   def self.customer_name_matches(param)
-    matches("customers", "name", param)
+    matches("customers", "utf_name", param)
   end
 
   def self.room_name_matches(param)
