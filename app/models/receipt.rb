@@ -74,8 +74,8 @@ class Receipt < ActiveRecord::Base
   def self.search(param)
     param.strip!
     param.downcase!
-    (id_matches(param) + customer_name_matches(param) +
-      room_name_matches(param)).uniq
+    (id_matches(param) + room_name_matches(param) + 
+      customer_name_matches(param)).uniq
   end
 
   def self.id_matches(param)

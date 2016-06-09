@@ -57,6 +57,8 @@ class CustomersController < ApplicationController
     @customer = Customer.new(sanitized_params)
 
     if @customer.save
+      @customer.utf_name = Customer.to_utf(@customer.name)
+      
       @customer.account = current_user
       @customer.type = CustomerType.first
       @customer.save
@@ -71,6 +73,8 @@ class CustomersController < ApplicationController
 
   def update
     if @customer.update(customer_params)
+      @customer.utf_name = Customer.to_utf(@customer.name)
+
       flash[:notice] = "Customer was successfully updated."
       redirect_to @customer
     else

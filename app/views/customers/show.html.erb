@@ -127,7 +127,7 @@
 						<td>
 							<%= bill.created_at.strftime("%d-%m-%Y") %>
 						</td>
-						<td><strong><%= format_money(bill.grand_total) %></strong></td>
+						<td><strong><%= format_money(bill.receipt.grand_total) %></strong></td>
 					</tr>
 				<% end %>
 				<tr>

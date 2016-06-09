@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160608075838) do
+ActiveRecord::Schema.define(version: 20160609023132) do
 
   create_table "bills", force: :cascade do |t|
     t.integer  "receipt_id"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20160608075838) do
     t.datetime "updated_at",    null: false
     t.integer  "type_id"
     t.string   "phone_number"
+    t.string   "utf_name"
   end
 
   add_index "customers", ["type_id"], name: "index_customers_on_type_id"

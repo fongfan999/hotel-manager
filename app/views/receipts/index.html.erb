@@ -16,7 +16,7 @@
 		<%= simple_form_for :search,
 			url: search_receipts_path(:search), :method => 'get' do |f| %>
 			<div class="col-sm-8">
-			  <%= f.input :q, as: :string, label: false, placeholder: "Enter Receipt ID",
+			  <%= f.input :q, as: :string, label: false, placeholder: "Enter Receipt ID, Name, Room, etc.",
 			  	autofocus: true, 
 			  	:input_html => { value: (params[:search].nil?) ? "" : params[:search][:q] } %>
 			</div>
