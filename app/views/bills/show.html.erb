@@ -99,9 +99,9 @@
 				<td class="right">+ <%= format_money(@bill.receipt.amount/10) %></td>
 			</tr>
 			<tr>
-				<td colspan="4">Discount (<%= @bill.receipt.discount %>%)</td>
+				<td colspan="4">Discount (<%= @bill.discount %>%)</td>
 				<td class="right">
-					- <%= format_money(@bill.receipt.amount * @bill.receipt.discount / 100) %> 
+					- <%= format_money(@bill.receipt.amount * @bill.discount / 100) %> 
 				</td>
 			</tr>
 			<tr>

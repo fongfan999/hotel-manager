@@ -27,9 +27,6 @@ class BillsController < ApplicationController
 
   end
 
-  def report
-  end
-
   def search
     unless params[:search][:q].blank?
       @bills = Bill.search(params[:search][:q])

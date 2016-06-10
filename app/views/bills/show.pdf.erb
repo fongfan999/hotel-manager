@@ -47,7 +47,7 @@
 			</tr>
 			<tr>
 				<th>Customer</th>
-				<td><%= @bill.customer.name %></td>
+				<td><%= @bill.customer.utf_name %></td>
 			</tr>
 			<tr>
 				<th>Room</th>
@@ -75,7 +75,7 @@
 			</tr>
 			<tr>
 				<th>Total cost</th>
-				<td><strong><%= format_money(@bill.grand_total) %></strong></td>
+				<td><strong><%= format_money(@bill.receipt.grand_total) %></strong></td>
 			</tr>
 		</table>
 
@@ -100,7 +100,7 @@
 							<%= format_money(@bill.receipt.room.type.cost * @bill.receipt.total_days) %>
 						</td>
 					</tr>
-					<% @bill.services.each_with_index do |service, index| %>
+					<% @bill.receipt.services.each_with_index do |service, index| %>
 						<% unless service.get_quantity(@bill) == 0 %>
 						<tr>
 							<td><%= index + 2 %></td>
@@ -115,22 +115,22 @@
 					<% end %>
 					<tr>
 						<td colspan="4">Total</td>
-						<td class="right"><%= format_money(@bill.amount) %></td>
+						<td class="right"><%= format_money(@bill.receipt.amount) %></td>
 					</tr>
 					<tr>
 						<td colspan="4">VAT amount (10%)</td>
-						<td class="right">+ <%= format_money(@bill.amount/10) %></td>
+						<td class="right">+ <%= format_money(@bill.receipt.amount/10) %></td>
 					</tr>
 					<tr>
 						<td colspan="4">Discount (<%= @bill.discount %>%)</td>
 						<td class="right">
-							- <%= format_money(@bill.amount * @bill.discount / 100) %> 
+							- <%= format_money(@bill.receipt.amount * @bill.discount / 100) %> 
 						</td>
 					</tr>
 					<tr>
 						<td colspan="4">Grand total</td>
 						<td class="right">
-							<strong><%= format_money(@bill.grand_total) %></strong>
+							<strong><%= format_money(@bill.receipt.grand_total) %></strong>
 						</td>
 					</tr>
 				</tbody>

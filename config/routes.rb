@@ -11,7 +11,11 @@ Rails.application.routes.draw do
       end
     end
     
-    resources :employees
+    resources :employees do
+      member do
+        patch :reset_password
+      end
+    end
 
     resources :rooms, except: [:index, :show]
 
@@ -29,6 +33,10 @@ Rails.application.routes.draw do
   resources :customers do
     collection do
       get :search
+    end
+
+    member do
+      patch :reset_password
     end
   end
 

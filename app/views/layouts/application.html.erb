@@ -33,14 +33,16 @@
         <ul class="nav navbar-nav navbar-right">
           <% if user_signed_in? %>
             <% if current_user.admin? || current_user.employee? %>
-              <li class=<%= "active" if current_page?("/receipts") || current_page?("/bills") || current_page?("/customers") %>>
+              <li class=<%= "active" if current_page?("/receipts") || current_page?("/bills") || current_page?("/services") %>>
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Actions
                 <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><%= link_to "Receipts", receipts_path %></li>
                   <li><%= link_to "Bills", bills_path %></li>
+                  <li><%= link_to "Services", services_path %></li>
                   <% if current_user.admin? %>
-                  <li><%= link_to "RoomTypes", admin_room_types_path %></li>
+                  <li><%= link_to "Statistics", admin_statistics_path %></li>
+                  <li><%= link_to "Room Types", admin_room_types_path %></li>
                   <% end %>
                 </ul>
               </li>

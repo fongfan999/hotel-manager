@@ -41,6 +41,10 @@
 					<td class="padding-top-15"><%= employee.address %></td>
 					<td>
 						<%= link_to "", [:edit, :admin, employee], class: "edit" %>
+						<%= link_to "", reset_password_admin_employee_path(employee),
+							class: "reset", method: :patch, title: "Reset password",
+							data: { toggle: 'tooltip', placement: "bottom",
+								confirm: "Are you sure to reset password this customer?" } %>
 						<%= link_to "", [:admin, employee] ,class: "delete",
 							method: :delete,
 							data: { confirm: "Are you sure to delete this employee?" } %>

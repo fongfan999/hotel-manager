@@ -1,7 +1,8 @@
 require 'will_paginate/array'
 
 class CustomersController < ApplicationController
-  before_action :set_customer, only: [:show, :edit, :update, :destroy]
+  before_action :set_customer, only: [:show, :edit, :update, :destroy,
+    :reset_password]
   before_action :authorize_employee!, except: [:show, :new, :create]
 
   def index
@@ -21,6 +22,14 @@ class CustomersController < ApplicationController
     unless @customer.bills.nil?
       @bills = @customer.bills.paginate(:page => params[:page])
     end
+  end
+
+  def reset_password
+    user = User.find(@customer.account.id)
+    user.update(password: "password")
+
+    flash[:notice] = "Password has been reseted successfully."
+    redirect_to customers_path
   end
 
   def new

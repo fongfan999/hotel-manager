@@ -53,6 +53,10 @@
 					<% end %>
 					<td>
 						<%= link_to "", [:edit, customer], class: "edit" %>
+						<%= link_to "", reset_password_customer_path(customer),
+							class: "reset", method: :patch, title: "Reset password",
+							data: { toggle: 'tooltip', placement: "bottom",
+								confirm: "Are you sure to reset password this customer?" } %>
 						<%= link_to "", customer ,class: "delete",
 							method: :delete,
 							data: { confirm: "Are you sure to delete this customer?" } %>

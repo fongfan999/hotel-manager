@@ -32,6 +32,10 @@ class Bill < ActiveRecord::Base
     employee.admin? ? "Admin" : employee.employee.name
   end
 
+  def discount
+    CustomerType.find(customer_type).discount
+  end
+
   def self.search(param)
     receipts = Receipt.search(param)
 

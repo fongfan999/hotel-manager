@@ -59,7 +59,7 @@ form {
 	min-width: 100%;
 }
 
-a.new, a.edit, a.delete, a.back, a.pay, li.export > a {
+a.new, a.edit, a.delete, a.back, a.pay, a.reset, li.export > a {
 	@extend .btn;
 
 	&:before {
@@ -69,7 +69,7 @@ a.new, a.edit, a.delete, a.back, a.pay, li.export > a {
 }
 
 .icon-only {
-	a.edit, a.delete, a.pay {
+	a.edit, a.delete, a.pay, a.reset {
 		&:before {
 			padding-right: 0;
 		}
@@ -114,6 +114,16 @@ a.pay {
 
 	&:before {
 		@extend .fa-money;
+	}
+}
+
+a.reset {
+	color: #fff;
+  background-color: #34495e;
+  border-color: #34495e;
+
+	&:before {
+		@extend .fa-refresh;
 	}
 }
 

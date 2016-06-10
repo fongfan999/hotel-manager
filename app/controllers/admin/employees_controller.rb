@@ -1,5 +1,6 @@
 class Admin::EmployeesController < Admin::ApplicationController
-  before_action :set_employee, only: [:edit, :update, :destroy]
+  before_action :set_employee, only: [:edit, :reset_password, :update,
+    :destroy]
 
   def index
     @employees = Employee.all.order(:name).paginate(:page => params[:page])
@@ -12,17 +13,13 @@ class Admin::EmployeesController < Admin::ApplicationController
   def edit
   end
 
-  # def search
-  #   unless params[:search][:q].blank?
-  #     @employees = Employee.search(params[:search][:q])
-  #   else
-  #     @employees = Employee.all
-  #   end
-    
-  #   @employees = @employees.paginate(:page => params[:page])
+  def reset_password
+    user = User.find(@employee.account.id)
+    user.update(password: "password")
 
-  #   render :index
-  # end
+    flash[:notice] = "Password has been reseted successfully."
+    redirect_to customers_path
+  end
 
   def create
     @employee = Employee.new(employee_params)
