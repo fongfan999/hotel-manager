@@ -17,7 +17,7 @@
 			<div class="row">
 				<div class="col-md-12 bot-item bot-customers">
 					<h4>Customers</h4>
-					<p>85%</p>
+					<p><%= Customer.increase_in_this_month %>%</p>
 				</div>
 			</div>
 		</div>
@@ -35,7 +35,7 @@
 			<div class="row">
 				<div class="col-md-12 bot-item bot-rooms">
 					<h4>Rooms</h4>
-					<p>85%</p>
+					<p><%= Room.increase_in_this_month %>%</p>
 				</div>
 			</div>
 		</div>
@@ -53,7 +53,7 @@
 			<div class="row">
 				<div class="col-md-12 bot-item bot-employees">
 					<h4>Employees</h4>
-					<p>85%</p>
+					<p><%= Employee.increase_in_this_month %>%</p>
 				</div>
 			</div>
 		</div>
@@ -71,7 +71,7 @@
 			<div class="row">
 				<div class="col-md-12 bot-item bot-services">
 					<h4>Services</h4>
-					<p>85%</p>
+					<p><%= Service.increase_in_this_month %>%</p>
 				</div>
 			</div>
 		</div>
@@ -83,7 +83,14 @@
 			<h1>To be continue...</h1>
 		</div>
 		<div class="col-md-4">
-			<h1>To be continue...</h1>
-		</div>
+	    <div id="calendar"><h2>Calendar</h2></div>
+	  </div>
 	</div>
-	</div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#calendar').datepicker({
+    });
+  });
+</script>

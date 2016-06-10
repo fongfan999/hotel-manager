@@ -9,6 +9,17 @@ class Room < ActiveRecord::Base
 		numericality: {	only_integer: true, greater_than_or_equal_to: 1,
 			less_than_or_equal_to: 6 }
 
+	scope :in_previous_month, -> {
+  	where("created_at < ?", (Date.today - 1.month).end_of_month).count
+  }
+
+  scope :increase_in_this_month, -> {
+  	current = count
+  	previous = in_previous_month
+  	return 100 if previous == 0
+  	(((current - previous).to_f / previous)*100).round
+  }
+  
 	def self.available_room
 		availabe_room = []
 		Room.all.each do |room|
@@ -50,8 +61,7 @@ class Room < ActiveRecord::Base
 
 	def amount(start_date, end_date)
 		bills.fill_date(start_date, end_date).inject(0) do |amount, bill|
-				amount += bill.grand_total
-				# receipt.type.cost ??? which one?
+				amount += bill.receipt.grand_total
 			end
 	end
 

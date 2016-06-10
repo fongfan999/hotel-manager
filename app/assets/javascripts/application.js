@@ -15,19 +15,10 @@
 //= require angular
 //= require angular-resource
 //= require_tree .
-//= require bootstrap-sprockets
 //= require chartkick
+//= require bootstrap-sprockets
+//= require bootstrap-datepicker
 //= require flat-ui
-
-
-$(document).on("ready page:load", function() {
-  setTimeout(
-  	function() {
-	   $(".alert").fadeOut();
-	  },
-	  5000
-	);
-});
 
 $(document).ready(function() {
   $('[data-toggle="tooltip"]').tooltip();
@@ -52,8 +43,27 @@ $(document).ready(function() {
 
   // Fix Flat UI
   var tmp = $(".radio").find("label");
-  tmp[1].click();
-  tmp[0].click();
+  if (tmp.length) {
+    tmp[1].click();
+    tmp[0].click();
+  };
+
+  // Active today calendar
+  setTimeout(function() {
+    var day = (new Date()).getDate();
+    var content = $("#calendar td:contains('" + day + "')");
+    content.css( "background-color", "#7D1220");
+
+  }, 1000);
+
+  // Hide message
+  setTimeout(
+    function() {
+     $(".alert").fadeOut();
+    },
+    5000
+  );
+
 });
 
 

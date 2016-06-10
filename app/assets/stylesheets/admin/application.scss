@@ -1,3 +1,5 @@
+@import "datepicker3";
+
 #statistic {
 	background-color: #F1F4F7;
 }
@@ -99,6 +101,55 @@
     border-radius: 50px;
     margin-top: 25px;
 	}
+}
+
+#calendar {
+  text-align: center;
+  background-color: #F9243F;
+  color: #fff;
+  padding-bottom: 10px;
+
+  h2 {
+    font-size: 18px;
+    padding-top: 15px;
+    font-weight: bold;
+    color: #fff;
+
+    &:before {
+    	font-family: "FontAwesome";
+			padding-right: 0.5em;
+			@extend .fa-calendar;
+    }
+  }
+
+  .datepicker-inline {
+    width: 100%;
+  }
+
+  .datepicker table {
+    width: 100%;
+  }
+
+  th, td {
+    cursor: pointer;
+  }
+
+  td {
+    border-radius: 3px;
+    width: 14.2857% !important;
+  }
+
+  td:hover {
+    background-color: #A21616;
+  }
+
+  .dow {
+    cursor: default;
+  }
+
+  td.old, td.new {
+    color: #FC919E;
+  }
 }
 
 
