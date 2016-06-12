@@ -2,8 +2,8 @@
 	<%= f.association :customer, include_blank: false, 
 		collection: receipt.id.nil? ? Customer.available_customer : receipt.customer.available_customer %><br/>
 	<small>
-		New Customer? <%= link_to "Bring me to New Customer page",
-			new_customer_path %>
+		New Customer? <%= link_to "Bring me to Sign up page",
+			new_user_registration_path %>
 	</small><br/>
 	<%= f.association :room, include_blank: false,
 		collection: receipt.id.nil? ? Room.available_room : receipt.room.available_room %>

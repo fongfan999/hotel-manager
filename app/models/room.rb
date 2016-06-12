@@ -60,9 +60,9 @@ class Room < ActiveRecord::Base
 	end
 
 	def amount(start_date, end_date)
-		bills.fill_date(start_date, end_date).inject(0) do |amount, bill|
-				amount += bill.receipt.grand_total
-			end
+		bills.fill_date(start_date, end_date).inject(0) { |amount, bill|
+			amount += bill.receipt.grand_total unless bill.employee.nil?
+		}.to_i
 	end
 
 	def total_days(start_date, end_date)

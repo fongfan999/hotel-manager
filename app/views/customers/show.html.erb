@@ -1,7 +1,7 @@
 <%= title(@customer.name, "Customers") %>
 
 <header>
-	<h1>Customer Details</h1>
+	<h2>Customer Details</h2>
 	<% if current_user.try(:admin?) %>
 		<ul class="actions">
 			<li><%= link_to "Edit Customer", [:edit, @customer], class: "edit" %></li>
@@ -48,7 +48,7 @@
 </table>
 
 <header>
-	<h1>History</h1>
+	<h2>History</h1>
 </header>
 
 <% if @receipts.present? %>
@@ -105,7 +105,7 @@
 <% end %>
 
 <header>
-	<h1>Bill</h1>
+	<h2>Bill</h1>
 </header>
 
 <% if @bills.present? %>

@@ -1,0 +1,76 @@
+html, body {
+	overflow-x: visible;
+}
+
+#fixed-bottom { page-break-inside: avoid; }
+
+#bill-pdf {
+	margin-top: -70px;
+	color: #043E7B !important;
+	
+	table {
+		border-color: #043E7B;
+	}
+
+	tr, td, th {
+		color: #043E7B;
+		border-color: #043E7B;
+	}
+
+	h3 {
+		font-weight: bold;
+		color: #e74c3c;
+	}
+
+	h4 {
+		padding-top: 35px;
+	}
+
+	.col-xs-12 {
+		text-align: right;
+	}
+
+	p {
+		font-size: 0.7em;
+	}
+
+	#info {
+		position: absolute;
+		bottom: 10px;
+		left: 10px;
+	}
+
+	#fixed-bottom {
+		height: 180px;
+	}
+}
+
+#statistics-pdf {
+	margin-top: -70px;
+
+	header {
+		color: #043E7B !important;
+		margin-bottom: 50px;
+	}
+	
+	h3 {
+		font-weight: bold;
+		color: #e74c3c;
+	}
+
+	h4 {
+		padding-top: 35px;
+	}
+
+	.col-xs-12 {
+		text-align: right;
+	}
+
+	p {
+		font-size: 0.7em;
+	}
+
+	.row {
+		page-break-inside: avoid;
+	}
+}

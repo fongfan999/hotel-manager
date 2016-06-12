@@ -1,7 +1,7 @@
-<%= title(@receiptcode, "Receipts") %>
+<%= title(@receipt.to_code, "Receipts") %>
 
 <header>
-	<h1>Receipt Details</h1>
+	<h2>Receipt Details</h2>
 	<ul class="actions">
 		<% if @receipt.bill.employee.nil? %>
 			<% if (current_user.try(:admin?) || current_user.employee?) %>
@@ -134,7 +134,7 @@
 
 <div id="services" ng-controller="ServiceCtrl">
 	<header>
-		<h1>Services</h1>
+		<h2>Services</h2>
 		<ul class="actions">
 			<li>
 			
