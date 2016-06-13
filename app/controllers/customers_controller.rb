@@ -6,7 +6,7 @@ class CustomersController < ApplicationController
   before_action :authorize_employee!, except: [:show, :new, :create]
 
   def index
-    @customers = Customer.all.order(:name).paginate(:page => params[:page])
+    @customers = Customer.all.paginate(:page => params[:page])
   end
 
   def show
@@ -83,6 +83,7 @@ class CustomersController < ApplicationController
   def update
     if @customer.update(customer_params)
       @customer.utf_name = Customer.to_utf(@customer.name)
+      @customer.save
 
       flash[:notice] = "Customer was successfully updated."
       redirect_to @customer
