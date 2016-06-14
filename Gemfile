@@ -35,6 +35,7 @@ gem 'bootstrap-will_paginate', '~> 0.0.10'
 gem 'flat-ui-sass', github: 'wingrunr21/flat-ui-sass'
 gem 'angularjs-rails'
 gem 'bootstrap-datepicker-rails'
+gem "non-stupid-digest-assets"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
