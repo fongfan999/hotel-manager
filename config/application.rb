@@ -25,5 +25,7 @@ module HotelManager
     config.active_record.raise_in_transactional_callbacks = true
 
     config.time_zone = 'Hanoi'
+
+    config.assets.precompile += ['application.scss', 'pdf.scss']
   end
 end
