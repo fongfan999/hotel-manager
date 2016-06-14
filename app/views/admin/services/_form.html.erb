@@ -2,12 +2,13 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :name %>
-    <%= f.input :unit %>
-    <%= f.input :price %>
+    <%= f.input :name, label: "Tên Dịch vụ" %>
+    <%= f.input :unit, label: "Đơn vị tính" %>
+    <%= f.input :price, label: "Giá" %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, class: "btn-success" %>
+    <%= f.button :submit, @service.new_record? ? "Tạo Dịch vụ" : "Cập nhật",
+    	class: "btn-success" %>
   </div>
 <% end %>

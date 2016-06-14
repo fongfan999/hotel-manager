@@ -1,5 +1,7 @@
+<%= title("Bảng điều khiển") %>
+
 <div class="page-header center">
-	<h1>Dashboard</h1>
+	<h2>Bảng điều khiển</h2>
 </div>
 
 <div id="statistic">	
@@ -10,14 +12,14 @@
 					customers_path %></div>
 				<div class="col-md-7">
 					<h3><%= Customer.excluding_archived.count %></h3>
-					<h5>Customers</h5>
+					<h5>Khách hàng</h5>
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="col-md-12 bot-item bot-customers">
-					<h4>Customers</h4>
-					<p><%= Customer.increase_in_this_month %>%</p>
+					<h4>Khách hàng</h4>
+					<p><%= Customer.increase_in_this_week %>%</p>
 				</div>
 			</div>
 		</div>
@@ -28,14 +30,14 @@
 					rooms_path %></div>
 				<div class="col-md-7">
 					<h3><%= Room.count %></h3>
-					<h5>Rooms</h5>
+					<h5>Phòng</h5>
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="col-md-12 bot-item bot-rooms">
-					<h4>Rooms</h4>
-					<p><%= Room.increase_in_this_month %>%</p>
+					<h4>Phòng</h4>
+					<p><%= Room.increase_in_this_week %>%</p>
 				</div>
 			</div>
 		</div>
@@ -46,14 +48,14 @@
 					admin_employees_path %></div>
 				<div class="col-md-7">
 					<h3><%= Employee.excluding_archived.count %></h3>
-					<h5>Employees</h5>
+					<h5>Nhân viên</h5>
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="col-md-12 bot-item bot-employees">
-					<h4>Employees</h4>
-					<p><%= Employee.increase_in_this_month %>%</p>
+					<h4>Nhân viên</h4>
+					<p><%= Employee.increase_in_this_week %>%</p>
 				</div>
 			</div>
 		</div>
@@ -64,22 +66,22 @@
 					services_path %></div>
 				<div class="col-md-7">
 					<h3><%= Service.count %></h3>
-					<h5>Services</h5>
+					<h5>Dịch vụ</h5>
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="col-md-12 bot-item bot-services">
-					<h4>Services</h4>
-					<p><%= Service.increase_in_this_month %>%</p>
+					<h4>Dịch vụ</h4>
+					<p><%= Service.increase_in_this_week %>%</p>
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<div class="row">
-		<div class="col-md-8">
-			<h6>Bills</h6>
+		<div class="col-md-8 italic">
+			<h6>Thống kê Số lượng Hóa đơn hằng Tuần</h6>
 			<%= column_chart Bill.chart_by_week(4) %>
 		</div>
 		<div class="col-md-4">
@@ -87,8 +89,6 @@
 	  </div>
 	</div>
 </div>
-
-
 
 <script type="text/javascript">
   $(document).ready(function(){

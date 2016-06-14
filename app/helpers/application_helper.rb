@@ -12,6 +12,6 @@ module ApplicationHelper
 	end
 
 	def format_money(money)
-		number_with_delimiter(money, delimiter: ',')
+		number_with_delimiter(money, delimiter: ',') + " VNĐ"
 	end
 end

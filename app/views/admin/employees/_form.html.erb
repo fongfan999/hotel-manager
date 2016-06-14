@@ -1,11 +1,15 @@
 <%= simple_form_for [:admin, employee] do |f| %>
-	<%= f.input :name %>
-	<%= f.input :gender, collection: [['Male', true] ,['Female', false]],
-		as: :radio_buttons, checked: employee.gender %>
-	<%= f.input :date_of_birth, start_year: Date.today.year - 90,
-    end_year: Date.today.year - 15, order: [:day, :month, :year] %>
-	<%= f.input :phone %>
-	<%= f.input :address %>
+	<%= f.input :name, label: "Họ và tên" %>
+	<span class="gender" data-id="<%= employee.gender %>">
+	<%= f.input :gender, label: "Giới tính",
+		collection: [['Nam', true] ,['Nữ', false]],
+		as: :radio_buttons %>
+	<%= f.input :date_of_birth, label: "Ngày sinh",
+		start_year: Date.today.year - 90, end_year: Date.today.year - 15,
+		order: [:day, :month, :year] %>
+	<%= f.input :phone, label: "Số điện thoại" %>
+	<%= f.input :address, label: "Địa chỉ" %>
 
-	<%= f.button :submit, class: "btn-success" %>
+	<%= f.button :submit, value: employee.new_record? ? "Tạo Nhân viên" : 
+		"Cập nhật", class: "btn-success" %><br/>
 <% end %>

@@ -44,8 +44,15 @@ $(document).ready(function() {
   // Fix Flat UI
   var tmp = $(".radio").find("label");
   if (tmp.length) {
-    tmp[1].click();
-    tmp[0].click();
+    if ($(".gender").data("id")) {
+      tmp[1].click();
+      tmp[0].click();
+    } else {
+      tmp[0].click();
+      tmp[1].click();
+    }
+
+    $(".radio label").css("margin-top", "0px !important");
   };
 
   // Active today calendar

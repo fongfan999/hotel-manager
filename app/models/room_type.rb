@@ -35,7 +35,7 @@ class RoomType < ActiveRecord::Base
   end
 
 	def to_label
-		new_style_cost = number_with_delimiter(cost, :delimiter => ',')
+		new_style_cost = number_with_delimiter(cost, :delimiter => ',') + " VNĐ"
 		"#{name} - #{new_style_cost}"
 	end
 
@@ -55,7 +55,7 @@ class RoomType < ActiveRecord::Base
 
 	def percentage_revenues(start_date, end_date)
 		return 0 if RoomType.total_amount(start_date, end_date) == 0
-		(amount(start_date, end_date) / RoomType.total_amount(start_date,
+		(amount(start_date, end_date).to_f / RoomType.total_amount(start_date,
 			end_date) * 100).round(1) 
 	end
 
@@ -67,6 +67,7 @@ class RoomType < ActiveRecord::Base
 
 	def percentage_days(start_date, end_date)
 		return 0 if RoomType.total_days(start_date, end_date) == 0
-		(total_days(start_date, end_date).to_f / RoomType.total_days(start_date, end_date) * 100).round(1) 
+		(total_days(start_date, end_date).to_f / RoomType.total_days(start_date,
+			end_date) * 100).round(1) 
 	end
 end

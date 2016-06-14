@@ -1,6 +1,6 @@
 <%= simple_form_for [:admin, type] do |f| %>
-	<%= f.input :name %>
-	<%= f.input :cost %>
+	<%= f.input :name, label: "Tên Loại phòng" %>
+	<%= f.input :cost, label: "Giá Loại phòng" %>
 
-	<%= f.button :submit, class: "btn-success" %>
+	<%= f.button :submit, value: "Cập nhật" ,class: "btn-success" %>
 <% end %>

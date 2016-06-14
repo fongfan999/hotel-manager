@@ -1,8 +1,10 @@
 <%= simple_form_for [:admin, room] do |f| %>
-	<%= f.input :name %>
-	<%= f.input :max_quantity %>
-	<%= f.association :type, label_method: :to_label, include_blank: false %>
-	<%= f.input :annotation %>
+	<%= f.input :name, label: "Tên Phòng" %>
+	<%= f.input :max_quantity, label: "Số lượng người tối đa" %>
+	<%= f.association :type, label: "Loại phòng", label_method: :to_label,
+		include_blank: false %>
+	<%= f.input :annotation, label: "Ghi chú" %>
 
-	<%= f.button :submit, class: "btn-success" %>
+	<%= f.button :submit, value: room.new_record? ? "Tạo Phòng" : "Cập nhật",
+		class: "btn-success" %>
 <% end %>

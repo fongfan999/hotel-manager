@@ -3,7 +3,7 @@ class Admin::EmployeesController < Admin::ApplicationController
     :destroy]
 
   def index
-    @employees = Employee.excluding_archived.order(:name).paginate(:page => params[:page])
+    @employees = Employee.excluding_archived.order(:created_at).paginate(:page => params[:page])
   end
 
   def new

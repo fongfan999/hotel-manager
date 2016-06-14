@@ -1,10 +1,10 @@
-<%= title("Employees") %>
+<%= title("Danh sách Nhân viên") %>
 
 <header>
-	<h2>Listing Employees</h2>
+	<h2>Danh sách Nhân viên</h2>
 
 	<ul class="actions">
-		<li><%= link_to "New Employee", new_admin_employee_path,
+		<li><%= link_to "Thêm mới", new_admin_employee_path,
 			class: "new" %></li>
 	</ul>
 </header>
@@ -15,14 +15,14 @@
 		<table>
 			<thead>
 				<tr>
-					<th>No.</th>
-					<th>Name</th>
-					<th>Gender</th>
-					<th>Birthday</th>
-					<th>Hire day</th>
-					<th>Phone</th>
-					<th>Address</th>
-					<th>Actions</th>
+					<th>STT</th>
+					<th>Họ và tên</th>
+					<th>Giới tính</th>
+					<th>Ngày sinh</th>
+					<th>Ngày vào làm</th>
+					<th>Số điện thoại</th>
+					<th>Địa chỉ</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -42,12 +42,12 @@
 					<td>
 						<%= link_to "", [:edit, :admin, employee], class: "edit" %>
 						<%= link_to "", reset_password_admin_employee_path(employee),
-							class: "reset", method: :patch, title: "Reset password",
+							class: "reset", method: :patch, title: "Làm mới mật khẩu",
 							data: { toggle: 'tooltip', placement: "bottom",
-								confirm: "Are you sure to reset password this customer?" } %>
+								confirm: "Bạn có chắc làm mới mật khẩu nhân viên này?" } %>
 						<%= link_to "", [:admin, employee] ,class: "delete",
 							method: :delete,
-							data: { confirm: "Are you sure to delete this employee?" } %>
+							data: { confirm: "Bạn có chắc xóa nhân viên này?" } %>
 					</td>
 				</tr>
 				<% end %>
@@ -67,4 +67,4 @@
 	</div>
 </div>
 
-<%= link_to "Back", :back, class: "back" %>
+<%= link_to "Trở về", :back, class: "back" %>
