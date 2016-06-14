@@ -28,7 +28,7 @@ gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
 gem 'font-awesome-rails', '~> 4.6', '>= 4.6.2.0'
 gem 'devise', '~> 4.1', '>= 4.1.1'
 gem 'wicked_pdf', '~> 1.0', '>= 1.0.6'
-gem 'wkhtmltopdf-binary-edge', '~> 0.12.2.1'
+gem 'wkhtmltopdf-heroku'
 gem "chartkick"
 gem 'will_paginate', '~> 3.1'
 gem 'bootstrap-will_paginate', '~> 0.0.10'
