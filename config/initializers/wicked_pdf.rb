@@ -10,7 +10,7 @@
 
 if Rails.env.production?
 	# This is configued in Heroku only
-	wkhtmltopdf_path = '/app/vendor/bundle/bin/wkhtmltopdf'
+	wkhtmltopdf_path = Gem.bin_path('wkhtmltopdf-heroku')
 else
 	wkhtmltopdf_path = '/usr/local/bin/wkhtmltopdf'
 end
