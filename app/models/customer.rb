@@ -12,6 +12,10 @@ class Customer < ActiveRecord::Base
 	  joins(:account).where( users: {id: User.current_user.id})
   }
 
+  scope :excluding_archived, -> do
+  	joins(:account).where(users: {archived_at: nil})
+  end
+
 	scope :in_previous_month, -> {
   	where("created_at < ?", (Date.today - 1.month).end_of_month).count
   }

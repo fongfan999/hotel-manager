@@ -3,7 +3,7 @@ class Admin::EmployeesController < Admin::ApplicationController
     :destroy]
 
   def index
-    @employees = Employee.all.order(:name).paginate(:page => params[:page])
+    @employees = Employee.excluding_archived.order(:name).paginate(:page => params[:page])
   end
 
   def new
@@ -49,8 +49,9 @@ class Admin::EmployeesController < Admin::ApplicationController
     end
   end
 
-  def destroy
-    @employee.destroy
+  def archive
+    @employee.account.archive
+
     flash[:notice] = "Employee was successfully destroyed."
     redirect_to admin_employees_path
   end

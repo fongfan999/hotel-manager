@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160609023132) do
+ActiveRecord::Schema.define(version: 20160614015945) do
 
   create_table "bills", force: :cascade do |t|
     t.integer  "receipt_id"
@@ -126,6 +126,7 @@ ActiveRecord::Schema.define(version: 20160609023132) do
     t.integer  "customer_id"
     t.string   "role",                   default: ""
     t.integer  "employee_id"
+    t.datetime "archived_at"
   end
 
   add_index "users", ["customer_id"], name: "index_users_on_customer_id"

@@ -1,12 +1,11 @@
 require 'will_paginate/array'
 
 class CustomersController < ApplicationController
-  before_action :set_customer, only: [:show, :edit, :update, :destroy,
-    :reset_password]
+  before_action :set_customer, only: [:show, :edit, :update, :reset_password]
   before_action :authorize_employee!, except: [:show, :new, :create]
 
   def index
-    @customers = Customer.all.paginate(:page => params[:page])
+    @customers = Customer.excluding_archived.paginate(:page => params[:page])
   end
 
   def show
@@ -33,7 +32,8 @@ class CustomersController < ApplicationController
   end
 
   def new
-    if !current_user.customer.nil? || current_user.admin?
+    if !current_user.customer.nil? || current_user.admin? ||
+        current_user.employee?
       redirect_to root_path
     end
     @customer = Customer.new
@@ -91,12 +91,6 @@ class CustomersController < ApplicationController
       flash.now[:alert] = "Customer was not successfully updated."
       render :edit
     end
-  end
-
-  def destroy
-    @customer.destroy
-    flash.now[:notice] = "Customer was successfully destroyed."
-    redirect_to rooms_path
   end
 
   private

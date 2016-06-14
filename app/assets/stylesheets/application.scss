@@ -65,7 +65,7 @@ form {
 }
 
 .login-form > form {
-	width: 100%;
+	max-width: 100%;
 }
 
 a.new, a.edit, a.delete, a.back, a.pay, a.reset, li.export > a {

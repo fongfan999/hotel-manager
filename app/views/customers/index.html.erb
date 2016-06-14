@@ -57,8 +57,8 @@
 							class: "reset", method: :patch, title: "Reset password",
 							data: { toggle: 'tooltip', placement: "bottom",
 								confirm: "Are you sure to reset password this customer?" } %>
-						<%= link_to "", customer ,class: "delete",
-							method: :delete,
+						<%= link_to "", archive_admin_customer_path(customer),
+							class: "delete", method: :patch,
 							data: { confirm: "Are you sure to delete this customer?" } %>
 					</td>
 				</tr>

@@ -11,13 +11,20 @@ Rails.application.routes.draw do
       end
     end
     
-    resources :employees do
+    resources :employees, except: [:destroy] do
       member do
         patch :reset_password
+        patch :archive
       end
     end
 
     resources :rooms, except: [:index, :show]
+
+    resources :customers, only: [] do
+      member do
+        patch :archive
+      end
+    end
 
     resources :services, except: [:index, :show, :destroy]
 
@@ -30,7 +37,7 @@ Rails.application.routes.draw do
 
   resources :rooms, only: [:index, :show]
 
-  resources :customers do
+  resources :customers, except: [:destroy] do
     collection do
       get :search
     end

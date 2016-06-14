@@ -9,7 +9,7 @@
 				<div class="col-md-5"><%= link_to image_tag("customer.png"),
 					customers_path %></div>
 				<div class="col-md-7">
-					<h3><%= Customer.count %></h3>
+					<h3><%= Customer.excluding_archived.count %></h3>
 					<h5>Customers</h5>
 				</div>
 			</div>
@@ -45,7 +45,7 @@
 				<div class="col-md-5"><%= link_to image_tag("employee.png"),
 					admin_employees_path %></div>
 				<div class="col-md-7">
-					<h3><%= Employee.count %></h3>
+					<h3><%= Employee.excluding_archived.count %></h3>
 					<h5>Employees</h5>
 				</div>
 			</div>
