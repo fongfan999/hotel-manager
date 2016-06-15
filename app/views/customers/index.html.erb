@@ -57,9 +57,11 @@
 							class: "reset", method: :patch, title: "Làm mới mật khẩu",
 							data: { toggle: 'tooltip', placement: "bottom",
 								confirm: "Bạn có chắc làm mới mật khẩu khách hàng này?" } %>
+						<% admins_only do %>
 						<%= link_to "", archive_admin_customer_path(customer),
 							class: "delete", method: :patch,
 							data: { confirm: "Bạn có chắc xóa khách hàng này?" } %>
+						<% end %>
 					</td>
 				</tr>
 				<% end %>

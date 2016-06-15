@@ -1,7 +1,8 @@
 <%= title(@customer.name, "Khách hàng") %>
 
 <header>
-	<h2>Chi tiết Khách hàng</h2>
+	<h2><%= current_user.admin? || current_user.employee? ? "Chi tiết Khách hàng" :
+		"Hồ sơ của tôi" %></h2>
 	<% if current_user.try(:admin?) %>
 		<ul class="actions">
 			<li><%= link_to "Chỉnh sửa", [:edit, @customer], class: "edit" %></li>

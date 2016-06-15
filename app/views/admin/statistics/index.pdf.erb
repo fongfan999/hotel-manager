@@ -9,7 +9,8 @@
 			<div class="row">
 				<div class="col-xs-6">
 					<h3>Palace Hostel</h3>
-					<h4>From: <%= @date.start_date %> to: <%= @date.end_date %></h4>
+					<h5>Từ: <%= @date.start_date %></h5>
+					<h5>Đến: <%= @date.end_date %></h5>
 				</div>
 
 				<div class="col-xs-6">
@@ -17,7 +18,7 @@
 					<div class="col-xs-12">
 						<h6>ĐỊA CHỈ</h6>
 		        <span class="border-top-info"></span>
-		        <p>5046 S Greenwood Avenue, Chicago, IL 60615</p>
+		        <p>56-66 Nguyen Hue St, Dist 1, HCMC Viet Nam</p>
 					</div>
 					</div>
 					
@@ -44,10 +45,10 @@
 					<table>
 						<thead>
 							<tr>
-								<th>No.</th>
-								<th>Type</th>
-								<th>Revenue</th>
-								<th>Percentage</th>
+								<th>STT</th>
+								<th>Loại Phòng</th>
+								<th>Doanh thu</th>
+								<th>Tỷ lệ</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -72,7 +73,7 @@
 							<tr>
 								<td colspan="4">
 									<strong>
-										Total revenue: 
+										Tổng doanh thu: 
 										<%= format_money(RoomType.total_amount(@date.start_date,
 											@date.end_date)) %>
 									</strong>
@@ -94,10 +95,10 @@
 					<table>
 						<thead>
 							<tr>
-								<th>No.</th>
-								<th>Type</th>
-								<th>Number of days rented</th>
-								<th>Percentage</th>
+								<th>STT</th>
+								<th>Loại Phòng</th>
+								<th>Số ngày thuê</th>
+								<th>Tỷ lệ</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -120,7 +121,7 @@
 							<tr>
 								<td colspan="4">
 									<strong>
-										Total days: 
+										Tổng ngày thuê: 
 										<%= RoomType.total_days(@date.start_date, @date.end_date) %>
 									</strong>
 								</td>
@@ -130,9 +131,9 @@
 				</div>
 			</div>
 
-			<div class="col-md-6">
+			<div class="col-md-6 col-md-pull-6">
 				<%= pie_chart RoomType.day_chart(@date.start_date, @date.end_date) %>
-			</div>	
+			</div>
 		</div>
 	</div>
 </div>

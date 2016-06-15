@@ -25,9 +25,9 @@ class Admin::EmployeesController < Admin::ApplicationController
     @employee = Employee.new(employee_params)
 
     if @employee.save
-      password = @employee.phone
-      email = @employee.name.split[-1].downcase + password + "@example.com"
-      account = User.create!(email: email, password: password, role: "employee")
+      phone = @employee.phone
+      email = @employee.name.split[-1].downcase + phone + "@example.com"
+      account = User.create!(email: email, password: phone, role: "employee")
       @employee.account = account
       @employee.save
 
