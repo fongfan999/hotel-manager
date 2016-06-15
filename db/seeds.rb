@@ -65,35 +65,35 @@ unless CustomerType.exists?(name: "VIP")
 end
 
 unless Service.exists?(name: "Dr. Thanh")
-	Service.create!(name: "Dr. Thanh", unit: "bottle", price: "20000")
+	Service.create!(name: "Dr. Thanh", unit: "chai", price: "20000")
 end
 
 unless Service.exists?(name: "CocaCola")
-	Service.create!(name: "CocaCola", unit: "bottle", price: "15000")
+	Service.create!(name: "CocaCola", unit: "chai", price: "15000")
 end
 
 unless Service.exists?(name: "Pepsi")
-	Service.create!(name: "Pepsi", unit: "bottle", price: "16000")
+	Service.create!(name: "Pepsi", unit: "chai", price: "16000")
 end
 
 unless Service.exists?(name: "SevenUp")
-	Service.create!(name: "SevenUp", unit: "bottle", price: "14000")
+	Service.create!(name: "SevenUp", unit: "chai", price: "14000")
 end
 
 unless Service.exists?(name: "Sprite")
-	Service.create!(name: "Sprite", unit: "bottle", price: "14000")
+	Service.create!(name: "Sprite", unit: "chai", price: "14000")
 end
 
 unless Service.exists?(name: "Lavie")
-	Service.create!(name: "Lavie", unit: "bottle", price: "10000")
+	Service.create!(name: "Lavie", unit: "chai", price: "10000")
 end
 
 unless Service.exists?(name: "Aquafina")
-	Service.create!(name: "Aquafina", unit: "bottle", price: "10000")
+	Service.create!(name: "Aquafina", unit: "chai", price: "10000")
 end
 
 unless Service.exists?(name: "Vinh Hao")
-	Service.create!(name: "Vinh Hao", unit: "bottle", price: "10000")
+	Service.create!(name: "Vinh Hao", unit: "chai", price: "10000")
 end
 
 
