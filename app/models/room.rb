@@ -81,7 +81,7 @@ class Room < ActiveRecord::Base
     param.downcase!
     (room_name_matches(param) + room_type_name_matches(param) +
     	room_type_cost_matches(param) + room_annotation_matches(param) + 
-    	room_max_quantity_matches).uniq
+    	room_max_quantity_matches(param)).uniq
   end
 
   def self.room_name_matches(param)

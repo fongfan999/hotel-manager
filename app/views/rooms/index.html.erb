@@ -26,6 +26,16 @@
 	</div>
 </header>
 
+<div class="row">
+  <div class="col-md-12">
+    <div id="spinner" class="spinner" style="display: none;">
+      <%= image_tag("spinner.gif", alt: "Loading") %>
+    </div>
+  </div>
+</div>
+
+<div id="rooms">
+
 <% if @rooms.present? %>
 	<div class="listing-index icon-only">
 		<table>
@@ -68,6 +78,8 @@
 <% else %>
 	<p>Hiện tại dữ liệu trống.</p>
 <% end %>
+
+</div>
 
 <div class="will_page">
   <div class="center">

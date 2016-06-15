@@ -35,4 +35,27 @@ class Service < ActiveRecord::Base
 	def archive
     self.update(archived_at: Time.now)
   end
+
+  def self.search(param)
+    param.strip!
+    param.downcase!
+    (name_matches(param) + unit_matches(param) + 
+      price_matches(param)).uniq
+  end
+
+  def self.name_matches(param)
+    matches("name", param)
+  end
+
+  def self.unit_matches(param)
+    matches("unit", param)
+  end
+
+  def self.price_matches(param)
+    matches("price", param)
+  end
+
+  def self.matches(field_name, param)
+	where("lower(#{field_name}) LIKE ?", "%#{param}%")
+  end
 end

@@ -70,7 +70,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :services, only: [:index]
+  resources :services, only: [:index] do
+    collection do
+      get :search
+    end
+  end
 
   resources :bills, only: [:index, :show] do
     resources :services, only: [] do

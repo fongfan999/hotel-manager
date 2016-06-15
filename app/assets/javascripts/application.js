@@ -38,6 +38,8 @@ $(document).ready(function() {
     $("#customers").hide();
     $("#receipts").hide();
     $("#bills").hide();
+    $("#services").hide();
+    $("#rooms").hide();
     $("div#spinner").show();
   });
 

@@ -11,4 +11,16 @@ class ServicesController < ApplicationController
       format.json { render :json => Service.all }
     end
   end
+
+  def search
+    unless params[:search][:q].blank?
+      @services = Service.search(params[:search][:q])
+    else
+      @services = Service.all
+    end
+    
+    @services = @services.paginate(:page => params[:page])
+
+    render :index
+  end
 end

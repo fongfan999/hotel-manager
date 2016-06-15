@@ -11,6 +11,30 @@
   <% end %>
 </header>
 
+<header>
+  <div class="row">
+    <%= simple_form_for :search,
+      url: search_services_path(:search), :method => 'get' do |f| %>
+      <div class="col-sm-8">
+        <%= f.input :q, as: :string, label: false, placeholder: "Nhập Tên, Đơn vị tính hoặc Giá", autofocus: true, 
+          :input_html => { value: (params[:search].nil?) ? "" : params[:search][:q] } %>
+      </div>
+      <div class="col-sm-4">
+        <%= f.button :submit, value: "Tìm kiếm", class: "btn-default search-btn" %>
+      </div>
+    <% end %>
+  </div>
+</header>
+
+<div class="row">
+  <div class="col-md-12">
+    <div id="spinner" class="spinner" style="display: none;">
+      <%= image_tag("spinner.gif", alt: "Loading") %>
+    </div>
+  </div>
+</div>
+
+<div id="services">
 <% if @services.present? %>
   <div class="listing-index">
     <table>
@@ -57,6 +81,8 @@
       </div>
     </div>
   </div>
+</div>
+
 </div>
 
 <%= link_to "Back", :back, class: "back" %>
