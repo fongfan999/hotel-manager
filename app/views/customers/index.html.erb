@@ -1,7 +1,7 @@
-<%= title("Customers") %>
+<%= title("Danh sách Khách hàng") %>
 
 <header>
-	<h2>Listing Customers</h2>
+	<h2>Danh sách Khách hàng</h2>
 </header>
 
 <header>
@@ -9,11 +9,11 @@
 		<%= simple_form_for :search,
 			url: search_customers_path(:search), :method => 'get' do |f| %>
 			<div class="col-sm-8">
-			  <%= f.input :q, as: :string, label: false, placeholder: "Enter Name, ID Card, Phone, etc.", autofocus: true, 
+			  <%= f.input :q, as: :string, label: false, placeholder: "Nhập Tên, Số CMND, SĐT hoặc Địa chỉ", autofocus: true, 
 			  	:input_html => { value: (params[:search].nil?) ? "" : params[:search][:q] } %>
 			</div>
 			<div class="col-sm-4">
-				<%= f.button :submit, value: "Search", class: "btn-default search-btn" %>
+				<%= f.button :submit, value: "Tìm kiếm", class: "btn-default search-btn" %>
 			</div>
 		<% end %>
 	</div>
@@ -33,13 +33,13 @@
 		<table>
 			<thead>
 				<tr>
-					<th>No.</th>
-					<th>Name</th>
-					<th>Type</th>
+					<th>STT</th>
+					<th>Tên</th>
+					<th>Loại Khách hàng</th>
 					<% admins_only do %>
-					<th>Grand toal bills</th>
+					<th>Tổng giá trị hóa đơn</th>
 					<% end %>
-					<th>Actions</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -54,12 +54,12 @@
 					<td>
 						<%= link_to "", [:edit, customer], class: "edit" %>
 						<%= link_to "", reset_password_customer_path(customer),
-							class: "reset", method: :patch, title: "Reset password",
+							class: "reset", method: :patch, title: "Làm mới mật khẩu",
 							data: { toggle: 'tooltip', placement: "bottom",
-								confirm: "Are you sure to reset password this customer?" } %>
+								confirm: "Bạn có chắc làm mới mật khẩu khách hàng này?" } %>
 						<%= link_to "", archive_admin_customer_path(customer),
 							class: "delete", method: :patch,
-							data: { confirm: "Are you sure to delete this customer?" } %>
+							data: { confirm: "Bạn có chắc xóa khách hàng này?" } %>
 					</td>
 				</tr>
 				<% end %>

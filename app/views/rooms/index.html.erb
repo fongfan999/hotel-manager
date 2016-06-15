@@ -1,13 +1,29 @@
-<%= title("Rooms") %>
+<%= title("Danh sách Phòng") %>
 
 <header>
-	<h2>Listing Rooms</h2>
+	<h2>Danh sách Phòng</h2>
 	
 	<% admins_only do %>
 		<ul class="actions">
-			<li><%= link_to "New Room", new_admin_room_path, class: "new" %></li>
+			<li><%= link_to "Thêm mới", new_admin_room_path, class: "new" %></li>
 		</ul>
 	<% end %>
+</header>
+
+<header>
+	<div class="row">
+		<%= simple_form_for :search,
+			url: search_rooms_path(:search), :method => 'get' do |f| %>
+			<div class="col-sm-8">
+			  <%= f.input :q, as: :string, label: false,
+			  	placeholder: "Nhập Phòng, Loại, Giá, Ghi chú, ...", autofocus: true, 
+			  	:input_html => { value: (params[:search].nil?) ? "" : params[:search][:q] } %>
+			</div>
+			<div class="col-sm-4">
+				<%= f.button :submit, value: "Tìm", class: "btn-default search-btn" %>
+			</div>
+		<% end %>
+	</div>
 </header>
 
 <% if @rooms.present? %>
@@ -15,13 +31,12 @@
 		<table>
 			<thead>
 				<tr>
-					<th>No.</th>
-					<th>ID</th>
-					<th>Name</th>
-					<th>Type</th>
-					<th>Status</th>
+					<th>STT</th>
+					<th>Tên</th>
+					<th>Loại Phòng</th>
+					<th>Tình trạng hiện tại</th>
 					<% if user_signed_in? && current_user.admin? %>
-						<th>Actions</th>
+						<th></th>
 					<% end %>
 				</tr>
 			</thead>
@@ -29,7 +44,6 @@
 				<% @rooms.each_with_index do |room, index| %>
 				<tr>
 					<td class="padding-top-15"><%= link_to index + 1, room %></td>
-					<td class="padding-top-15"><%= room.to_code %></td>
 					<td class="padding-top-15"><%= room.name %></td>
 					<td><%= render room.type %></td>
 					<td>
@@ -41,11 +55,9 @@
 					<% admins_only do %>
 						<td>
 							<%= link_to "", [:edit, :admin, room], class: "edit" %>
-							<% if room.status == "Available" %>
-								<%= link_to "", [:admin, room], class: "delete",
-									method: :delete,
-									data: { confirm: "Are you sure to delete this room?" } %>
-							<% end %>
+							<%= link_to "", archive_admin_room_path(room),
+							class: "delete", method: :patch,
+							data: { confirm: "Bạn có chắc xóa Phòng này không?" } %>
 						</td>
 					<% end %>
 				</tr>
@@ -57,15 +69,25 @@
 	<p>Hiện tại dữ liệu trống.</p>
 <% end %>
 
+<div class="will_page">
+  <div class="center">
+    <div class="row">
+      <div class="col-md-12">
+        <%= will_paginate @bills %>
+      </div>
+    </div>
+  </div>
+</div>
+
 <% admins_only do %>
 <div class="listing-index icon-only">
 	<table>
 		<thead>
 			<tr>
-				<th>No.</th>
-				<th>Type</th>
-				<th>Price</th>
-				<th>Quantity</th>
+				<th>STT</th>
+				<th>Loại Phòng</th>
+				<th>Đơn giá</th>
+				<th>Số lượng</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -82,4 +104,4 @@
 </div>
 <% end %>
 
-<%= link_to "Back", :back, class: "back" %>
+<%= link_to "Trở về", :back, class: "back" %>

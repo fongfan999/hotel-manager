@@ -1,8 +1,8 @@
 <%= simple_form_for customer do |f| %>
-	<%= f.input :name %>
-	<%= f.input :identity_card %>
-	<%= f.input :phone_number %>
-	<%= f.input :address %>
+	<%= f.input :name, label: "Họ và tên" %>
+	<%= f.input :identity_card, label: "Số CMND" %>
+	<%= f.input :phone_number, label: "Số Điện thoại" %>
+	<%= f.input :address, label: "Địa chỉ" %>
 
-	<%= f.button :submit, value: "Update" , class: "btn-success" %>
+	<%= f.button :submit, value: "Cập nhật thông tin" , class: "btn-success" %>
 <% end %>

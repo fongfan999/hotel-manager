@@ -1,7 +1,7 @@
-<%= title("Sign up") %>
+<%= title("Đăng ký tài khoản mới") %>
 
 <header>
-	<h2>Sign up</h2>
+	<h2>Đăng ký tài khoản mới</h2>
 </header>
 
 <div class="login-form col-md-6 col-md-offset-3">
@@ -14,18 +14,18 @@
 
   <div class="form-group">
   	<%= f.input :password, required: true, label: false,
-  		class: "form-control login-field", placeholder: "Password", id: "login-pass" %>
+  		class: "form-control login-field", placeholder: "Mật khẩu", id: "login-pass" %>
     	<label class="login-field-icon fui-lock" for="login-pass"></label>
   </div>
 
   <div class="form-group">
   	<%= f.input :password_confirmation, required: true, label: false,
-  		class: "form-control login-field", placeholder: "Password Confirmation",
+  		class: "form-control login-field", placeholder: "Xác nhận mật khẩu",
   			id: "login-pass" %>
     	<label class="login-field-icon fui-lock" for="login-pass"></label>
   </div>
 	
-	<%= f.button :submit, "Sign up", class: "btn btn-primary btn-lg btn-block" %>
+	<%= f.button :submit, "Đăng ký", class: "btn btn-primary btn-lg btn-block" %>
 	<% end %>
 </div>
 

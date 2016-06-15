@@ -26,6 +26,10 @@ module HotelManager
 
     config.time_zone = 'Hanoi'
 
+    # config.assets.compile = true
+    # config.assets.precompile =  ['*.js', '*.css']
+    # config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
+
     config.assets.precompile += ['application.scss', 'pdf.scss']
   end
 end

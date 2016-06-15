@@ -1,30 +1,24 @@
-<%= title(@room.name, "Rooms") %>
+<%= title("Phòng #{@room.name}") %>
 
 <header>
-	<h2>Room Details</h2>
+	<h2>Chi tiết Phòng</h2>
 	<% admins_only do %>
 		<ul class="actions">
-			<li><%= link_to "Edit Room", [:edit, :admin, @room], class: "edit" %></li>
-			<% if @room.customers.blank? %>
-				<li><%= link_to "Delete Room", [:admin, @room] ,class: "delete",
-					method: :delete,
-					data: { confirm: "Are you sure to delete this room?" } %></li>
-			<% end %>
+			<li><%= link_to "Chỉnh sửa", [:edit, :admin, @room], class: "edit" %></li>
+			<%= link_to "", archive_admin_room_path(room),
+				class: "delete", method: :patch,
+				data: { confirm: "Bạn có chắc xóa Phòng này không?" } %>
 		</ul>
 	<% end %>
 </header>
 
 <table class="info">
 	<tr>
-		<th>ID</th>
-		<td><%= @room.to_code %></td>
-	</tr>
-	<tr>
-		<th>Name</th>
+		<th>Tên phòng</th>
 		<td><%= @room.name %></td>
 	</tr>
 	<tr>
-		<th>Type</th>
+		<th>Loại phòng</th>
 		<td>
 			<div class="row">
 				<div class="all-grid-system-4"><%= render @room.type %></div>
@@ -32,11 +26,15 @@
 		</td>
 	</tr>
 	<tr>
-		<th>Cost</th>
+		<th>Giá phòng</th>
 		<td><%= format_money(@room.type.cost) %></td>
 	</tr>
 	<tr>
-		<th>Status</th>
+		<th>Số lượng người tối đa</th>
+		<td><%= @room.max_quantity %></td>
+	</tr>
+	<tr>
+		<th>Tình trạng hiện tại</th>
 		<td>
 			<div class="row">
 				<div class="all-grid-system-4">
@@ -48,9 +46,13 @@
 		</td>
 	</tr>
 	<tr>
-		<th>Annotation</th>
-			<td><%= @room.check_blank(@room.annotation) %></td>
+		<th>Ghi chú</th>
+		<td><%= @room.check_blank(@room.annotation) %></td>
+	</tr>
+	<tr>
+		<th>Doanh thu phòng trong tuần này</th>
+		<td><%= format_money((@room.amount(Date.today.beginning_of_week ,Date.today.end_of_week))) %></td>
 	</tr>
 </table>
 
-<%= link_to "Back", rooms_path, class: "back" %>
+<%= link_to "Trở về", rooms_path, class: "back" %>

@@ -4,7 +4,7 @@ class ServicesController < ApplicationController
   # GET /services
   # GET /services.json
   def index
-    @services = Service.all.order(:name)
+    @services = Service.excluding_archived.order(:name).paginate(:page => params[:page])
 
     respond_to do |format|
       format.html

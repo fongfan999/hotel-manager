@@ -1,13 +1,14 @@
 <%= simple_form_for receipt do |f| %>
-	<%= f.association :customer, include_blank: false, 
+	<%= f.association :customer, label: "Khách hàng", include_blank: false, 
 		collection: receipt.id.nil? ? Customer.available_customer : receipt.customer.available_customer %><br/>
 	<small>
-		New Customer? <%= link_to "Bring me to Sign up page",
+		Chưa có tài khoản? <%= link_to "Đưa tôi đến trang đăng ký tài khoản",
 			new_user_registration_path %>
 	</small><br/>
-	<%= f.association :room, include_blank: false,
+	<%= f.association :room, include_blank: false, label: "Phòng", 
 		collection: receipt.id.nil? ? Room.available_room : receipt.room.available_room %>
-	<%= f.input :quantity, label: "Quantity of people" %>
+	<%= f.input :quantity, label: "Số lượng người" %>
 
-	<%= f.button :submit, class: "btn-success" %>
+	<%= f.button :submit, receipt.new_record? ? "Tạo Biên lai" : "Cập nhật",
+		class: "btn-success" %>
 <% end %>

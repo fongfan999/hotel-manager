@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160614015945) do
+ActiveRecord::Schema.define(version: 20160615015015) do
 
   create_table "bills", force: :cascade do |t|
     t.integer  "receipt_id"
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 20160614015945) do
     t.datetime "updated_at",               null: false
     t.integer  "type_id"
     t.integer  "max_quantity", default: 1
+    t.date     "archived_at"
   end
 
   add_index "rooms", ["type_id"], name: "index_rooms_on_type_id"
@@ -97,9 +98,10 @@ ActiveRecord::Schema.define(version: 20160614015945) do
   create_table "services", force: :cascade do |t|
     t.string   "name"
     t.string   "unit"
-    t.decimal  "price",      default: 0.0
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.decimal  "price",       default: 0.0
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.date     "archived_at"
   end
 
   create_table "statistics", force: :cascade do |t|

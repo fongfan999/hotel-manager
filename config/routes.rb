@@ -18,7 +18,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :rooms, except: [:index, :show]
+    resources :rooms, except: [:index, :show, :destroy] do
+      member do
+        patch :archive
+      end
+    end
 
     resources :customers, only: [] do
       member do
@@ -26,7 +30,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :services, except: [:index, :show, :destroy]
+    resources :services, except: [:index, :show, :destroy] do
+      member do
+        patch :archive
+      end
+    end
 
     resources :room_types, only: [:index, :edit, :update]
   end
@@ -35,7 +43,11 @@ Rails.application.routes.draw do
   
   root 'welcome#index'
 
-  resources :rooms, only: [:index, :show]
+  resources :rooms, only: [:index, :show] do
+    collection do
+      get :search
+    end
+  end
 
   resources :customers, except: [:destroy] do
     collection do

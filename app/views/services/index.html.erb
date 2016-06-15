@@ -1,12 +1,12 @@
-<%= title("Services") %>
+<%= title("Danh sách Dịch vụ") %>
 
 <p id="notice"><%= notice %></p>
 
 <header>
-  <h2>Listing Services</h2>
+  <h2>Danh sách Dịch vụ</h2>
   <% admins_only do %>
   <ul class="actions">
-    <li><%= link_to "New Service", new_admin_service_path, class: "new" %></li>
+    <li><%= link_to "Thêm mới", new_admin_service_path, class: "new" %></li>
   </ul>
   <% end %>
 </header>
@@ -16,11 +16,11 @@
     <table>
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Unit price</th>
-          <th>Price</th>
+          <th>Tên</th>
+          <th>Đơn vị tính</th>
+          <th>Giá</th>
           <% admins_only do %>
-          <th>Actions</th>
+          <th></th>
           <% end %>            
         </tr>
       </thead>
@@ -34,7 +34,10 @@
             </td>
             <% admins_only do %>
             <td>
-              <%= link_to 'Edit', [:edit, :admin, service], class: "edit" %>
+              <%= link_to 'Sửa', [:edit, :admin, service], class: "edit" %>
+              <%= link_to "Xóa", archive_admin_service_path(service),
+              class: "delete", method: :patch,
+              data: { confirm: "Bạn có chắc xóa Dịnh vụ này không?" } %>
             </td>
             <% end %>
           </tr>
@@ -43,7 +46,17 @@
     </table>
   </div>
 <% else %>
-  <p>There is nothing to show.</p>
+  <p>Hiện tại dữ liệu trống.</p>
 <% end %>
+
+<div class="will_page">
+  <div class="center">
+    <div class="row">
+      <div class="col-md-12">
+        <%= will_paginate @bills %>
+      </div>
+    </div>
+  </div>
+</div>
 
 <%= link_to "Back", :back, class: "back" %>

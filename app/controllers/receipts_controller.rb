@@ -23,6 +23,7 @@ class ReceiptsController < ApplicationController
       format.json { render :json => @receipt.receipt_services }
       format.pdf do
         render :pdf => "#{@receipt.to_code}",
+        encoding: "UTF-8",
           :template => 'receipts/show.pdf.erb'
       end
     end

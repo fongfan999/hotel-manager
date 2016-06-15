@@ -1,7 +1,7 @@
-<%= title(@receipt.to_code, "Receipts") %>
+<%= title("Chỉ tiết Biên lai #{@receipt.to_code}") %>
 
 <header>
-	<h2>Receipt Details</h2>
+	<h2>Chỉ tiết Biên lai <%= @receipt.to_code %></h2>
 	<ul class="actions">
 		<% if @receipt.bill.employee.nil? %>
 			<% if (current_user.try(:admin?) || current_user.employee?) %>
@@ -12,34 +12,30 @@
 			<% end %>
 			
 		<% else %>
-			<li><%= link_to "Go to Bill", bill_path(@receipt.bill) %></li>
+			<li><%= link_to "Xem Biên lai", bill_path(@receipt.bill) %></li>
 		<% end %>
 	</ul>
 </header>
 
 <table class="info">
 	<tr>
-		<th>ID</th>
+		<th>Mã Biên lai</th>
 		<td><%= @receipt.to_code %></td>
 	</tr>
 	<tr>
-		<th>Tax code</th>
-		<td><%= @receipt.to_tax_code %></td>
-	</tr>
-	<tr>
-		<th>Customer</th>
+		<th>Khách hàng</th>
 		<td><%= @receipt.customer.name %></td>
 	</tr>
 	<tr>
-		<th>Room</th>
+		<th>Phòng</th>
 		<td><%= @receipt.room.name %></td>
 	</tr>
 	<tr>
-		<th>Quantity of people</th>
+		<th>Số lượng người</th>
 		<td><%= @receipt.quantity %></td>
 	</tr>
 	<tr>
-		<th>Status</th>
+		<th>Tình trạng</th>
 		<td>
 			<div class="row">
 				<div class="all-grid-system-4">
@@ -52,7 +48,7 @@
 		</td>
 	</tr>
 	<tr>
-		<th>Arrival/Departure Date</th>
+		<th>Thời điểm đi/đến</th>
 		<td>
 			<% if @receipt.bill.blank? %>
 				<%= @receipt.created_at.strftime("%d-%m-%Y, %I:%M:%S %p") %>
@@ -62,13 +58,13 @@
 		</td>
 	</tr>
 	<tr>
-		<th>Employee</th>
+		<th>Nhân viên</th>
 		<td><%= @receipt.employee_name %></td>
 	</tr>
 </table>
 
 <ul class="list-actions">
-	<li class="export"><%= link_to "Generate PDF", :action => "show",
+	<li class="export"><%= link_to "Xuất PDF", :action => "show",
 		:format => :pdf %></li>
 	<li id="spinner" class="spinner" style="display: none;">
     <%= image_tag("spinner.gif", alt: "Loading") %>
@@ -80,17 +76,19 @@
 	<table>
 		<thead>
 			<tr>
-				<th>No.</th>
-				<th>Charge</th>
-				<th>Price</th>
-				<th>Quantity</th>
-				<th>Amount</th>
+				<th>STT</th>
+				<th>Mô tả</th>
+				<th>Đơn vị tính</th>
+				<th>Đơn giá</th>
+				<th>Số lượng</th>
+				<th>Thành tiền</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<td>1</td>
-				<td>Room Rent</td>
+				<td>Tiền thuê phòng</td>
+				<td>ngày</td>
 				<td><%= format_money(@receipt.room.type.cost) %></td>
 				<td><%= pluralize(@receipt.total_days, 'day') %></td>
 				<td class="right">
@@ -101,6 +99,7 @@
 					<tr>
 						<td><%= index + 2 %></td>
 						<td><%= rc.service.name %></td>
+						<td><%= service.unit %></td>
 						<td><%= format_money(rc.service.price) %></td>
 						<td><%= pluralize(rc.service.get_quantity(@receipt), rc.service.unit) %></td>
 						<td class="right">
@@ -109,21 +108,21 @@
 					</tr>
 			<% end %>
 			<tr>
-				<td colspan="4">Total</td>
+				<td colspan="5">Tổng tiền</td>
 				<td class="right"><%= format_money(@receipt.amount) %></td>
 			</tr>
 			<tr>
-				<td colspan="4">VAT amount (10%)</td>
+				<td colspan="5">Thuế VAT (10%)</td>
 				<td class="right">+ <%= format_money(@receipt.amount.to_f/10) %></td>
 			</tr>
 			<tr>
-				<td colspan="4">Discount (<%= @receipt.discount %>%)</td>
+				<td colspan="5">Giảm giá (<%= @receipt.discount %>%)</td>
 				<td class="right">
 					- <%= format_money(@receipt.amount * @receipt.discount / 100) %> 
 				</td>
 			</tr>
 			<tr>
-				<td colspan="4">Grand total</td>
+				<td colspan="5">Trị giá</td>
 				<td class="right">
 					<strong><%= format_money(@receipt.grand_total) %></strong>
 				</td>
@@ -134,13 +133,13 @@
 
 <div id="services" ng-controller="ServiceCtrl">
 	<header>
-		<h2>Services</h2>
+		<h2>Dịnh vụ</h2>
 		<ul class="actions">
 			<li>
 			
 		<form name="myForm">
 
-		<input name="mySearch" placeholder="Search page" ng-model="search_by_name"
+		<input name="mySearch" placeholder="Tìm dịch vụ" ng-model="search_by_name"
 			style="padding-left: 10px;">
 
 		</form>
@@ -157,23 +156,23 @@
 		</ul>
 	</header>
 
-
-
 	<div class="listing-index icon-only">
 		<%= simple_form_for :update_individual,
 			url: update_individual_receipt_path, method: :post do |f| %>
 			<table>
 			  <thead>
 			    <tr>
-			      <th>Name</th>
-			      <th>Price</th>
-			      <th>Quantity</th>
+			      <th>Tên</th>
+			      <th>Đơn vị tính</th>
+			      <th>Giá</th>
+			      <th>Số lượng</th>
 			    </tr>
 			  </thead>
 			  <tbody>
 					<% @services.each do |service| %>
 						<tr>
 							<td><%= service.name %></td>
+							<td><%= service.unit %></td>
 							<td><%= format_money(service.price) %></td>
 							<%= f.simple_fields_for "services[]", service do |r| %>
 						    <td><%= r.input :quantity, as: :integer, label: false, 
@@ -193,10 +192,10 @@
 					</div>
 				</div>
 			</div>
-			<%= f.button :submit, value: "Update Now!", class: "btn-success" %>
+			<%= f.button :submit, value: "Cập nhật ngay!", class: "btn-success" %>
 		<% end %>
 	</div>
 </div>
 <% end %>
 
-<%= link_to "Back", receipts_path, class: "back" %>
+<%= link_to "Back", :back, class: "back" %>

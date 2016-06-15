@@ -1,7 +1,7 @@
-<%= title("Bills") %>
+<%= title("Danh sách Hóa đơn") %>
 
 <header>
-	<h2>Listing Bills</h2>
+	<h2>Danh sách Hóa đơn</h2>
 </header>
 
 <header>
@@ -9,12 +9,12 @@
 		<%= simple_form_for :search,
 			url: search_bills_path(:search), :method => 'get' do |f| %>
 			<div class="col-sm-8">
-			  <%= f.input :q, as: :string, label: false, placeholder: "Enter Bill ID, Name, Room, etc.",
+			  <%= f.input :q, as: :string, label: false, placeholder: "Nhập Mã HĐ, Phòng hoặc Khách hàng",
 			  	autofocus: true, 
 			  	:input_html => { value: (params[:search].nil?) ? "" : params[:search][:q] } %>
 			</div>
 			<div class="col-sm-4">
-				<%= f.button :submit, value: "Find!", class: "btn-default search-btn" %>
+				<%= f.button :submit, value: "Tìm kiếm", class: "btn-default search-btn" %>
 			</div>
 		<% end %>
 	</div>
@@ -35,11 +35,11 @@
 		<table>
 			<thead>
 				<tr>
-					<th>No.</th>
-					<th>Customer</th>
-					<th>Room</th>
-					<th>Date</th>
-					<th>Cost</th>
+					<th>Mã HĐ</th>
+					<th>Tên khách hàng</th>
+					<th>Tên Phòng</th>
+					<th>Ngày</th>
+					<th>Trị giá</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -58,7 +58,7 @@
 		</table>
 	</div>
 <% else %>
-	<p>There is nothing to show.</p>
+	<p>Hiện tại dữ liệu trống.</p>
 <% end %>
 
 </div>

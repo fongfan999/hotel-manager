@@ -1,28 +1,28 @@
-<%= title(@customer.name, "Customers") %>
+<%= title(@customer.name, "Khách hàng") %>
 
 <header>
-	<h2>Customer Details</h2>
+	<h2>Chi tiết Khách hàng</h2>
 	<% if current_user.try(:admin?) %>
 		<ul class="actions">
-			<li><%= link_to "Edit Customer", [:edit, @customer], class: "edit" %></li>
-			<li><%= link_to "Delete Customer", @delete ,class: "delete",
-				method: :delete,
-				data: { confirm: "Are you sure to delete this customer?" } %></li>
+			<li><%= link_to "Chỉnh sửa", [:edit, @customer], class: "edit" %></li>
+			<%= link_to "", archive_admin_customer_path(customer),
+							class: "delete", method: :patch,
+							data: { confirm: "Bạn có chắc xóa khách hàng này?" } %>
 		</ul>
 	<% end %>
 </header>
 
 <table class="info">
 	<tr>
-		<th>Name</th>
+		<th>Họ và tên</th>
 		<td><%= @customer.name %></td>
 	</tr>
 	<tr>
-		<th>Idenity Card</th>
+		<th>Số CMND</th>
 		<td><%= @customer.identity_card %></td>
 	</tr>
 	<tr>
-		<th>Type</th>
+		<th>Loại Khách hàng</th>
 		<td>
 			<div class="row">
 				<div class="all-grid-system-4"><%= render @customer.type %></div>
@@ -30,38 +30,39 @@
 		</td>
 	</tr>
 	<tr>
-		<th>Discount</th>
+		<th>Giảm giá</th>
 			<td><%= @customer.type.discount %> %</td>
 	</tr>
 	<tr>
-		<th>Phone number</th>
+		<th>Số điện thoại</th>
 			<td><%= @customer.check_blank(@customer.phone_number) %></td>
 	</tr>
 	<tr>
-		<th>Address</th>
+		<th>Địa chỉ</th>
 			<td><%= @customer.check_blank(@customer.address) %></td>
 	</tr>
 	<tr>
-		<th>Created at</th>
-			<td><%= @customer.created_at.strftime("%d-%m-%Y, %I:%M:%S %p") %></td>
+	<th>Ngày tạo tài khoản</th>
+		<td><%= @customer.created_at.strftime("%d-%m-%Y, %I:%M:%S %p") %></td>
 	</tr>
 </table>
 
 <header>
-	<h2>History</h2>
+	<h2>Lịch sử</h2>
 </header>
 
-<h3>Receipts</h3>
+<h3>Biên lai</h3>
 
 <% if @receipts.present? %>
 	<div class="listing-index">
 		<table>
 			<thead>
 				<tr>
-					<th>No.</th>
-					<th>Room</th>
-					<th>Status</th>
-					<th>Arrival/Departure Date</th>
+					<th>STT</th>
+					<th>Mã Hóa đơn</th>
+					<th>Phòng</th>
+					<th>Tình trạng</th>
+					<th>Thời điểm đi/đến</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -70,6 +71,7 @@
 					<td class="padding-top-15">
 						<%= link_to index + 1, receipt %>
 					</td>
+					<td class="padding-top-15"><%= receipt.to_code %></td>
 					<td class="padding-top-15"><%= receipt.room.name %></td>
 					<td>
 						<span class="label_type receipt_status-<%= receipt.status.
@@ -91,7 +93,7 @@
 		</table>
 	</div>
 <% else %>
-	<p>There is nothing to show.</p>
+	<p>Hiện tại dữ liệu trống.</p>
 <% end %>
 
 <% unless @customer.receipts.nil? %>
@@ -106,39 +108,36 @@
 </div>
 <% end %>
 
-<h3>Bills</h3>
+<h3>Hóa đơn</h3>
 
 <% if @bills.present? %>
 	<div class="listing-index">
 		<table>
 			<thead>
 				<tr>
-					<th>No.</th>
-					<th>Room</th>
-					<th>Date</th>
-					<th>Cost</th>
+					<th>STT</th>
+					<th>Mã Hóa đơn</th>
+			
+					<th>Trị giá</th>
 				</tr>
 			</thead>
 			<tbody>
 				<% @bills.each_with_index do |bill, index| %>
 					<tr>
 						<td><%= link_to index + 1, bill %></td>
-						<td><%= bill.room.name %></td>
-						<td>
-							<%= bill.created_at.strftime("%d-%m-%Y") %>
-						</td>
+						<td><%= bill.receipt.to_code %></td>
 						<td><strong><%= format_money(bill.receipt.grand_total) %></strong></td>
 					</tr>
 				<% end %>
 				<tr>
-					<td class="center" colspan="3">Total</td>
+					<td class="center" colspan="2">Tổng trị giá</td>
 					<td><strong><%= format_money(@customer.total_bills) %></strong></td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 <% else %>
-	<p>There is nothing to show.</p>
+	<p>Hiện tại dữ liệu trống.</p>
 <% end %>
 
 <% unless @customer.bills.nil? %>
@@ -153,4 +152,4 @@
 </div>
 <% end %>
 
-<%= link_to "Back", customers_path, class: "back" %>
+<%= link_to "Trở về", customers_path, class: "back" %>

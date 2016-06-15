@@ -1,5 +1,5 @@
 class Admin::ServicesController < Admin::ApplicationController
-  before_action :set_service, only: [:show, :edit, :update, :destroy]
+  before_action :set_service, only: [:show, :edit, :update, :archive]
 
   # GET /services/1
   # GET /services/1.json
@@ -45,6 +45,13 @@ class Admin::ServicesController < Admin::ApplicationController
         format.json { render json: @service.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def archive
+    @service.archive
+
+    flash[:notice] = "Service was successfully destroyed."
+    redirect_to services_path
   end
 
   private

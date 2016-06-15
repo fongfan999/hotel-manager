@@ -6,6 +6,10 @@ class Service < ActiveRecord::Base
 	validates :unit, :price, presence: true
 	validates :name, presence: true, uniqueness: true
 
+	scope :excluding_archived, -> do
+  	where(archived_at: nil)
+  end
+
 	scope :in_previous_week, -> {
   	where("created_at < ?", (Date.today - 1.week).end_of_week).count
   }
@@ -27,4 +31,8 @@ class Service < ActiveRecord::Base
 			0
 		end
 	end
+
+	def archive
+    self.update(archived_at: Time.now)
+  end
 end

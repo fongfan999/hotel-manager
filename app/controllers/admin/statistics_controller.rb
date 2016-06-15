@@ -7,6 +7,7 @@ class Admin::StatisticsController < Admin::ApplicationController
       format.html
       format.pdf do
         render pdf: "Statistics",
+        encoding: "UTF-8",
         javascript_delay: 3000,
         template: 'admin/statistics/index.pdf.erb'
       end

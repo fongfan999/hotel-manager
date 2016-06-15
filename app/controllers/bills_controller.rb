@@ -21,6 +21,7 @@ class BillsController < ApplicationController
       format.html
       format.pdf do
         render :pdf => "##{@bill.receipt.to_code}",
+        encoding: "UTF-8",
           :template => 'bills/show.pdf.erb'
       end
     end

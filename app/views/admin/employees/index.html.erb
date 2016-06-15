@@ -45,8 +45,8 @@
 							class: "reset", method: :patch, title: "Làm mới mật khẩu",
 							data: { toggle: 'tooltip', placement: "bottom",
 								confirm: "Bạn có chắc làm mới mật khẩu nhân viên này?" } %>
-						<%= link_to "", [:admin, employee] ,class: "delete",
-							method: :delete,
+						<%= link_to "", archive_admin_employee_path(employee) ,class: "delete",
+							method: :patch,
 							data: { confirm: "Bạn có chắc xóa nhân viên này?" } %>
 					</td>
 				</tr>

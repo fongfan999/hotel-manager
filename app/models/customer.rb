@@ -5,7 +5,7 @@ class Customer < ActiveRecord::Base
 	has_one :account, class_name: "User"
 
 	validates :name, presence: true
-	validates :identity_card, presence: true,
+	validates :identity_card, :phone_number, presence: true,
 		length: { minimum: 9, maximum: 15 }, uniqueness: true
 
 	scope :set_customer, lambda {

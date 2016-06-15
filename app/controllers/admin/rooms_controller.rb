@@ -30,14 +30,11 @@ class Admin::RoomsController < Admin::ApplicationController
 		end
 	end
 
-	def destroy
-		if @room.customers.blank?
-			flash[:alert] = "You aren't allowed to do that."
-			redirect_to rooms_path
-		end
-		@room.destroy
-		flash.now[:notice] = "Room was successfully destroyed."
-		redirect_to rooms_path
+	def archive
+    @room.archive
+
+    flash[:notice] = "Room was successfully destroyed."
+    redirect_to rooms_path
 	end
 
 	private

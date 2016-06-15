@@ -10,6 +10,10 @@ class Room < ActiveRecord::Base
 			less_than_or_equal_to: 6 }
 	validates :type_id, presence: true
 
+	scope :excluding_archived, -> do
+  	where(archived_at: nil)
+  end
+
 	scope :in_previous_week, -> {
   	where("created_at < ?", (Date.today - 1.week).end_of_week).count
   }
@@ -41,15 +45,11 @@ class Room < ActiveRecord::Base
 	end
 
 	def check_blank(object)
-		object.blank? ? "Not yet been updated." : object
+		object.blank? ? "Vẫn chưa cập nhật." : object
 	end
 
 	def to_label
 		"#{name} - #{type.name}"
-	end
-
-	def to_code
-		"R#{self.name}"
 	end
 
 	def status
@@ -71,4 +71,40 @@ class Room < ActiveRecord::Base
 			total_days += bill.receipt.total_days unless bill.employee.nil?
 		}.to_i
 	end
+
+	def archive
+    self.update(archived_at: Time.now)
+  end
+
+	def self.search(param)
+    param.strip!
+    param.downcase!
+    (room_name_matches(param) + room_type_name_matches(param) +
+    	room_type_cost_matches(param) + room_annotation_matches(param) + 
+    	room_max_quantity_matches).uniq
+  end
+
+  def self.room_name_matches(param)
+    matches("rooms", "name", param)
+  end
+
+  def self.room_type_name_matches(param)
+  	matches("room_types", "name", "param")
+  end
+
+  def self.room_type_cost_matches(param)
+  	matches("room_types", "cost", "param")
+  end
+
+  def self.room_annotation_matches(param)
+  	matches("rooms", "annotation", param)
+  end
+
+  def self.room_max_quantity_matches(param)
+  	matches("rooms", "max_quantity", param)
+  end
+
+  def self.matches(table_name, field_name, param)
+    joins(:type).where("lower(#{table_name}.#{field_name}) LIKE ?", "%#{param}%")
+  end
 end
