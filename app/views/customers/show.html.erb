@@ -6,7 +6,7 @@
 	<% if current_user.try(:admin?) %>
 		<ul class="actions">
 			<li><%= link_to "Chỉnh sửa", [:edit, @customer], class: "edit" %></li>
-			<%= link_to "", archive_admin_customer_path(customer),
+			<%#= link_to "", archive_admin_customer_path(customer),
 							class: "delete", method: :patch,
 							data: { confirm: "Bạn có chắc xóa khách hàng này?" } %>
 		</ul>

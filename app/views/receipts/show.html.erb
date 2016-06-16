@@ -99,7 +99,7 @@
 					<tr>
 						<td><%= index + 2 %></td>
 						<td><%= rc.service.name %></td>
-						<td><%= service.unit %></td>
+						<td><%= rc.service.unit %></td>
 						<td><%= format_money(rc.service.price) %></td>
 						<td><%= pluralize(rc.service.get_quantity(@receipt), rc.service.unit) %></td>
 						<td class="right">

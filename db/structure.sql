@@ -4,11 +4,11 @@ CREATE TABLE "customer_types" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
 CREATE TABLE "customers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "identity_card" varchar, "address" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "type_id" integer, "phone_number" varchar, "utf_name" varchar);
 CREATE INDEX "index_customers_on_type_id" ON "customers" ("type_id");
 CREATE TABLE "room_types" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "cost" decimal, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL);
-CREATE TABLE "rooms" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "annotation" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "type_id" integer, "max_quantity" integer DEFAULT 1);
+CREATE TABLE "rooms" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "annotation" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "type_id" integer, "max_quantity" integer DEFAULT 1, "archived_at" date);
 CREATE INDEX "index_rooms_on_type_id" ON "rooms" ("type_id");
-CREATE TABLE "services" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "unit" varchar, "price" decimal DEFAULT 0.0, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL);
+CREATE TABLE "services" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "unit" varchar, "price" decimal DEFAULT 0.0, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "archived_at" date);
 CREATE TABLE "statistics" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "start_date" date, "end_date" date, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL);
-CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime, "remember_created_at" datetime, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" datetime, "last_sign_in_at" datetime, "current_sign_in_ip" varchar, "last_sign_in_ip" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "admin" boolean DEFAULT 'f', "customer_id" integer, "role" varchar DEFAULT '', "employee_id" integer);
+CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime, "remember_created_at" datetime, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" datetime, "last_sign_in_at" datetime, "current_sign_in_ip" varchar, "last_sign_in_ip" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "admin" boolean DEFAULT 'f', "customer_id" integer, "role" varchar DEFAULT '', "employee_id" integer, "archived_at" datetime);
 CREATE INDEX "index_users_on_customer_id" ON "users" ("customer_id");
 CREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email");
 CREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token");
@@ -79,4 +79,10 @@ INSERT INTO schema_migrations (version) VALUES ('20160608073535');
 INSERT INTO schema_migrations (version) VALUES ('20160608075838');
 
 INSERT INTO schema_migrations (version) VALUES ('20160609023132');
+
+INSERT INTO schema_migrations (version) VALUES ('20160614015945');
+
+INSERT INTO schema_migrations (version) VALUES ('20160615014636');
+
+INSERT INTO schema_migrations (version) VALUES ('20160615015015');
 
