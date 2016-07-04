@@ -88,7 +88,7 @@ class Receipt < ActiveRecord::Base
     matches("rooms", "name", param)
   end
 
-  def self.matches(table_name, field_name, param)
+  def self.matches(table_name, field_name.to_s, param)
     if table_name == "customers"
       results = Receipt.joins(:customer)
     else
@@ -99,6 +99,6 @@ class Receipt < ActiveRecord::Base
       end
     end
 
-    results.where("lower(#{table_name}.#{field_name}) LIKE ?", "%#{param}%")
+    results.where("lower(#{table_name}.#{field_name.to_s}) LIKE ?", "%#{param}%")
   end
 end

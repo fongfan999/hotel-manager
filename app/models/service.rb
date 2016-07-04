@@ -55,7 +55,7 @@ class Service < ActiveRecord::Base
     matches("price", param)
   end
 
-  def self.matches(field_name, param)
-	where("lower(#{field_name}) LIKE ?", "%#{param}%")
+  def self.matches(field_name.to_s, param)
+	where("lower(#{field_name.to_s}) LIKE ?", "%#{param}%")
   end
 end

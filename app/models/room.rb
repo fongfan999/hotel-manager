@@ -104,7 +104,7 @@ class Room < ActiveRecord::Base
   	matches("rooms", "max_quantity", param)
   end
 
-  def self.matches(table_name, field_name, param)
-    joins(:type).where("lower(#{table_name}.#{field_name}) LIKE ?", "%#{param}%")
+  def self.matches(table_name, field_name.to_s, param)
+    joins(:type).where("lower(#{table_name}.#{field_name.to_s}) LIKE ?", "%#{param}%")
   end
 end
