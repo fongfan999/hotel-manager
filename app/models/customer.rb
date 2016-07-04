@@ -131,7 +131,7 @@ class Customer < ActiveRecord::Base
   	matches("address", param)
   end
 
-  def self.matches(field_name.to_s, param)
+  def self.matches(field_name, param)
     where("lower(#{field_name.to_s}) like ?", "%#{param}%")
   end
 end

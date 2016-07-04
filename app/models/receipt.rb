@@ -88,7 +88,7 @@ class Receipt < ActiveRecord::Base
     matches("rooms", "name", param)
   end
 
-  def self.matches(table_name, field_name.to_s, param)
+  def self.matches(table_name, field_name, param)
     if table_name == "customers"
       results = Receipt.joins(:customer)
     else
