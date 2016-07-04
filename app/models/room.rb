@@ -89,11 +89,11 @@ class Room < ActiveRecord::Base
   end
 
   def self.room_type_name_matches(param)
-  	matches("room_types", "name", "param")
+  	matches("room_types", "name", param)
   end
 
   def self.room_type_cost_matches(param)
-  	matches("room_types", "cost", "param")
+  	matches("room_types", "cost", param)
   end
 
   def self.room_annotation_matches(param)
@@ -105,10 +105,11 @@ class Room < ActiveRecord::Base
   end
 
   def self.matches(table_name, field_name, param)
-    if field_name == "id"
+    if field_name == "cost" || field_name == "max_quantity"
       joins(:type).where("#{table_name}.#{field_name} LIKE ?", "%#{param}%")
     else
       joins(:type).where("lower(#{table_name}.#{field_name}) LIKE ?", "%#{param}%")
+      
     end
   end
 end

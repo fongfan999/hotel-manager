@@ -1,3 +1,5 @@
+require 'will_paginate/array'
+
 class RoomsController < ApplicationController
 	before_action :set_room, only: [:show]
 	before_action :authorize_employee!

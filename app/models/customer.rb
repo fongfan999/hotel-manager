@@ -132,10 +132,6 @@ class Customer < ActiveRecord::Base
   end
 
   def self.matches(field_name, param)
-    if field_name == "id"
-      where("#{field_name} like ?", "%#{param}%")  
-    else
-      where("lower(#{field_name}) like ?", "%#{param}%")
-    end
+    where("lower(#{field_name}) like ?", "%#{param}%")
   end
 end
