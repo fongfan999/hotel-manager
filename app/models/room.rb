@@ -105,6 +105,10 @@ class Room < ActiveRecord::Base
   end
 
   def self.matches(table_name, field_name, param)
-    joins(:type).where("lower(#{table_name}.#{field_name.to_s}) LIKE ?", "%#{param}%")
+    if field_name.is_a? Integer
+      joins(:type).where("#{table_name}.#{field_name} LIKE ?", "%#{param}%")
+    else
+      joins(:type).where("lower(#{table_name}.#{field_name}) LIKE ?", "%#{param}%")
+    end
   end
 end

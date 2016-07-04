@@ -56,6 +56,10 @@ class Service < ActiveRecord::Base
   end
 
   def self.matches(field_name, param)
-	where("lower(#{field_name.to_s}) LIKE ?", "%#{param}%")
+    if field_name.is_a? Integer
+      where("#{field_name} LIKE ?", "%#{param}%")
+    else
+	   where("lower(#{field_name}) LIKE ?", "%#{param}%")
+    end
   end
 end
