@@ -60,7 +60,9 @@ $(document).ready(function() {
   // Active today calendar
   setTimeout(function() {
     var day = (new Date()).getDate();
-    var content = $("#calendar td:contains('" + day + "')");
+    var content = $('#calendar td').filter(function() {
+      return ($(this).text() == day &&  !$(this).hasClass("new"));
+    });
     content.css( "background-color", "#7D1220");
 
   }, 1000);
