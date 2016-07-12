@@ -106,7 +106,8 @@ class Room < ActiveRecord::Base
 
   def self.matches(table_name, field_name, param)
     if field_name == "cost" || field_name == "max_quantity"
-      joins(:type).where("#{table_name}.#{field_name} LIKE ?", "%#{param}%")
+      joins(:type).where("cast(#{table_name}.#{field_name} as text) LIKE ?",
+        "%#{param}%")
     else
       joins(:type).where("lower(#{table_name}.#{field_name}) LIKE ?", "%#{param}%")
       
