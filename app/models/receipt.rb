@@ -100,7 +100,7 @@ class Receipt < ActiveRecord::Base
     end
 
     if field_name == "id"
-      results.where("id LIKE ?", "%#{param}%")
+      results.where("cast(id as text) LIKE ?", "%#{param}%")
     else
       results.where("lower(#{table_name}.#{field_name}) LIKE ?", "%#{param}%")
     end
